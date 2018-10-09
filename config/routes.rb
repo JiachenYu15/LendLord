@@ -1,3 +1,6 @@
 Rails.application.routes.draw do
-  # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
+	root "home#index" #Calls index method of home controller, then displays index view for home
+    get 'home/about' #Creates a new route called "home_about"
+    get 'home/login'
+    get 'home/signup'
 end
