@@ -12,6 +12,9 @@ class HomeController < ApplicationController
   end
 
   def show
+  end
+
+  def personal_home
   end	
 
 end

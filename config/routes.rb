@@ -3,4 +3,5 @@ Rails.application.routes.draw do
     get 'home/about' #Creates a new route called "home_about"
     get 'home/login'
     get 'home/signup'
+    get 'home/personal_home'
 end
