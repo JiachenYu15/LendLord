@@ -1,0 +1,36 @@
+<p>
+  <strong>Item ID:</strong>
+  <%= @transaction.item_id %>
+</p>
+
+<p>
+  <strong>Borrow from User ID:</strong>
+  <%= @transaction.borrow_from_user_id %>
+</p>
+
+<p>
+  <strong>Lend to User ID:</strong>
+  <%= @transaction.lend_to_user_id %>
+</p>
+
+<p>
+  <strong>Start Date:</strong>
+  <%= @transaction.start_date %>
+</p>
+
+<p>
+  <strong>Due Date:</strong>
+  <%= @transaction.due_date %>
+</p>
+
+<p>
+  <strong>Deposit:</strong>
+  <%= @transaction.deposit %>
+</p>
+
+<p>
+  <strong>Status:</strong>
+  <%= @transaction.status %>
+</p>
+
+<%= link_to 'Back', transactions_path %>

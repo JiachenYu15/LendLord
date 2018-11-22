@@ -4,4 +4,7 @@ Rails.application.routes.draw do
     get 'home/login'
     get 'home/signup'
     get 'home/personal_home'
+
+    resources :transactions
+
 end
