@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 
-	device	:database_authenticatable, :registerable,
+	devise	:database_authenticatable, :registerable,
 		:recoverable, :rememberable, :trackable, :validatable
 
 	validates :username,
