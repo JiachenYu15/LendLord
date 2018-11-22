@@ -1,17 +1,17 @@
 class CreateUsers < ActiveRecord::Migration[5.2]
 
-  def change
+	def change
 
-    create_table :users do |t|
+		create_table :users do |t|
 
-      t.string :username
-      t.string :password
-      t.string :email
+			t.string :username
+			t.string :password
+			t.string :email
 
-      t.timestamps
+			t.timestamps
 
-    end
+		end
 
-  end
+	end
 
 end

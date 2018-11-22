@@ -5,3 +5,16 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
+
+# Sample users we use to seed database
+seed_users = [
+	{username: "John", password: "password1", email: "e1@gmail.com"},
+	{username: "Miles", password: "password2", email: "e2.gmail.com"},
+	{username: "Yo_Yo", password: "password3", email: "e3.gmail.com"},
+	{username: "Victor", password: "password4", email: "e4.gmail.com"},
+	{username: "Calix", password: "passwrod5", email: "e5.gmail.com"}
+]
+
+seed_users.each do |ptr|
+	User.create!(ptr)
+end
