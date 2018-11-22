@@ -1,0 +1,32 @@
+<h1>Showing All Items</h1>
+
+<%= link_to "Post a New Item", new_item_path %>
+<br>
+<br>
+
+<table>
+  <tr>
+    <th>ID</th>
+    <th>User ID</th>
+    <th>Name</th>
+    <th>Description</th>
+    <th>Deposit</th>
+    <th>Edit</th>
+    <th colspan="5"></th>
+  </tr>
+
+  <% @items.each do |item| %>
+    <tr>
+      <td><%= item.id %></td>
+      <td><%= item.user_id %></td>
+      <td><%= link_to item.name, item_path(item.id) %></td>
+      <td><%= item.description %></td>
+      <td><%= item.deposit %></td>
+      <td><%= link_to "Edit", edit_item_path(item.id) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<br>
+
+<%= link_to "Back to Home Page", root_path %>

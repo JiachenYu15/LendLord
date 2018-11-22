@@ -1,7 +1,5 @@
 Rails.application.routes.draw do
 
-
-
 	root "home#index" #Calls index method of home controller, then displays index view for home
 
 	get 'home/about' #Creates a new route called "home_about"
@@ -18,4 +16,8 @@ Rails.application.routes.draw do
 	resources :users
 	resources :transactions
 
+  get '/upload' => 'items#new'
+  get '/user_items/:id' => 'items#user_items'
+  resources :items
+  
 end
