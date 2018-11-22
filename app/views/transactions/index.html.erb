@@ -1,0 +1,33 @@
+<h1>Listing Transactions</h1>
+
+<%= link_to 'New transaction',  new_transaction_path %>
+
+<table>
+  <tr>
+    <th>Transaction ID</th>
+    <th>Item ID</th>
+    <th>Borrow from User ID</th>
+    <th>Lend to User ID</th>
+    <th>Start Date</th>
+    <th>Due Date</th>
+    <th>Deposit</th>
+    <th>Status</th>
+    <th colspan="1"></th>
+  </tr>
+
+  <% @transactions.each do |transaction| %>
+    <tr>
+      <td><%= transaction.id %></td>
+      <td><%= transaction.item_id %></td>
+      <td><%= transaction.borrow_from_user_id %></td>
+      <td><%= transaction.lend_to_user_id %></td>
+      <td><%= transaction.start_date %></td>
+      <td><%= transaction.due_date %></td>
+      <td><%= transaction.deposit %></td>
+      <td><%= transaction.status %></td>
+      <td><%= link_to 'Show', transaction_path(transaction) %></td>
+    </tr>
+  <% end %>
+</table>
+
+<%= link_to 'Back', controller: 'home' %>
