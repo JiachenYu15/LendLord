@@ -1,0 +1,20 @@
+
+<div class="col-md-8">
+  <h3><%= @user.items.count %> Items For User <%= @user.id %> </h3>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Deposit</th>
+    </tr>
+    <% @user.items.each do |item| %>
+      <tr>
+        <td><%= item.id %></td>
+        <td><%= item.name %></td>
+        <td><%= item.description %></td>
+        <td><%= item.deposit %></td>
+      </tr>
+    <% end %>
+  </table>
+</div>

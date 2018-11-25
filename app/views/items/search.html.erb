@@ -1,0 +1,28 @@
+<h3>Search Results</h3>
+
+<% if @results.count == 0 %>
+  <h2>No Results Found</h2>
+<% else %>
+  <table>
+    <tr>
+      <th>ID</th>
+      <th>User ID</th>
+      <th>Name</th>
+      <th>Description</th>
+      <th>Deposit</th>
+    </tr>
+    <% @results.each do |item| %>
+      <tr>
+        <td><%= item.id %></td>
+        <td><%= item.user_id %></td>
+        <td><%= link_to item.name, item_path(item.id) %></td>
+        <td><%= item.description %></td>
+        <td><%= item.deposit %></td>
+      </tr>
+      <% end %>
+  </table>
+<% end %>
+
+<br>
+
+<%= link_to "Show List", items_path %>

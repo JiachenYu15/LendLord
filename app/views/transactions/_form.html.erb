@@ -1,5 +1,19 @@
 <%= form_with model: @transaction, local: true do |form| %>
 
+  <% if @transaction.errors.any? %>
+    <div id="error_explanation">
+      <h2>
+        <%= pluralize(@transaction.errors.count, "error") %> prohibited
+        this transaction from being saved:
+      </h2>
+      <ul>
+        <% @transaction.errors.full_messages.each do |msg| %>
+          <li><%= msg %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
+
   <p>
     <%= form.label :item_id, "Item ID:" %><br>
     <%= form.number_field :item_id, min: 1, max: 1000000, step: 1%>
