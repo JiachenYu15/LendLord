@@ -3,7 +3,9 @@ Rails.application.routes.draw do
     get 'home/about' #Creates a new route called "home_about"
     get 'home/login'
     get 'home/signup'
-    get 'home/personal_home'
+
+    get 'personal_home/index'
+    get 'personal_home/set_cookies'
 
     resources :transactions
 

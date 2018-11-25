@@ -1,2 +1,0 @@
-class TransactionRating < ApplicationRecord
-end
