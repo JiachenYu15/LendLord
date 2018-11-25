@@ -1,5 +1,9 @@
 Rails.application.routes.draw do
 
+  get 'users/new'
+  get 'users/create'
+  get 'users_controller/new'
+  get 'users_controller/create'
 	root "home#index" #Calls index method of home controller, then displays index view for home
 
 	get 'home/about' #Creates a new route called "home_about"
