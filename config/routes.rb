@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 
   get '/upload' => 'items#new'
   get '/user_items/:id' => 'items#user_items'
+  get '/search' => 'items#search'
+  get '/remove_item/:id' => 'items#remove', as: 'remove_item'
   resources :items
-  
+
 end

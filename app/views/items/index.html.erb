@@ -4,6 +4,13 @@
 <br>
 <br>
 
+<%= form_tag(search_path, :method => "get", :class => "search_button") do %>
+    <%= search_field_tag :search, params[:search], placeholder: "Search" %>
+      <%= button_tag "Search",:name => nil%>
+<% end %>
+
+<br>
+
 <table>
   <tr>
     <th>ID</th>
@@ -11,8 +18,9 @@
     <th>Name</th>
     <th>Description</th>
     <th>Deposit</th>
+    <th>Removed?</th>
     <th>Edit</th>
-    <th colspan="5"></th>
+    <th>Remove</th>
   </tr>
 
   <% @items.each do |item| %>
@@ -22,7 +30,10 @@
       <td><%= link_to item.name, item_path(item.id) %></td>
       <td><%= item.description %></td>
       <td><%= item.deposit %></td>
+      <td><%= item.is_deleted %></td>
+
       <td><%= link_to "Edit", edit_item_path(item.id) %></td>
+      <td><%= link_to "Remove", remove_item_path(item.id) %></td>
     </tr>
   <% end %>
 </table>
@@ -30,3 +41,5 @@
 <br>
 
 <%= link_to "Back to Home Page", root_path %>
+
+

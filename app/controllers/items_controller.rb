@@ -1,6 +1,7 @@
 class ItemsController < ApplicationController
   def index
     @items = Item.all
+    #@items = Item.where(:is_deleted => false).all
   end
 
   def new
@@ -39,6 +40,21 @@ class ItemsController < ApplicationController
 
   def user_items
     @user = User.find(params[:id])
+  end
+
+  def search
+    if params[:search].blank?
+      @results = Item.all
+    else
+      @parameter = params[:search].downcase
+      @results = Item.where("name LIKE ? OR description LIKE ?", "%#{params[:search].downcase}%", "%#{params[:search].downcase}%").where(:is_deleted => false).where(:is_available => true)
+    end
+  end
+
+  def remove
+    item = Item.find(params[:id])
+    item.is_deleted = true
+    item.save
   end
 
   private
