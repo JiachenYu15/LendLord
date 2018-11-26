@@ -4,10 +4,10 @@ class User < ApplicationRecord
 	
 	VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
 	VALID_USERNAME_REGEX = /\A[0-9\w_]{0,16}\z/
-
+=begin
 	devise	:database_authenticatable, :registerable,
 		:recoverable, :rememberable, :trackable, :validatable
-
+=end
 	has_many :items
 
 	validates :username,
