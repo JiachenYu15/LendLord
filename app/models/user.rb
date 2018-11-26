@@ -13,7 +13,8 @@ class User < ApplicationRecord
     validates :username,
         presence: true, length: {maximum: 16},
         :format => {:with => VALID_USERNAME_REGEX,
-            message: "Usernames may only contain letters, numbers, and underscores no longer than 16 characters in length"},
+            message: "Usernames may only contain letters, numbers, and 
+            underscores no longer than 16 characters in length"},
         uniqueness: true
 
     validates :email,

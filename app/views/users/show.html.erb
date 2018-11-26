@@ -1,1 +1,10 @@
-<%= @user.name %> <%= @user.email %>
+<%= link_to "Home", root_path%>
+<%= link_to "About Me", home_about_path%>
+<%= link_to "Log In", home_login_path%>
+<%= link_to "Sign Up", signup_path%>
+
+<% provide(:title, @user.username) %>
+<h1>
+    <%= gravatar_for @user %>
+    <%= @user.username %>
+</h1>
