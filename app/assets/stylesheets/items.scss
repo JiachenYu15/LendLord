@@ -1,0 +1,31 @@
+// Place all the styles related to the items controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+
+input, textarea, select, .uneditable-input {
+  border: 1px solid #bbb;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+input {
+  height: auto !important;
+}
+
+#error_explanation {
+  color: red;
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+#item_form {
+  margin: auto;
+  width: 50%;
+  padding: 10px;
+}
+
+.search_button {
+  width: 40%;
+}

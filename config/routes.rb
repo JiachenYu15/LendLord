@@ -21,6 +21,7 @@ Rails.application.routes.draw do
     get '/user_items/:id' => 'items#user_items'
     get '/search' => 'items#search'
     get '/remove_item/:id' => 'items#remove', as: 'remove_item'
-  resources :items
+    get '/borrow_item/:id' => 'items#borrow', as: 'borrow_item'
+    resources :items
 
 end

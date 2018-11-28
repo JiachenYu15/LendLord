@@ -57,6 +57,14 @@ class ItemsController < ApplicationController
     item.save
   end
 
+  def borrow
+    @item = Item.find(params[:id])
+    @item.is_available = false
+    @item.save
+
+    flash[:success] = "Item successfully borrowed"
+  end
+
   private
   def item_params
     params.require(:item).permit(:name, :description, :deposit).merge(:is_available => true, :user_id => 1, :is_deleted => false)

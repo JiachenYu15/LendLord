@@ -1,3 +1,10 @@
+<%= render :partial => "layouts/header", :locals => {:title => "Discover"}  %>
+
+
+
+<section class="ftco-section">
+
+
 <%= link_to "Home", root_path%>
 <%= link_to "About Me", home_about_path%>
 <%= link_to "Log In", login_path%>
@@ -8,3 +15,41 @@
 
 <h1>Welcome to BoLend!</h1>
 <p>Borrow or lend?</p>
+</section>
+
+
+<section class="ftco-section bg-light">
+  <div class="container">
+    <div class="row justify-content-center mb-5 pb-3">
+      <div class="col-md-7 heading-section text-center">
+        <h2 class="mb-4">See our latest items</h2>
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-md-4">
+        <a href="/search?utf8=✓&search=plant&location=" class="destination-entry img" style="background-image: url('/assets/plants.jpg');">
+          <div class="text text-center">
+            <h3>Plants</h3>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="/search?utf8=✓&search=home&location=" class="destination-entry img" style="background-image: url('/assets/home-decor.png');">
+          <div class="text text-center">
+            <h3>Home Decor</h3>
+          </div>
+        </a>
+      </div>
+      <div class="col-md-4">
+        <a href="/search?utf8=✓&search=art&location=" class="destination-entry img" style="background-image: url('/assets/art.jpg');">
+          <div class="text text-center">
+            <h3>Artworks</h3>
+          </div>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<%= render "layouts/footer" %>
