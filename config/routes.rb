@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 
     resources :users
     resources :transactions
+    resources :ratings
 
     get '/upload' => 'items#new'
     get '/user_items/:id' => 'items#user_items'
