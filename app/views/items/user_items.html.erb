@@ -1,20 +1,65 @@
+<%= render :partial => "layouts/header", :locals => {:title => "Items"}%>
 
-<div class="col-md-8">
-  <h3><%= @user.items.count %> Items For User <%= @user.id %> </h3>
-  <table>
-    <tr>
-      <th>ID</th>
-      <th>Name</th>
-      <th>Description</th>
-      <th>Deposit</th>
-    </tr>
-    <% @user.items.each do |item| %>
-      <tr>
-        <td><%= item.id %></td>
-        <td><%= item.name %></td>
-        <td><%= item.description %></td>
-        <td><%= item.deposit %></td>
-      </tr>
-    <% end %>
-  </table>
-</div>
+<section>
+  <br>
+  <br>
+  <div class="container">
+    <div class="row justify-content-center mb-5 pb-3">
+      <div class="col-md-7 heading-section text-center fadeInUp ftco-animated">
+        <h2 class="mb-4">
+          <%= @user.items.count %> Items For User <%= @user.username %>
+        </h2>
+      </div>
+    </div>
+  </div>
+  <div class="parallax-img d-flex align-items-center" style="padding-left: 20%; padding-right: 20%;">
+
+    <div class="destination">
+      <div class="col-lg-9">
+        <div class="row">
+
+          <% @user.items.each do |item| %>
+
+            <div class="col-sm col-md-6 col-lg-4">
+              <div class="destination">
+
+                <div class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/assets/default.jpg');">
+                </div>
+                <div class="text p-3">
+                  <div class="d-flex">
+                    <div class="one">
+                      <h3><%= link_to item.name, item_path(item.id) %></h3>
+                      <p class="rate">
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                        <i class="icon-star"></i>
+                        <i class="icon-star-o"></i>
+                        <span>8 Rating</span>
+                      </p>
+                    </div>
+                    <div class="two">
+                      <span class="price per-price">Deposit $<%= item.deposit %><br></span>
+                    </div>
+                  </div>
+                  <p><%= item.description %></p>
+                  <hr>
+                  <p class="bottom-area d-flex">
+                    <span><i class="icon-map-o"></i> Toronto, ON</span>
+                    <span class="ml-auto"><%= link_to 'View Details', item_path(item.id) %></span>
+                  </p>
+                </div>
+              </div>
+            </div>
+
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+  </div>
+  <br>
+
+</section>
+
+<%= render "layouts/footer"%>

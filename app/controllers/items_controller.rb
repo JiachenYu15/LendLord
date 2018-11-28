@@ -5,10 +5,12 @@ class ItemsController < ApplicationController
   end
 
   def new
+    check_logged_in
     @item = Item.new
   end
 
   def create
+    check_logged_in
     @item = Item.new(item_params)
     if @item.save
       # Successful save.
@@ -39,7 +41,9 @@ class ItemsController < ApplicationController
   end
 
   def user_items
-    @user = User.find(params[:id])
+    if session[:user_id]
+      @user ||= User.find_by(id: session[:user_id])
+    end
   end
 
   def search
@@ -57,8 +61,24 @@ class ItemsController < ApplicationController
     item.save
   end
 
+  def borrow
+    @item = Item.find(params[:id])
+    @item.is_available = false
+    @item.save
+
+    flash.now[:success] = "Item successfully borrowed"
+  end
+
   private
   def item_params
-    params.require(:item).permit(:name, :description, :deposit).merge(:is_available => true, :user_id => 1, :is_deleted => false)
+    params.require(:item).permit(:name, :description, :deposit).merge(:is_available => true, :user_id => @user.id, :is_deleted => false)
+  end
+
+  def check_logged_in
+    if session[:user_id]
+      @user ||= User.find_by(id: session[:user_id])
+    else
+      redirect_to :controller => 'sessions', :action => 'new'
+    end
   end
 end

@@ -1,29 +1,45 @@
-<h1 id="item_form">Post Item</h1>
+<%= render :partial => "layouts/header", :locals => {:title => "Lend Item"}%>
 
-<div>
-  <div id="error_explanation">
-    <% if @item.errors.any? %>
-      <% @item.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    <% end %>
-  </div>
+<section>
+
   <br>
-  <div id="item_form">
-    <%= form_for(@item) do |f| %>
-      <%= f.label :name %>
-      <%= f.text_field :name %>
-      <br>
-      <br>
-      <%= f.label :description %>
-      <%= f.text_area :description %>
-      <br>
-      <br>
-      <%= f.label :deposit %>
-      <%= f.text_field :deposit %>
-      <br>
-      <br>
-      <%= f.submit "Post your item"%>
-    <% end %>
+
+  <div class="parallax-img d-flex align-items-center">
+    <div class="container">
+      <div class="row d-flex justify-content-center">
+        <div class="col-md-7 text-center heading-section heading-section-white">
+          <h2 style="color: black;">Post</h2>
+
+          <h5 style="color: red;">
+              <% if @item.errors.any? %>
+                <% @item.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              <% end %>
+          </h5>
+
+          <%= form_for(@item) do |f| %>
+          <div class="form-group">
+            <%= f.text_field :name, class: "form-control", placeholder: "name"  %>
+          </div>
+
+          <div class="form-group">
+            <%= f.text_field :deposit, class: "form-control", placeholder: "deposit"  %>
+          </div>
+
+          <div class="form-group">
+            <%= f.text_area :description, class: "form-control", placeholder: "description",cols: "30", rows: "7"  %>
+          </div>
+          <%= f.submit "Post your item", class: "btn btn-primary py-3 px-5"%>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
   </div>
-</div>
+</section>
+
+<br>
+<br>
+
+<%= render "layouts/footer" %>
