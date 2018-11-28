@@ -48,16 +48,36 @@
 <% if @results.count == 0 %>
   <br>
   <br>
-  <h2 style="padding-left: 35%;padding-right: 35%;"><b>Sorry, no results found for "<%= @parameter %>"</b></h2>
+  <h2 style="padding-left: 35%;padding-right: 35%;"></h2>
+  <section class="ftco-section bg-light">
+    <div class="container">
+      <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-7 heading-section text-center">
+          <h4><b>Sorry, no results found for "<%= @parameter %>"</b></h4>
+        </div>
+      </div>
+    </div>
+  </section>
   <br>
   <br>
   <%= render "layouts/more_items"%>
   <br>
 
 <% else %>
+  <section class="ftco-section bg-light">
+    <div class="container">
+      <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-7 heading-section text-center">
+          <h4><b>Showing <%= @results.size  %> results for "<%= @parameter  %>"</b></h4>
+        </div>
+      </div>
+    </div>
+  </section>
+
   <section class="ftco-section">
     <div class="container">
       <div class="row">
+
         <div class="col-lg-3 sidebar order-md-last">
 
           <div class="sidebar-wrap">
@@ -95,50 +115,53 @@
               </div>
             </form>
           </div>
-        </div><!-- END-->
+        </div>
 
 
         <div class="col-lg-9">
           <div class="row">
 
-    <% @results.each do |item| %>
+            <% @results.each do |item| %>
 
-      <div class="col-sm col-md-6 col-lg-4">
-        <div class="destination">
+              <div class="col-sm col-md-6 col-lg-4">
+                <div class="destination">
 
-          <div class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/assets/default.jpg');">
-          </div>
-          <div class="text p-3">
-            <div class="d-flex">
-              <div class="one">
-                <h3><%= link_to item.name, item_path(item.id) %></h3>
-                <p class="rate">
-                  <i class="icon-star"></i>
-                  <i class="icon-star"></i>
-                  <i class="icon-star"></i>
-                  <i class="icon-star"></i>
-                  <i class="icon-star-o"></i>
-                  <span>8 Rating</span>
-                </p>
+                  <div class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/assets/default.jpg');">
+                  </div>
+                  <div class="text p-3">
+                    <div class="d-flex">
+                      <div class="one">
+                        <h3><%= link_to item.name, item_path(item.id) %></h3>
+                        <p class="rate">
+                          <i class="icon-star"></i>
+                          <i class="icon-star"></i>
+                          <i class="icon-star"></i>
+                          <i class="icon-star"></i>
+                          <i class="icon-star-o"></i>
+                          <span>8 Rating</span>
+                        </p>
+                      </div>
+                      <div class="two">
+                        <span class="price per-price">Deposit $<%= item.deposit %><br></span>
+                      </div>
+                    </div>
+                    <p><%= item.description %></p>
+                    <hr>
+                    <p class="bottom-area d-flex">
+                      <span><i class="icon-map-o"></i> Toronto, ON</span>
+                      <span class="ml-auto"><%= link_to 'View Details', item_path(item.id) %></span>
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div class="two">
-                <span class="price per-price"><%= item.deposit %><br></span>
-              </div>
-            </div>
-            <p><%= item.description %></p>
-            <hr>
-            <p class="bottom-area d-flex">
-              <span><i class="icon-map-o"></i> Toronto, ON</span>
-              <span class="ml-auto"><%= link_to 'Borrow Now', item_path(item.id) %></span>
-            </p>
+
+            <% end %>
+
           </div>
         </div>
       </div>
-
-
-  <% end %>
-
-  </div></div></div></div></section>
+    </div>
+  </section>
 <% end %>
 
 <%= render "layouts/footer" %>

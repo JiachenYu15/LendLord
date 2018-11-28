@@ -50,7 +50,7 @@
   <br>
   <div class="container">
     <div class="row justify-content-center mb-5 pb-3">
-      <div class="col-md-7 heading-section text-center ftco-animate fadeInUp ftco-animated">
+      <div class="col-md-7 heading-section text-center fadeInUp ftco-animated">
         <h2 class="mb-4">
         <% flash.each do |key, value| %>
           <strong><%= value %></strong>
@@ -79,7 +79,7 @@
             </p>
           </div>
           <div class="two">
-            <span class="price per-price"><%= @item.deposit %><br></span>
+            <span class="price per-price">Deposit $<%= @item.deposit %><br></span>
           </div>
         </div>
         <p><%= @item.description %></p>

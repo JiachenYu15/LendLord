@@ -10,13 +10,13 @@
         <div class="col-md-7 text-center heading-section heading-section-white">
           <h2 style="color: black;">Post</h2>
 
-          <h2 style="color: red;">
+          <h5 style="color: red;">
               <% if @item.errors.any? %>
                 <% @item.errors.full_messages.each do |message| %>
                   <li><%= message %></li>
                 <% end %>
               <% end %>
-          </h2>
+          </h5>
 
           <%= form_for(@item) do |f| %>
           <div class="form-group">
