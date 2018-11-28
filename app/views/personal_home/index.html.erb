@@ -1,8 +1,14 @@
-<h1>Your Personal Home</h1>
-<%= link_to 'Set Session', personal_home_set_cookies_path %>
+<%= link_to "Home", root_path%>
+<%= link_to "About Me", home_about_path%>
 <%= link_to "Log Out", logout_path, method: :delete%>
+
+<h1>Hello <%= @user.username %></h1>
+
+<h2>Your Transactions</h2>
 <table>
-    <tr><td>User Name:</td><td><%= @user_id %></td></tr>
+    <tr><td>User ID:</td><td><%= @your_ratings.size %></td></tr>
+    <tr><td>Your current email:</td><td><%= @user.email %></td></tr>
+    <tr><td>Your current average rating:</td><td><%= @rating_average %></td></tr>
 </table>
 
 <table>
@@ -37,3 +43,4 @@
     <% end %>
 </table>
 
+<h2>Your Friends</h2>

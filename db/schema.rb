@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_22_023258) do
+ActiveRecord::Schema.define(version: 2018_11_27_234539) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -33,6 +33,7 @@ ActiveRecord::Schema.define(version: 2018_11_22_023258) do
     t.integer "rater"
     t.integer "ratee"
     t.integer "transaction_id"
+    t.integer "score"
   end
 
   create_table "transactions", force: :cascade do |t|
