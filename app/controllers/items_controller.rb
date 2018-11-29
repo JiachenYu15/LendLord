@@ -63,6 +63,7 @@ class ItemsController < ApplicationController
   end
 
   def borrow
+    check_logged_in
     @item = Item.find(params[:id])
 
     if @item.is_available?
