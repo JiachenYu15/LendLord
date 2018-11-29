@@ -52,7 +52,7 @@ class ItemsController < ApplicationController
       @results = Item.all
     else
       @parameter = params[:search].downcase
-      @results = Item.where("name LIKE ? OR description LIKE ?", "%#{params[:search].downcase}%", "%#{params[:search].downcase}%").where(:is_deleted => false).where(:is_available => true)
+      @results = Item.where("lower(name) LIKE ? OR lower(description) LIKE ?", "%#{@parameter}%", "%#{@parameter}%").where(:is_deleted => false).where(:is_available => true)
     end
   end
 
@@ -79,7 +79,7 @@ class ItemsController < ApplicationController
 
   private
   def item_params
-    params.require(:item).permit(:name, :description, :deposit).merge(:is_available => true, :user_id => @user.id, :is_deleted => false)
+    params.require(:item).permit(:name, :description, :deposit, :image_link).merge(:is_available => true, :user_id => @user.id, :is_deleted => false)
   end
 
   def check_logged_in

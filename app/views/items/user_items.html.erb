@@ -22,12 +22,15 @@
             <div class="col-sm col-md-6 col-lg-4">
               <div class="destination">
 
-                <div class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/assets/default.jpg');">
-                </div>
+                <% if defined?(item.image_link) && item.image_link && item.image_link!=""%>
+                  <div class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(<%= item.image_link %>);"></div>
+                <% else %>
+                  <div class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/assets/default.jpg');"></div>
+                <%end %>
                 <div class="text p-3">
                   <div class="d-flex">
                     <div class="one">
-                      <h3><%= link_to item.name, item_path(item.id) %></h3>
+                      <h3 style="height: 50px;"><%= link_to item.name, item_path(item.id) %></h3>
                       <p class="rate">
                         <i class="icon-star"></i>
                         <i class="icon-star"></i>
@@ -41,7 +44,7 @@
                       <span class="price per-price">$<%= item.deposit %><br><%= link_to "Edit", edit_item_path(item.id) %></span>
                     </div>
                   </div>
-                  <p><%= item.description %></p>
+                  <p style="height: 50px;"><%= item.description %></p>
                   <hr>
                   <p class="bottom-area d-flex">
                     <span><i class="icon-map-o"></i> Toronto, ON</span>

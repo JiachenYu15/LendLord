@@ -1,13 +1,9 @@
-<%= render :partial => "layouts/header", :locals => {:title => "Item"}%>
-
 <section class="ftco-section justify-content-end ftco-search">
   <div class="container-wrap ml-auto">
     <div class="row no-gutters">
       <div class="col-md-12 nav-link-wrap">
         <div class="nav nav-pills justify-content-center text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
           <a class="nav-link active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Borrow</a>
-
-
         </div>
       </div>
       <div class="col-md-12 tab-wrap">
@@ -44,61 +40,3 @@
     </div>
   </div>
 </section>
-
-<section>
-  <br>
-  <br>
-  <div class="container">
-    <div class="row justify-content-center mb-5 pb-3">
-      <div class="col-md-7 heading-section text-center fadeInUp ftco-animated">
-        <h2 class="mb-4">
-        <% flash.each do |key, value| %>
-          <strong><%= value %></strong>
-        <% end %>
-        </h2>
-      </div>
-    </div>
-  </div>
-  <div class="parallax-img d-flex align-items-center" style="padding-left: 20%; padding-right: 20%;">
-
-    <div class="destination">
-      <h3><%= @item.name %></h3>
-
-      <% if defined?(item.image_link) && item.image_link && item.image_link!=""%>
-        <div class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(<%= item.image_link %>);"></div>
-      <% else %>
-        <div class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/assets/default.jpg');"></div>
-      <%end %>
-      <div class="text p-3">
-        <div class="d-flex">
-          <div class="one">
-            <p class="rate">
-              <i class="icon-star"></i>
-              <i class="icon-star"></i>
-              <i class="icon-star"></i>
-              <i class="icon-star"></i>
-              <i class="icon-star-o"></i>
-              <span>8 Rating</span>
-            </p>
-          </div>
-          <div class="two">
-            <span class="price per-price">Deposit $<%= @item.deposit %><br></span>
-          </div>
-        </div>
-        <p><%= @item.description %></p>
-        <hr>
-        <p class="bottom-area d-flex">
-          <span><i class="icon-map-o"></i> Toronto, ON</span>
-        </p>
-      </div>
-    </div>
-  </div>
-  <br>
-
-</section>
-
-
-<%= render "layouts/more_items"%>
-<br>
-
-<%= render "layouts/footer"%>
