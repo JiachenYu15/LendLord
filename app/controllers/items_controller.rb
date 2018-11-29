@@ -22,10 +22,12 @@ class ItemsController < ApplicationController
   end
 
   def edit
+    check_logged_in
     @item = Item.find(params[:id])
   end
 
   def update
+    check_logged_in
     @item = Item.find(params[:id])
     if @item.update_attributes(item_params)
       # Handle a successful update.
@@ -41,9 +43,8 @@ class ItemsController < ApplicationController
   end
 
   def user_items
-    if session[:user_id]
-      @user ||= User.find_by(id: session[:user_id])
-    end
+    current_user
+    @items = @current_user.items.where(:is_deleted => false)
   end
 
   def search
@@ -63,10 +64,16 @@ class ItemsController < ApplicationController
 
   def borrow
     @item = Item.find(params[:id])
-    @item.is_available = false
-    @item.save
 
-    flash.now[:success] = "Item successfully borrowed"
+    if @item.is_available?
+      @item.is_available = false
+      @item.save
+
+      flash.now[:success] = "Item successfully borrowed"
+    else
+      flash.now[:error] = "Item has already been borrowed"
+    end
+
   end
 
   private

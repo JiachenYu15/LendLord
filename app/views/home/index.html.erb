@@ -1,24 +1,49 @@
 <%= render :partial => "layouts/header", :locals => {:title => "Discover"}  %>
 
+<section class="ftco-section justify-content-end ftco-search">
+  <div class="container-wrap ml-auto">
+    <div class="row no-gutters">
+      <div class="col-md-12 nav-link-wrap">
+        <div class="nav nav-pills justify-content-center text-center" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <a class="nav-link active" id="v-pills-1-tab" data-toggle="pill" href="#v-pills-1" role="tab" aria-controls="v-pills-1" aria-selected="true">Borrow</a>
 
 
-<section class="ftco-section">
+        </div>
+      </div>
+      <div class="col-md-12 tab-wrap">
 
+        <div class="tab-content p-4 px-5" id="v-pills-tabContent">
 
-<%= link_to "Home", root_path%>
-<%= link_to "About Me", home_about_path%>
-<%= link_to "Log In", login_path%>
-<%= link_to "Sign Up", signup_path%>
-<%= link_to "Personal Home", controller: 'personal_home'%>
-<%= link_to 'Transaction', controller: 'transactions' %>
-<%= link_to 'Items', controller: 'items' %>
-<%= link_to "Friends", friends_path%>
-
-<h1>Welcome to BoLend!</h1>
-<p>Borrow or lend?</p>
-
+          <div class="tab-pane fade show active" id="v-pills-1" role="tabpanel" aria-labelledby="v-pills-nextgen-tab">
+            <%= form_tag(search_path, :method => "get", :class =>"search-destination") do %>
+              <div class="row">
+                <div class="col-md align-items-end">
+                  <div class="form-group">
+                    <label for="#">Borrow</label>
+                    <%= search_field_tag :search, params[:search], placeholder: "Search for anything...", class: "form-control" %>
+                  </div>
+                </div>
+                <div class="col-md align-items-end">
+                  <div class="form-group">
+                    <label for="#">Where</label>
+                    <%= search_field_tag :location, params[:location], placeholder: "Where", class: "form-control" %>
+                  </div>
+                </div>
+                <div class="col-md align-self-end">
+                  <div class="form-group">
+                    <div class="form-field">
+                      <input type="submit" value="Search" class="form-control btn btn-primary">
+                    </div>
+                  </div>
+                </div>
+              </div>
+            <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </section>
-
 
 <section class="ftco-section bg-light">
   <div class="container">

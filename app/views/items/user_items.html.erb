@@ -7,7 +7,7 @@
     <div class="row justify-content-center mb-5 pb-3">
       <div class="col-md-7 heading-section text-center fadeInUp ftco-animated">
         <h2 class="mb-4">
-          <%= @user.items.count %> Items For User <%= @user.username %>
+          <%= @current_user.items.count %> Items For User <%= @current_user.username %>
         </h2>
       </div>
     </div>
@@ -15,10 +15,9 @@
   <div class="parallax-img d-flex align-items-center" style="padding-left: 20%; padding-right: 20%;">
 
     <div class="destination">
-      <div class="col-lg-9">
         <div class="row">
 
-          <% @user.items.each do |item| %>
+          <% @items.each do |item| %>
 
             <div class="col-sm col-md-6 col-lg-4">
               <div class="destination">
@@ -39,14 +38,15 @@
                       </p>
                     </div>
                     <div class="two">
-                      <span class="price per-price">Deposit $<%= item.deposit %><br></span>
+                      <span class="price per-price">$<%= item.deposit %><br><%= link_to "Edit", edit_item_path(item.id) %></span>
                     </div>
                   </div>
                   <p><%= item.description %></p>
                   <hr>
                   <p class="bottom-area d-flex">
                     <span><i class="icon-map-o"></i> Toronto, ON</span>
-                    <span class="ml-auto"><%= link_to 'View Details', item_path(item.id) %></span>
+                    <span class="ml-auto"><%= link_to "Remove", remove_item_path(item.id) %></span>
+
                   </p>
                 </div>
               </div>
@@ -55,7 +55,6 @@
           <% end %>
 
         </div>
-      </div>
     </div>
   </div>
   <br>
