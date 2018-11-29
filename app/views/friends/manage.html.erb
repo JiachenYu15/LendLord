@@ -1,0 +1,28 @@
+<%= link_to "Home", root_path%>
+<%= link_to "About Me", home_about_path%>
+<%= link_to "Log In", login_path%>
+<%= link_to "Sign Up", signup_path%>
+<%= link_to "Personal Home", controller: 'personal_home'%>
+<%= link_to 'Transaction', controller: 'transactions' %>
+<%= link_to 'Items', controller: 'items' %>
+<%= link_to "Friends", friends_path%>
+
+<h1>This is Manage Page</h1>
+This page is now displaying all the friend requests that the user has received<br><br>
+
+<table border="1">
+  <tr>
+    <th>Requester</th>
+    <th>Requestee</th>
+    <th>Action</th>
+  </tr>
+  <% @myfriends.each do |entry| %>
+    <tr>
+      <td><%= entry.user_from_id %></td>
+      <td><%= entry.user_to_id %></td>
+      <td><%= link_to "Accept", accept_friend_path(entry.id) %>
+          <%= link_to "Reject", reject_friend_path(entry.id) %>    
+      </td>
+    </tr>
+  <% end %>
+</table><br>

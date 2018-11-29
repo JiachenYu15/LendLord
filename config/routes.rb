@@ -25,4 +25,11 @@ Rails.application.routes.draw do
     get '/borrow_item/:id' => 'items#borrow', as: 'borrow_item'
     resources :items
 
+    #Friends part
+    resources :friends do
+      get :manage, on: :collection #on member requires ID, on collection doesn't
+    end
+    get '/accept_friend/:id' => 'friends#accept', as: 'accept_friend'
+    get '/reject_friend/:id' => 'friends#reject', as: 'reject_friend'
+
 end

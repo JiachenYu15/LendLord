@@ -15,6 +15,16 @@ ActiveRecord::Schema.define(version: 2018_11_27_234539) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
+  create_table "friends", force: :cascade do |t|
+    t.bigint "user_from_id"
+    t.bigint "user_to_id"
+    t.boolean "has_accepted"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_from_id"], name: "index_friends_on_user_from_id"
+    t.index ["user_to_id"], name: "index_friends_on_user_to_id"
+  end
+
   create_table "items", force: :cascade do |t|
     t.string "name"
     t.text "description"
@@ -34,6 +44,15 @@ ActiveRecord::Schema.define(version: 2018_11_27_234539) do
     t.integer "ratee"
     t.integer "transaction_id"
     t.integer "score"
+  end
+
+  create_table "transaction_ratings", force: :cascade do |t|
+    t.string "username"
+    t.integer "transaction"
+    t.boolean "role"
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -62,4 +81,6 @@ ActiveRecord::Schema.define(version: 2018_11_27_234539) do
     t.text "cell_number"
   end
 
+  add_foreign_key "friends", "users", column: "user_from_id"
+  add_foreign_key "friends", "users", column: "user_to_id"
 end
