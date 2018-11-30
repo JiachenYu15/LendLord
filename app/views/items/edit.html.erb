@@ -20,7 +20,11 @@
             </div>
 
             <div class="form-group">
-              <%= f.text_area :description, class: "form-control", placeholder: "description",cols: "30", rows: "7"  %>
+              <%= f.text_field :image_link, class: "form-control", placeholder: "image link (optional)"  %>
+            </div>
+
+            <div class="form-group">
+              <%= f.text_area :description, class: "form-control", placeholder: "description (optional)",cols: "30", rows: "7"  %>
             </div>
             <%= f.submit "Save the changes", class: "btn btn-primary py-3 px-5"%>
           <% end %>
