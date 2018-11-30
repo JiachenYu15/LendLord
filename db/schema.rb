@@ -46,15 +46,6 @@ ActiveRecord::Schema.define(version: 2018_11_27_234539) do
     t.integer "score"
   end
 
-  create_table "transaction_ratings", force: :cascade do |t|
-    t.string "username"
-    t.integer "transaction"
-    t.boolean "role"
-    t.datetime "date"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-  end
-
   create_table "transactions", force: :cascade do |t|
     t.integer "item_id"
     t.integer "borrow_from_user_id"
