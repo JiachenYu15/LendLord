@@ -1,0 +1,44 @@
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" style="top: 0px; background: #222831 !important;" id="ftco-navbar">
+  <div class="container">
+    <%= link_to "LendLord", root_path, class:"navbar-brand"%>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="oi oi-menu"></span> Menu
+    </button>
+
+    <div class="collapse navbar-collapse" id="ftco-nav">
+      <ul class="navbar-nav ml-auto">
+        <% if logged_in? %>
+          <li class="nav-item"><%= link_to "Hi, " + @current_user.username, personal_home_index_path, class:"nav-link"%></li>
+          <li class="nav-item"><%= link_to "User Items", user_items_path, class:"nav-link" %></li>
+          <li class="nav-item"> <%= link_to "Log Out", logout_path, method: :delete, class:"nav-link"%></li>
+
+      <% else %>
+          <li class="nav-item"><%= link_to "Sign Up", signup_path, class:"nav-link"%></li>
+          <li class="nav-item"><%= link_to "Log In", login_path, class:"nav-link"%></li>
+        <% end %>
+        <li class="nav-item"><%= link_to "Lend", new_item_path, class:"nav-link"%></li>
+        <li class="nav-item"><%= link_to "Transaction", transactions_path, class:"nav-link"%></li>
+        <li class="nav-item"><%= link_to "Items", items_path, class:"nav-link"%></li>
+        <li class="nav-item"><%= link_to "Friends", friends_path, class:"nav-link"%></li>
+
+
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<script src="/assets/js/jquery.min.js"></script>
+<script src="/assets/js/jquery-migrate-3.0.1.min.js"></script>
+<script src="/assets/js/popper.min.js"></script>
+<script src="/assets/js/bootstrap.min.js"></script>
+<script src="/assets/js/jquery.easing.1.3.js"></script>
+<script src="/assets/js/jquery.waypoints.min.js"></script>
+<script src="/assets/js/jquery.stellar.min.js"></script>
+<script src="/assets/js/owl.carousel.min.js"></script>
+<script src="/assets/js/jquery.magnific-popup.min.js"></script>
+<script src="/assets/js/aos.js"></script>
+<script src="/assets/js/jquery.animateNumber.min.js"></script>
+<script src="/assets/js/bootstrap-datepicker.js"></script>
+<script src="/assets/js/scrollax.min.js"></script>
+<script src="/assets/js/google-map.js"></script>
+<script src="/assets/js/main.js"></script>
