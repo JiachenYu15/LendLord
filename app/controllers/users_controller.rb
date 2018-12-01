@@ -15,7 +15,7 @@ class UsersController < ApplicationController
         if @user.save
             log_in @user
             flash[:success] = "Welcome to LendLord!"
-            redirect_to @user
+            redirect_to personal_home_index_path
         else 
             render 'new'
         end

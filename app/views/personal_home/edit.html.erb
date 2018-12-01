@@ -1,0 +1,31 @@
+<%= link_to "Home", root_path%>
+<%= link_to "About Me", home_about_path%>
+<%= link_to "Personal Home", personal_home_index_path%>
+<%= link_to "Log Out", logout_path, method: :delete%>
+
+<% provide(:title, "Edit user") %>
+<h1>Update your profile</h1>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3">
+        <%= form_for(@user) do |f| %>
+            <%= render 'shared/error_messages' %>
+
+            <%= f.label :username %>
+            <%= f.text_field :username, class: 'form-control' %>
+
+            <%= f.label :email %>
+            <%= f.email_field :email, class: 'form-control' %>
+
+            <%= f.label :password %>
+            <%= f.password_field :password, class: 'form-control' %>
+
+            <%= f.label :password_confirmation, "Confirmation" %>
+            <%= f.password_field :password_confirmation, class: 'form-control' %>
+
+            <%= f.submit "Save changes", class: "btn btn-primary" %>
+
+        <% end %>
+
+    </div>
+</div>
