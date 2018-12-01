@@ -1,4 +1,7 @@
 class ItemsController < ApplicationController
+
+  include ItemsHelper
+
   def index
     @items = Item.all
     #@items = Item.where(:is_deleted => false).all
@@ -66,16 +69,9 @@ class ItemsController < ApplicationController
   def borrow
     check_logged_in
     @item = Item.find(params[:id])
+    return if create_paypal_payment?
 
-    if @item.is_available?
-      @item.is_available = false
-      @item.save
-
-      flash.now[:success] = "Item successfully borrowed"
-    else
-      flash.now[:error] = "Item has already been borrowed"
-    end
-
+    flash.now[:error] = 'Oops! Something wrong with PayPal, Please try again later.'
   end
 
   private
@@ -83,11 +79,4 @@ class ItemsController < ApplicationController
     params.require(:item).permit(:name, :description, :deposit, :image_link).merge(:is_available => true, :user_id => @user.id, :is_deleted => false)
   end
 
-  def check_logged_in
-    if session[:user_id]
-      @user ||= User.find_by(id: session[:user_id])
-    else
-      redirect_to :controller => 'sessions', :action => 'new'
-    end
-  end
 end

@@ -1,8 +1,8 @@
 class FriendsController < ApplicationController
+  before_action :check_session
     
   def index
     @friends = Friend.all
-    @user = session[:user_id]
   end 
 
   def show
@@ -78,5 +78,14 @@ class FriendsController < ApplicationController
       redirect_to new_friend_path, danger: "An error ocurred"
     end
   end 
+
+  private
+  def check_session
+    if session[:user_id]
+      @user = session[:user_id]
+    else
+      redirect_to :controller => 'sessions', :action => 'new'
+    end
+  end
 
 end
