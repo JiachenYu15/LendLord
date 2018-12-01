@@ -43,6 +43,7 @@ class ItemsController < ApplicationController
 
   def show
     @item = Item.find(params[:id])
+    @user = User.find(@item.user_id)
   end
 
   def user_items
@@ -69,6 +70,7 @@ class ItemsController < ApplicationController
     check_logged_in
     @item = Item.find(params[:id])
     return if create_paypal_payment?
+
     flash.now[:error] = 'Oops! Something wrong with PayPal, Please try again later.'
   end
 

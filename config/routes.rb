@@ -3,10 +3,12 @@ Rails.application.routes.draw do
     root "home#index" #Calls index method of home controller, then displays index view for home
     get 'home/about' #Creates a new route called "home_about"
 
-    get 'personal_home/index'
-    get 'personal_home/set_cookies'
     get '/signup' => 'users#new'
     post '/signup' => 'users#create'
+
+    get 'personal_home/index'
+    get 'personal_home/set_cookies'
+    get '/personal_home/edit'=> 'users#edit'
 
     get '/login' => 'sessions#new'
     post '/login' => 'sessions#create' 
@@ -31,5 +33,7 @@ Rails.application.routes.draw do
     end
     get '/accept_friend/:id' => 'friends#accept', as: 'accept_friend'
     get '/reject_friend/:id' => 'friends#reject', as: 'reject_friend'
+    get '/search_friend' => 'friends#search', as: 'search_friend'
+    get '/sendf_friend/:id' => 'friends#sendf', as: 'sendf_friend'
 
 end

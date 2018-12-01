@@ -1,19 +1,27 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <title>Lendlord</title>
-    <%= csrf_meta_tags %>
-    <%= csp_meta_tag %>
-    <%= stylesheet_link_tag "/assets/icomoon.css" %>
+    <head>
+        <title>Lendlord</title>
+        <%= csrf_meta_tags %>
+        <%= csp_meta_tag %>
+        <%= stylesheet_link_tag "/assets/icomoon.css" %>
 
-    <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Abril%20Fatface" %>
+        <%= stylesheet_link_tag "https://fonts.googleapis.com/css?family=Abril%20Fatface" %>
 
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
-  </head>
+        <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+        <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    </head>
 
-  <body>
+    <body>
+
+        <div class="container">
+            <% flash.each do |message_type, message| %>
+                <div class="alert alert-<%= message_type %>"><%= message %></div>
+            <% end %>
+        </div>
+
     <%= yield %>
-  </body>
+
+    </body>
 </html>

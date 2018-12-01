@@ -1,3 +1,37 @@
 // Place all the styles related to the personal_home controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+.w3-light-grey{
+    color: #000!important;
+}
+
+.w3-margin-top{
+    margin-top: 16px!important;
+}
+
+.w3-content{
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.w3-row-padding{
+    padding: 0 8px;
+}
+
+.w3-third{
+    float: left;
+    width: 33.3%;
+    padding: 0 8px;
+}
+
+.w3-twothird{
+    float: left;
+    width: 66.6%;
+    padding: 0 8px;
+}
+
+.w3-card-4{
+    box-shadow: 0 4px 10px 0 rgba(0,0,0,0.2), 0 4px 20px 0 rgba(0,0,0,0.19)
+}
+
