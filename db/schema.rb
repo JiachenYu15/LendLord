@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_11_27_234539) do
+ActiveRecord::Schema.define(version: 2018_12_01_014641) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -34,6 +34,7 @@ ActiveRecord::Schema.define(version: 2018_11_27_234539) do
     t.datetime "updated_at", null: false
     t.bigint "user_id"
     t.boolean "is_deleted"
+    t.string "image_link"
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
@@ -79,6 +80,7 @@ ActiveRecord::Schema.define(version: 2018_11_27_234539) do
     t.text "address"
     t.text "home_number"
     t.text "cell_number"
+    t.index ["email"], name: "index_users_on_email", unique: true
   end
 
   add_foreign_key "friends", "users", column: "user_from_id"

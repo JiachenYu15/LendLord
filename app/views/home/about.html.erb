@@ -1,6 +1,21 @@
+<script type="text/javascript">
+function loginorout()
+
+    var condition
+
+    if (logged_in?)
+        {condition = "Log Out"}
+    else
+        {condition = "Log In"}
+
+    document.getElementById("logio").innerHTML = condition;
+
+    window.onload = loginorout;
+</script>
+
 <%= link_to "Home", root_path%>
 <%= link_to "About Me", home_about_path%>
-<%= link_to "Log In", login_path%>
+<%= link_to "logio" %> 
 <%= link_to "Sign Up", signup_path%>
 
 <h1>About Us</h1>
