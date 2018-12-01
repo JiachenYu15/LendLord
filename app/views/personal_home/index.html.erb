@@ -1,6 +1,7 @@
 <!--
 <%= link_to "Home", root_path%>
 <%= link_to "About Me", home_about_path%>
+<%= link_to "Edit Profile", personal_home_edit_path%>
 <%= link_to "Log Out", logout_path, method: :delete%>
 -->
 
@@ -12,7 +13,7 @@
         <h1>Hello <%= @user.username %></h1>
 
         <table>
-            <tr><td>User ID:</td><td><%= @your_ratings.size %></td></tr>
+            <tr><td>User ID:</td><td><%= @user_id %></td></tr>
             <tr><td>Your current email:</td><td><%= @user.email %></td></tr>
             <tr><td>Your current average rating:</td><td><%= @rating_average %></td></tr>
         </table>

@@ -2,7 +2,7 @@ class User < ApplicationRecord
 
     attr_accessor :remember_token
     before_save {self.email = email.downcase}
-	
+
     VALID_EMAIL_REGEX = /\A[\w+\-.]+@[a-z\d\-.]+\.[a-z]+\z/i
     VALID_USERNAME_REGEX = /\A[0-9\w_]{0,16}\z/
 
@@ -22,12 +22,13 @@ class User < ApplicationRecord
     has_secure_password
 
     validates :password, 
-        presence: true, length: {minimum: 6}
+        presence: true, length: {minimum: 6},
+        allow_nil: true
 
     def User.digest(string)
         cost = ActiveModel::SecurePassword.min_cost ? BCrypt::Engine::MIN_COST :
-                                                      BCrypt::Engine.cost
-               BCrpyt::Password.create(string, cost: cost)
+                                                  BCrypt::Engine.cost
+        BCrypt::Password.create(string, cost: cost)
     end
 
     # Return a random token

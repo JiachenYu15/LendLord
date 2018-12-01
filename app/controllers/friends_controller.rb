@@ -1,5 +1,4 @@
 class FriendsController < ApplicationController
-  #before_action :set_friend, only:[:update,:destroy]
     
   def index
     @friends = Friend.all
@@ -11,6 +10,10 @@ class FriendsController < ApplicationController
 
   def new
     @friend = Friend.new
+    @results = 0
+  end
+
+  def create
   end
 
   def edit
@@ -22,17 +25,31 @@ class FriendsController < ApplicationController
   def destroy
   end
 
-  def create
-    @friend = Friend.new(friend_params)
-
-    if @friend.save
-      redirect_to friends_path, notice: 'Friend request sent successfully'
+  def search
+    unless params[:field].blank?
+      _field = params[:field].downcase
+      _prev = ActiveRecord::Base.connection.exec_query("select a.id from users a where a.id != #{session[:user_id]} and lower(a.username) like '%#{_field}%'")
+      if _prev.blank?
+        @results = nil
+      else
+        _temp_users = Array.new
+        _prev.each do |row|
+          _check = ActiveRecord::Base.connection.exec_query("select id from friends where (user_from_id = #{session[:user_id]} and user_to_id = #{row['id']}) or (user_to_id = #{session[:user_id]} and user_from_id = #{row['id']})")
+          if _check.blank?
+            _temp_users.push(row['id'])
+          end
+        end
+        if _temp_users.count > 0
+          @results = ActiveRecord::Base.connection.exec_query("select a.id, a.username from users a where a.id in (#{_temp_users.join(', ')})")
+        else
+          @results = nil
+        end
+      end
     else
-      flash[:alert] = 'A problem occurred'
-      render :new
+      @results = 0
     end
-
-  end 
+    render new_friend_path
+  end
 
   def manage
     @myfriends = Friend.where(user_to_id: session[:user_id], has_accepted: false)
@@ -41,26 +58,25 @@ class FriendsController < ApplicationController
   def accept
     @friend = Friend.find(params[:id])
     if @friend.update(has_accepted: true)
-      flash[:alert] = "Success"
-      redirect_to manage_friends_path
+      redirect_to manage_friends_path, success: "You have a new friend!"
     else
-      flash[:alert] = 'A problem occurred'
+      redirect_to manage_friends_path, danger: "An error ocurred"
     end
   end
 
   def reject
     @friend = Friend.find(params[:id])
     @friend.destroy
-    redirect_to manage_friends_path
+    redirect_to manage_friends_path, success: "Request succesfully declined"
   end
 
-  private
-    #def set_friend
-    #  @friend = Friend.find(params[:id])
-    #end
-
-    def friend_params
-      params.require(:friend).permit(:user_to_id).merge(user_from_id: session[:user_id], has_accepted: false)
+  def sendf
+    @friend = Friend.new(user_from_id: session[:user_id], user_to_id: params[:id], has_accepted: false)
+    if @friend.save
+      redirect_to new_friend_path, success: "Friend request sent successfully"
+    else
+      redirect_to new_friend_path, danger: "An error ocurred"
     end
+  end 
 
 end
