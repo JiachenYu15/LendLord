@@ -33,5 +33,7 @@ Rails.application.routes.draw do
     end
     get '/accept_friend/:id' => 'friends#accept', as: 'accept_friend'
     get '/reject_friend/:id' => 'friends#reject', as: 'reject_friend'
+    get '/search_friend' => 'friends#search', as: 'search_friend'
+    get '/sendf_friend/:id' => 'friends#sendf', as: 'sendf_friend'
 
 end

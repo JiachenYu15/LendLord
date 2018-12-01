@@ -10,7 +10,30 @@
 <h1>Add a new Friend</h1>
 <p>Search for an user on BoLend</p>
 
-<%= form_for @friend do |f| %>
-  Send friend request to: <%= f.text_field :user_to_id %><br><br>
-  <%= f.submit 'Send Friend Request'%>
+<%= form_tag("/search_friend", method: "get") do %>
+  <%= label_tag(:field, "Search for user:") %>
+  <%= text_field_tag(:field) %>
+  <%= submit_tag("Search") %>
+<% end %>
+
+<br><br>
+
+<% if @results != 0 %>
+<% unless @results.blank? %>
+<h2>Search results for "<%= params[:field] %>"</h2>
+<table border="1">
+  <tr>
+    <th>Usernames</th>
+    <th>Actions</th>
+  </tr>
+  <% @results.each do |f| %>
+    <tr>
+      <td><%= f["username"] %></td>
+      <td><%= link_to "Send Friend Request", sendf_friend_path(f["id"]) %></td>
+    </tr>
+  <% end %>
+</table><br>
+<% else %>
+<h2>No match for "<%= params[:field] %>"</h2>
+<% end %>
 <% end %>

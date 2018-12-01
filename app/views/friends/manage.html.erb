@@ -10,6 +10,7 @@
 <h1>This is Manage Page</h1>
 This page is now displaying all the friend requests that the user has received<br><br>
 
+<% unless @myfriends.blank? %>
 <table border="1">
   <tr>
     <th>Requester</th>
@@ -26,3 +27,6 @@ This page is now displaying all the friend requests that the user has received<b
     </tr>
   <% end %>
 </table><br>
+<% else %>
+There are no pending friend requests sent to you.
+<% end %>
