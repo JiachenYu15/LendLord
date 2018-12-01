@@ -19,4 +19,14 @@ class PersonalHomeController < ApplicationController
         @user = User.find(session[:user_id])
     end
 
+    def update 
+        @user = User.find(params[:id])
+        if @user.update_attributes(userparams)
+
+        else
+            render 'edit'
+        end
+
+    end
+
 end
