@@ -68,4 +68,13 @@ module SessionsHelper
         session[:forwarding_url] = request.original_url if request.get?
     end
 
+    # Help to check if logged in or not
+    def check_logged_in
+      if session[:user_id]
+        @user ||= User.find_by(id: session[:user_id])
+      else
+        redirect_to :controller => 'sessions', :action => 'new' and return false
+      end
+    end
+
 end

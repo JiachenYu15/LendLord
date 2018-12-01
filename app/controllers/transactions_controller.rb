@@ -1,5 +1,7 @@
 class TransactionsController < ApplicationController
 
+  include TransactionsHelper
+
   def index
     @transactions = Transaction.all
   end
@@ -10,6 +12,8 @@ class TransactionsController < ApplicationController
 
   def new
     @transaction = Transaction.new
+    execute_paypal_payment?
+
   end
 
   def edit
