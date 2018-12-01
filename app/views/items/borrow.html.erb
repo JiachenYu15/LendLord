@@ -52,9 +52,9 @@
     <div class="row justify-content-center mb-5 pb-3">
       <div class="col-md-7 heading-section text-center fadeInUp ftco-animated">
         <h2 class="mb-4">
-        <% flash.each do |key, value| %>
-          <strong><%= value %></strong>
-        <% end %>
+          <% flash.each do |key, value| %>
+            <strong><%= value %></strong>
+          <% end %>
         </h2>
       </div>
     </div>
@@ -64,8 +64,8 @@
     <div class="destination">
       <h3><%= @item.name %></h3>
 
-      <% if defined?(item.image_link) && item.image_link && item.image_link!=""%>
-        <div class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(<%= item.image_link %>);"></div>
+      <% if defined?(@item.image_link) && @item.image_link && @item.image_link!=""%>
+        <div class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(<%= @item.image_link %>);"></div>
       <% else %>
         <div class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/assets/default.jpg');"></div>
       <%end %>
@@ -89,6 +89,7 @@
         <hr>
         <p class="bottom-area d-flex">
           <span><i class="icon-map-o"></i> Toronto, ON</span>
+          <span class="ml-auto"><%= link_to 'Borrow Now', borrow_item_path(@item.id) %></span>
         </p>
       </div>
     </div>

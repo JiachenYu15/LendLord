@@ -23,4 +23,12 @@ module SessionsHelper
         @current_user = nil
     end
 
+    def check_logged_in
+        if session[:user_id]
+            @user ||= User.find_by(id: session[:user_id])
+        else
+            redirect_to :controller => 'sessions', :action => 'new' and return false
+        end
+    end
+
 end
