@@ -41,5 +41,7 @@ Rails.application.routes.draw do
     get '/sendf_friend/:id' => 'friends#sendf', as: 'sendf_friend'
     get '/remf_friend/:id' => 'friends#remf', as: 'remf_friend'
     get '/remr_friend/:id' => 'friends#remr', as: 'remr_friend'
+    get '/ablock_friend/:id' => 'friends#ablock', as: 'ablock_friend'
+    get '/rblock_friend/:id' => 'friends#rblock', as: 'rblock_friend'
 
 end

@@ -45,8 +45,9 @@ class FriendsController < ApplicationController
       else
         _temp_users = Array.new
         _prev.each do |row|
-          _check = ActiveRecord::Base.connection.exec_query("select id from friends where (user_from_id = #{session[:user_id]} and user_to_id = #{row['id']}) or (user_to_id = #{session[:user_id]} and user_from_id = #{row['id']})")
-          if _check.blank?
+          _check1 = ActiveRecord::Base.connection.exec_query("select id from friends where (user_from_id = #{session[:user_id]} and user_to_id = #{row['id']}) or (user_to_id = #{session[:user_id]} and user_from_id = #{row['id']})")
+          _check2 = ActiveRecord::Base.connection.exec_query("select id from blocks where (block_from_id = #{session[:user_id]} and block_to_id = #{row['id']}) or (block_to_id = #{session[:user_id]} and block_from_id = #{row['id']})")
+          if _check1.blank? and _check2.blank?
             _temp_users.push(row['id'])
           end
         end
@@ -63,7 +64,7 @@ class FriendsController < ApplicationController
   end
 
   def manage
-    @myfriends = Friend.where(user_to_id: session[:user_id], has_accepted: false)
+    @blockfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, date(a.created_at) as fsince from users b, blocks a where a.block_from_id = #{session[:user_id]} and b.id = a.block_to_id")
   end
 
   def accept
@@ -100,15 +101,30 @@ class FriendsController < ApplicationController
     else
       redirect_to new_friend_path, danger: "An error ocurred"
     end
+  end
+
+  def ablock
+    @block = Block.new(block_from_id: session[:user_id], block_to_id: params[:id])
+    if @block.save
+      redirect_to new_friend_path, success: "User successfully blocked"
+    else
+      redirect_to new_friend_path, danger: "An error ocurred"
+    end
+  end
+
+  def rblock
+    @block = Block.find(params[:id])
+    @block.destroy
+    redirect_to manage_friends_path, success: "User successfully unblocked"
   end 
 
   private
-  def check_session
-    if session[:user_id]
-      @user = session[:user_id]
-    else
-      redirect_to :controller => 'sessions', :action => 'new'
+    def check_session
+      if session[:user_id]
+        @user = session[:user_id]
+      else
+        redirect_to :controller => 'sessions', :action => 'new'
+      end
     end
-  end
 
 end
