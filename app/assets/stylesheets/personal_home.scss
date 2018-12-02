@@ -4,7 +4,8 @@
 
 .w3-light-grey{
     color: #000!important;
-    min-height: 400px;
+    height: auto;
+    overflow: auto;
     margin-left: auto;
     margin-right: auto;
 }
@@ -42,6 +43,8 @@
 
 .w3-card{
     padding: 0.01em 16px;
+    padding-bottom: 10px;
+    min-height: 250px;
     box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
     color: #000 !important;
     background-color: #fff !important;
