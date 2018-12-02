@@ -1,29 +1,39 @@
-<%= link_to "Home", root_path%>&nbsp&nbsp
-<%= link_to "About Me", home_about_path%>&nbsp&nbsp
-<%= link_to "Personal Home", controller: 'personal_home'%>&nbsp&nbsp
-<%= link_to 'Transaction', controller: 'transactions' %>&nbsp&nbsp
-<%= link_to 'Items', controller: 'items' %>&nbsp&nbsp
-<%= link_to "Friends", friends_path%>&nbsp&nbsp
-&nbsp&nbsp&nbsp&nbsp <%= link_to "Log Out", logout_path, method: :delete%>
+<style>
+.floatLeft { 
+  width: 50%;
+  float: left;
+}
+.floatRight {
+  width: 50%;
+  float: right;
+}
+.container {
+  overflow: hidden;
+}
+table, th, td {
+  border: 1px solid black;
+}
+caption {
+  caption-side:top;
+}
+</style>
 
+<%= render :partial => "layouts/header", :locals => {:title => "Search Users"}  %>
 
-<h1>Add a new Friend</h1>
-<p>Search for an user on BoLend</p>
+<br><div align="center">
 
 <%= form_tag("/search_friend", method: "get") do %>
-  <%= label_tag(:field, "Search for user:") %>
-  <%= text_field_tag(:field) %>
-  <%= submit_tag("Search") %>
-<% end %>
-
-<br><br>
+  <%= label_tag(:field, "Search for user:") %>&nbsp
+  <%= text_field_tag(:field,value=nil, maxlength: 16, placeholder: ' eg: username123', style: 'width: 30%') %>&nbsp&nbsp
+  <%= submit_tag("Search",style: 'width: 20%') %>
+<% end %><br>
 
 <% if @results != 0 %>
 <% unless @results.blank? %>
 <h2>Search results for "<%= params[:field] %>"</h2>
 <table border="1">
   <tr>
-    <th>Usernames</th>
+    <th>Username</th>
     <th>Actions</th>
   </tr>
   <% @results.each do |f| %>
@@ -34,6 +44,21 @@
   <% end %>
 </table><br>
 <% else %>
-<h2>No match for "<%= params[:field] %>"</h2>
+<font color="gray" size="5"><i>User "<%= params[:field] %>" was not found</i></font>
 <% end %>
 <% end %>
+
+</div>
+
+<div class="container">
+  <font size="5"><b>User(s) may not appear on the search results for the following reasons:</b></font><br>
+  <ul>
+    <li>The user does not exist</li>
+    <li>The user you are looking for is yourself</li>
+    <li>The user is in your friend list</li>
+    <li>The user has receive your friend request (or viceversa)</li>
+    <li>The user has blocked you (or viceversa)</li>
+  </ul>
+</div><br>
+
+<%= render "layouts/footer" %>

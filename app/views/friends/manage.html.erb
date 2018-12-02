@@ -1,31 +1,58 @@
-<%= link_to "Home", root_path%>&nbsp&nbsp
-<%= link_to "About Me", home_about_path%>&nbsp&nbsp
-<%= link_to "Personal Home", controller: 'personal_home'%>&nbsp&nbsp
-<%= link_to 'Transaction', controller: 'transactions' %>&nbsp&nbsp
-<%= link_to 'Items', controller: 'items' %>&nbsp&nbsp
-<%= link_to "Friends", friends_path%>&nbsp&nbsp
-&nbsp&nbsp&nbsp&nbsp <%= link_to "Log Out", logout_path, method: :delete%>
+<style>
+.floatLeft { 
+  width: 50%;
+  float: left;
+}
+.floatRight {
+  width: 50%;
+  float: right;
+}
+.container {
+  overflow: hidden;
+}
+table, th, td {
+  border: 1px solid black;
+}
+caption {
+  caption-side:top;
+}
+</style>
 
-<h1>This is Manage Page</h1>
-This page is now displaying all the friend requests that the user has received<br><br>
+<%= render :partial => "layouts/header", :locals => {:title => "Blocked Users"}  %>
 
-<% unless @myfriends.blank? %>
-<table border="1">
+<br><div class="container">
+  <font size="5"><b>Blocking or being blocked by an user will result in the following:</b></font><br>
+  <ul>
+    <li>You will not be able to search for the user</li>
+    <li>You will not be able to befriend the user</li>
+    <li>You will not be able to see items the user has posted</li>
+    <li>You will not be able to make transactions with the user</li>
+  </ul>
+</div>
+
+<div align="center">
+
+<% unless @blockfriends.blank? %>
+<font color="gray" size="6"><b>Blocked users</b></font>
+<table>
   <tr>
-    <th>Requester</th>
-    <th>Requestee</th>
-    <th>Action</th>
+    <th>Username</th>
+    <th>Blocked since</th>
+    <th>Actions</th>
   </tr>
-  <% @myfriends.each do |entry| %>
+  <% @blockfriends.each do |f| %>
     <tr>
-      <td><%= entry.user_from_id %></td>
-      <td><%= entry.user_to_id %></td>
-      <td><%= link_to "Accept", accept_friend_path(entry.id) %>
-          <%= link_to "Reject", reject_friend_path(entry.id) %>    
-      </td>
+      <td><%= f["username"] %></td>
+      <td><%= f["fsince"] %></td>
+      <td><%= link_to "Remove from list", rblock_friend_path(f["id"]) %></td>
     </tr>
   <% end %>
 </table><br>
 <% else %>
-There are no pending friend requests sent to you.
+<font color="gray" size="5"><i>You don't have blocked users :)</i></font>
 <% end %>
+
+</div><br>
+
+
+<%= render "layouts/footer" %>

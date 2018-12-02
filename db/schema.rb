@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_02_033620) do
+ActiveRecord::Schema.define(version: 2018_12_02_145710) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "blocks", force: :cascade do |t|
+    t.bigint "block_from_id"
+    t.bigint "block_to_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["block_from_id"], name: "index_blocks_on_block_from_id"
+    t.index ["block_to_id"], name: "index_blocks_on_block_to_id"
+  end
 
   create_table "friends", force: :cascade do |t|
     t.bigint "user_from_id"
@@ -83,6 +92,8 @@ ActiveRecord::Schema.define(version: 2018_12_02_033620) do
     t.index ["email"], name: "index_users_on_email", unique: true
   end
 
+  add_foreign_key "blocks", "users", column: "block_from_id"
+  add_foreign_key "blocks", "users", column: "block_to_id"
   add_foreign_key "friends", "users", column: "user_from_id"
   add_foreign_key "friends", "users", column: "user_to_id"
 end

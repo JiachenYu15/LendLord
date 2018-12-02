@@ -21,8 +21,8 @@ caption {
 <%= render :partial => "layouts/header", :locals => {:title => "Social and Friends"}  %>
 
 <div class="container">
-<br><%= link_to "Add New Friend", new_friend_path%>&nbsp&nbsp
-<%= link_to "Manage Friend Requests", manage_friends_path%><br>
+<br><%= link_to "Find New Users", new_friend_path%>&nbsp&nbsp&nbsp
+<%= link_to "Blocked Users", manage_friends_path%><br>
 
 <div class="floatLeft">
 <% unless @myfriends.blank? %>
