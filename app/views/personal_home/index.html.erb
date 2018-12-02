@@ -22,23 +22,21 @@
                 <% if @lend.size != 0 %>
                     <table>
                         <tr>
-                          <th>ID</th>
-                          <th>Item ID</th>
-                          <th>Lend to User ID</th>
+                          <th>Transaction ID</th>
+                          <th>Item Name</th>
+                          <th>Borrower</th>
                           <th>Start Date</th>
                           <th>Due Date</th>
                           <th>Deposit</th>
                           <th>Status</th>
                           <th>Action</th>
-                          <th colspan="3"></th>
                         </tr>
                      
                         <% @lend.each do |transaction| %>
                           <tr>
                             <td><%= transaction.id %></td>
-                            <td><%= transaction.item_id %></td>
-                            <td><%= transaction.borrow_from_user_id %></td>
-                            <td><%= transaction.lend_to_user_id %></td>
+                            <td><%= transaction.item.name %></td>
+                            <td><%= transaction.user.username %></td>
                             <td><%= transaction.start_date %></td>
                             <td><%= transaction.due_date %></td>
                             <td><%= transaction.deposit %></td>
@@ -65,23 +63,21 @@
                 <% if @borrow.size != 0 %>
                     <table>
                         <tr>
-                          <th>ID</th>
-                          <th>Item ID</th>
-                          <th>Borrow from User ID</th>
+                          <th>Transaction ID</th>
+                          <th>Item Name</th>
+                          <th>Owner</th>
                           <th>Start Date</th>
                           <th>Due Date</th>
                           <th>Deposit</th>
                           <th>Status</th>
                           <th>Action</th>
-                          <th colspan="3"></th>
                         </tr>
                      
                         <% @borrow.each do |transaction| %>
                           <tr>
                             <td><%= transaction.id %></td>
-                            <td><%= transaction.item_id %></td>
-                            <td><%= transaction.borrow_from_user_id %></td>
-                            <td><%= transaction.lend_to_user_id %></td>
+                            <td><%= transaction.item.name %></td>
+                            <td><%= transaction.item.user.username %></td>
                             <td><%= transaction.start_date %></td>
                             <td><%= transaction.due_date %></td>
                             <td><%= transaction.deposit %></td>

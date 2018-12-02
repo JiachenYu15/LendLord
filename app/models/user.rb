@@ -8,6 +8,7 @@ class User < ApplicationRecord
 
 
     has_many :items
+    has_many :transactions
 
     validates :username, 
 	presence: true, length: {maximum: 16},

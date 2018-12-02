@@ -3,8 +3,18 @@ class PersonalHomeController < ApplicationController
     def index
         @user_id = session[:user_id]
         @user = User.find(@user_id)
-        @lend = Transaction.where(["borrow_from_user_id = ?",@user_id])
-        @borrow = Transaction.where(["lend_to_user_id = ?",@user_id])
+        
+        #Get the lending transactions
+        @lend_items = Item.where(["user_id = ? AND is_available = ?", @user_id, false])
+        ids = Array.new
+        @lend_items.each do |x|
+            ids.push(x.id)
+        end
+        @lend = Transaction.where(item_id: ids)
+        
+        #Get the borrowing transactions
+        @borrow = Transaction.where(["user_id = ?",@user_id])
+
         @your_ratings = Rating.where(["ratee = ?", @user_id])
         @total_score = 0
     

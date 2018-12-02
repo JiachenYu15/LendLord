@@ -1,6 +1,8 @@
 class Transaction < ApplicationRecord
   has_many :ratings
-
+  belongs_to :item
+  belongs_to :user
+    
   validates :item_id,
             presence: true
   validates :user_id,
