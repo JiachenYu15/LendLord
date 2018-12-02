@@ -13,14 +13,12 @@
           <li class="nav-item"><%= link_to "Transaction", transactions_path, class:"nav-link"%></li>
           <li class="nav-item"> <%= link_to "Log Out", logout_path, method: :delete, class:"nav-link"%></li>
 
-      <% else %>
+        <% else %>
           <li class="nav-item"><%= link_to "Sign Up", signup_path, class:"nav-link"%></li>
           <li class="nav-item"><%= link_to "Log In", login_path, class:"nav-link"%></li>
         <% end %>
         <li class="nav-item"><%= link_to "Lend", new_item_path, class:"nav-link"%></li>
-        <li class="nav-item"><%= link_to "Items", items_path, class:"nav-link"%></li>
         <li class="nav-item"><%= link_to "Friends", friends_path, class:"nav-link"%></li>
-
 
       </ul>
     </div>

@@ -13,4 +13,17 @@ class ItemTest < ActiveSupport::TestCase
     @item.user_id = nil
     assert_not @item.valid?
   end
+
+  test "name should be present" do
+    @item.name = nil
+    assert_not @item.valid?
+  end
+
+  test "deposit validation should reject invalid deposit" do
+    invalid_deposit = %w[test 1a test.com]
+    invalid_deposit.each do |invalid_deposit|
+      @item.deposit = invalid_deposit
+      assert_not @item.valid?, "Deposit must be a number"
+    end
+  end
 end
