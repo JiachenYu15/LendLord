@@ -1,28 +1,105 @@
-<%= link_to "Home", root_path%>&nbsp&nbsp
-<%= link_to "About Me", home_about_path%>&nbsp&nbsp
-<%= link_to "Personal Home", controller: 'personal_home'%>&nbsp&nbsp
-<%= link_to 'Transaction', controller: 'transactions' %>&nbsp&nbsp
-<%= link_to 'Items', controller: 'items' %>&nbsp&nbsp
-&nbsp&nbsp&nbsp&nbsp <%= link_to "Log Out", logout_path, method: :delete%>
+<style>
+.floatLeft { 
+  width: 50%;
+  float: left;
+}
+.floatRight {
+  width: 50%;
+  float: right;
+}
+.container {
+  overflow: hidden;
+}
+table, th, td {
+  border: 1px solid black;
+}
+caption {
+  caption-side:top;
+}
+</style>
 
-<h1>Here you can see all your friends</h1>
-By the moment, it is showing all friend resquest of everyone<br>
-User currently logged in is : <%= @user %> <br><br>
+<%= render :partial => "layouts/header", :locals => {:title => "Social and Friends"}  %>
 
-<table border="1">
-  <tr>
-    <th>Requester</th>
-    <th>Requestee</th>
-    <th>Accepted?</th>
-  </tr>
-  <% @friends.each do |entry| %>
+<div class="container">
+<br><%= link_to "Add New Friend", new_friend_path%>&nbsp&nbsp
+<%= link_to "Manage Friend Requests", manage_friends_path%><br>
+
+<div class="floatLeft">
+<% unless @myfriends.blank? %>
+  <tr><table>
+    <caption><font color="gray" size="6"><b>My Friends</b></font></caption>
     <tr>
-      <td><%= entry.user_from_id %></td>
-      <td><%= entry.user_to_id %></td>
-      <td><%= entry.has_accepted %></td>
+      <th>Name</th>
+      <th>Username</th>
+      <th>Friends since</th>
+      <th>Options</th>
+    </tr>
+    <% @myfriends.each do |f| %>
+      <tr>
+        <td><%= f["uname"] %></td>
+        <td><%= f["fuser"] %></td>
+        <td><%= f["fsince"] %></td>
+        <td>&nbsp<%= link_to "Remove Friend", remf_friend_path(f["ftid"]) %>&nbsp</td>
+      </tr>
+    <% end %>
+  </table></tr>
+<% else %>
+  <font color="gray" size="5"><b>My Friends</b></font>
+  <br><i>You currently don't have friends</i>
+<% end %>
+</div>
+
+<div class="floatRight">
+<% unless @pendfriends.blank? %>
+<tr><table>
+  <caption><font color="gray" size="5"><b>Pending Requests</b></font></caption>
+  <tr>
+    <th>Username</th>
+    <th>Sent on</th>
+    <th>Options</th>
+  </tr>
+  <% @pendfriends.each do |f| %>
+    <tr>
+      <td><%= f["username"] %></td>
+      <td><%= f["dsend"] %></td>
+      <td>&nbsp<%= link_to "Remove Request", remr_friend_path(f["id"]) %>&nbsp</td>
     </tr>
   <% end %>
-</table><br>
+</table></tr><br>
+<% else %>
+  <font color="gray" size="5"><b>Pending Requests</b></font>
+  <br><i>You currently don't have pending sent friend requests</i>
+  <br><br>
+<% end %>
 
-<%= link_to "Add New Friend", new_friend_path%><br>
-<%= link_to "Manage Friend Requests", manage_friends_path%>
+<% unless @awaitfriends.blank? %>
+<tr><table>
+  <caption><font color="gray" size="5"><b>Awaiting Response</b></font></caption>
+  <tr>
+    <th>Username</th>
+    <th>Received on</th>
+    <th>Options</th>
+  </tr>
+  <% @awaitfriends.each do |f| %>
+    <tr>
+      <td><%= f["username"] %></td>
+      <td><%= f["drecv"] %></td>
+      <td>
+        &nbsp<%= link_to "Accept", accept_friend_path(f["id"]) %>&nbsp|
+        <%= link_to "Reject", reject_friend_path(f["id"]) %>&nbsp    
+      </td>
+    </tr>
+  <% end %>
+</table></tr>
+<% else %>
+  <font color="gray" size="5"><b>Awaiting Response</b></font>
+  <br><i>You currently don't have pending received friend requests</i>
+  <br><br>
+<% end %>
+
+</div>
+
+</div>
+<br><br>
+
+<%= render "layouts/footer" %>
