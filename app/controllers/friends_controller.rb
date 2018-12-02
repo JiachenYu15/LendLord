@@ -45,8 +45,9 @@ class FriendsController < ApplicationController
       else
         _temp_users = Array.new
         _prev.each do |row|
-          _check = ActiveRecord::Base.connection.exec_query("select id from friends where (user_from_id = #{session[:user_id]} and user_to_id = #{row['id']}) or (user_to_id = #{session[:user_id]} and user_from_id = #{row['id']})")
-          if _check.blank?
+          _check1 = ActiveRecord::Base.connection.exec_query("select id from friends where (user_from_id = #{session[:user_id]} and user_to_id = #{row['id']}) or (user_to_id = #{session[:user_id]} and user_from_id = #{row['id']})")
+          _check2 = ActiveRecord::Base.connection.exec_query("select id from blocks where (block_from_id = #{session[:user_id]} and block_to_id = #{row['id']}) or (block_to_id = #{session[:user_id]} and block_from_id = #{row['id']})")
+          if _check1.blank? and _check2.blank?
             _temp_users.push(row['id'])
           end
         end
@@ -105,9 +106,9 @@ class FriendsController < ApplicationController
   def ablock
     @block = Block.new(block_from_id: session[:user_id], block_to_id: params[:id])
     if @block.save
-      redirect_to manage_friends_path, success: "User successfully blocked"
+      redirect_to new_friend_path, success: "User successfully blocked"
     else
-      redirect_to manage_friends_path, danger: "An error ocurred"
+      redirect_to new_friend_path, danger: "An error ocurred"
     end
   end
 

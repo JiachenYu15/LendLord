@@ -39,7 +39,10 @@ caption {
   <% @results.each do |f| %>
     <tr>
       <td><%= f["username"] %></td>
-      <td><%= link_to "Send Friend Request", sendf_friend_path(f["id"]) %></td>
+      <td>
+        <%= link_to "Send Friend Request", sendf_friend_path(f["id"]) %>&nbsp|
+        <%= link_to "Block User", ablock_friend_path(f["id"]) %>    
+      </td>
     </tr>
   <% end %>
 </table><br>
