@@ -1,23 +1,19 @@
-<script type="text/javascript">
-function loginorout()
+<%= render :partial => "layouts/header", :locals => {:title => "About Us"}  %>
 
-    var condition
+<section>
+  <br>
+  <br>
+  <div class="container">
+    <div class="row justify-content-center mb-5 pb-3">
+      <div class="col-md-7 heading-section fadeInUp ftco-animated">
+        <p>
+        <h2> About us</h2>
+        Welcome to Lendlord, your number one source for borrowing from the community. We're dedicated to giving you the very best, with a focus on dependability, customer service and uniqueness.
+        Founded in 2018, Lendlord has come a long way from its beginnings in Toronto. When we first started out, our passion for allowing the community to borrow and lend drove us to start this website. We now serve customers all over the world, and are thrilled to bring the website to the communities.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
 
-    if (logged_in?)
-        {condition = "Log Out"}
-    else
-        {condition = "Log In"}
-
-    document.getElementById("logio").innerHTML = condition;
-
-    window.onload = loginorout;
-</script>
-
-<%= link_to "Home", root_path%>
-<%= link_to "About Me", home_about_path%>
-<%= link_to "logio" %> 
-<%= link_to "Sign Up", signup_path%>
-
-<h1>About Us</h1>
-
-<p>We are creating a new borrow/lending service!</p>
+<%= render "layouts/footer" %>

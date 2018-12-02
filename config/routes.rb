@@ -2,6 +2,10 @@ Rails.application.routes.draw do
 
     root "home#index" #Calls index method of home controller, then displays index view for home
     get 'home/about' #Creates a new route called "home_about"
+    get 'home/terms_of_service'
+    get 'home/privacy_policy'
+    get 'home/contact'
+    get 'home/faq'
 
     get '/signup' => 'users#new'
     post '/signup' => 'users#create'
