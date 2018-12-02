@@ -2,7 +2,18 @@ class FriendsController < ApplicationController
   before_action :check_session
     
   def index
-    @friends = Friend.all
+
+    #myfriends contains all the friends the user has
+    @myfriends = ActiveRecord::Base.connection.exec_query("(select a.id as ftid, a.user_from_id as fid, date(a.updated_at) as fsince, concat(b.fname,' ',b.lname) as uname, b.username as fuser from friends a, users b where a.user_to_id = #{session[:user_id]} and a.has_accepted=true and b.id = a.user_from_id) union (select a.id as ftid, a.user_to_id as fid, date(a.updated_at) as fsince, concat(b.fname,' ',b.lname) as uname, b.username as fuser from friends a, users b where a.user_from_id = #{session[:user_id]} and a.has_accepted=true and b.id = a.user_to_id)")
+    
+    #pendfriends contains all friends requests the user has sent
+    @pendfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, date(a.created_at) as dsend from friends a, users b where a.user_from_id = #{session[:user_id]} and a.has_accepted = false and b.id = a.user_to_id")
+
+    #awaitfriends contains all friends requests the user has received
+    @awaitfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, date(a.created_at) as drecv from friends a, users b where a.user_to_id = #{session[:user_id]} and a.has_accepted = false and b.id = a.user_from_id")
+
+    #@allfriends = Friend.all
+
   end 
 
   def show
@@ -58,16 +69,28 @@ class FriendsController < ApplicationController
   def accept
     @friend = Friend.find(params[:id])
     if @friend.update(has_accepted: true)
-      redirect_to manage_friends_path, success: "You have a new friend!"
+      redirect_to friends_path, success: "Friend successfully added"
     else
-      redirect_to manage_friends_path, danger: "An error ocurred"
+      redirect_to friends_path, danger: "An error ocurred"
     end
   end
 
   def reject
     @friend = Friend.find(params[:id])
     @friend.destroy
-    redirect_to manage_friends_path, success: "Request succesfully declined"
+    redirect_to friends_path, success: "Request succesfully declined"
+  end
+
+  def remf
+    @friend = Friend.find(params[:id])
+    @friend.destroy
+    redirect_to friends_path, success: "Friend succesfully removed"
+  end
+
+  def remr
+    @friend = Friend.find(params[:id])
+    @friend.destroy
+    redirect_to friends_path, success: "Request succesfully removed"
   end
 
   def sendf
