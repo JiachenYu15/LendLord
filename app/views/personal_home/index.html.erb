@@ -5,6 +5,9 @@
     <div class="w3-row-padding">
         <div class="w3-third">
             <div class="w3-card-4">
+                <div class="w3-display-container">
+                    <%= image_tag("/assets/test_profile.jpg", size:"350x233", style:'width: 100%;') %>
+                </div>
 
                 <h1 class="w3-padding-16">Welcome <%= @user.username %></h1>
                 <p><i class="fa fa-user-circle fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.fname%> <%=@user.lname%></p>
@@ -153,6 +156,10 @@ th{
     border: solid 1px;
     width: auto;
     text-align: center;
+}
+
+a{
+    color: #f9be37;
 }
 
 </style>

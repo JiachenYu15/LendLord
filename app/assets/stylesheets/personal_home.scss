@@ -4,6 +4,7 @@
 
 .w3-light-grey{
     color: #000!important;
+    background-color: #f1f1f1!important;
     height: auto;
     overflow: auto;
     margin-left: auto;
@@ -33,6 +34,10 @@
     float: left;
     width: 66.6%;
     padding: 0 8px;
+}
+
+.w3-display-container{
+    position: relative;
 }
 
 .w3-card-4{
