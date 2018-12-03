@@ -8,12 +8,10 @@ class ItemsController < ApplicationController
   end
 
   def new
-    check_logged_in
     @item = Item.new
   end
 
   def create
-    check_logged_in
     @item = Item.new(item_params)
     if @item.save
       # Successful save.
@@ -25,12 +23,10 @@ class ItemsController < ApplicationController
   end
 
   def edit
-    check_logged_in
     @item = Item.find(params[:id])
   end
 
   def update
-    check_logged_in
     @item = Item.find(params[:id])
     if @item.update_attributes(item_params)
       # Handle a successful update.
@@ -42,23 +38,22 @@ class ItemsController < ApplicationController
   end
 
   def show
+    item_ratings
     @item = Item.find(params[:id])
-    @user = User.find(@item.user_id)
+    @user = Person.find(@item.person_id)
     @transaction_state = params['transaction_state']
   end
 
   def user_items
-    current_user
-    @items = @current_user.items.where(:is_deleted => false)
+    item_ratings
+    @items = current_user.person.items.where(:is_deleted => false)
   end
 
   def search
-    allItems = Item.all
+    item_ratings
 
     # Make sure user doesn't search for their own items
-    if logged_in?
-      allItems = Item.where("user_id <> ?", "#{@current_user.id}")
-    end
+    allItems = Item.where("person_id <> ?", "#{current_user.person.id}")
 
     if params[:search].blank?
       # Return all items if user does not input search parameters
@@ -82,18 +77,22 @@ class ItemsController < ApplicationController
   end
 
   def borrow
-    check_logged_in
-    @item = Item.find(params[:id])
-    if logged_in?
-      return if create_paypal_payment?
+    item_ratings
 
-      flash.now[:error] = 'Oops! Something wrong with PayPal, Please try again later.'
-    end
+    @item = Item.find(params[:id])
+    
+    return if create_paypal_payment?
+
+    flash.now[:error] = 'Oops! Something wrong with PayPal, Please try again later.'
+
   end
 
   private
   def item_params
-    params.require(:item).permit(:name, :description, :deposit, :image_link).merge(:is_available => true, :user_id => @user.id, :is_deleted => false)
+    params.require(:item).permit(:name, :description, :deposit, :image_link).merge(:is_available => true, :person_id => current_user.person.id, :is_deleted => false)
   end
 
+  def item_ratings
+    @itemRatings = Item.includes(transactions: :ratings).group(:id).average(:score)
+  end
 end

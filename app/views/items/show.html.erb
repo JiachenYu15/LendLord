@@ -61,6 +61,11 @@
           <div class="sidebar-wrap">
             <h3 class="heading mb-4">User <%= @user.username %></h3>
             <div class="img img-2 d-flex justify-content-center align-items-center" style="height:300px;background-image: url('/assets/default_profile.jpg');"></div>
+            <br>
+            <h3>User Information</h3>
+            <p><i class="fa fa-user-circle fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.firstname%> <%=@user.lastname%></p>
+            <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.address%></p>
+            <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.telephone%></p>
           </div>
         </div>
 
@@ -69,35 +74,7 @@
 
           <div class="destination" style="padding-left: 10%;padding-right: 10%;">
             <h3><%= @item.name %></h3>
-
-            <% if defined?(@item.image_link) && @item.image_link && @item.image_link!=""%>
-              <div class="img img-2 d-flex justify-content-center align-items-center" style="height:400px;background-image: url(<%= @item.image_link %>);"></div>
-            <% else %>
-              <div class="img img-2 d-flex justify-content-center align-items-center" style="height:400px;background-image: url('/assets/default.jpg');"></div>
-            <%end %>
-            <div class="text p-3">
-              <div class="d-flex">
-                <div class="one">
-                  <p class="rate">
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                    <i class="icon-star"></i>
-                    <i class="icon-star-o"></i>
-                    <span>8 Rating</span>
-                  </p>
-                </div>
-                <div class="two">
-                  <span class="price per-price">Deposit $<%= @item.deposit %><br></span>
-                </div>
-              </div>
-              <p><%= @item.description %></p>
-              <hr>
-              <p class="bottom-area d-flex">
-                <span><i class="icon-map-o"></i> Toronto, ON</span>
-                <span class="ml-auto"><%= link_to 'Borrow Now', borrow_item_path(@item.id) %></span>
-              </p>
-            </div>
+            <%= render :partial => "items/show_single_item", :locals => {:item => @item, :type => "show"}%>
           </div>
 
         </div>
