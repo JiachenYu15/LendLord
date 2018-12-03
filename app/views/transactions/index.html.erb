@@ -1,35 +1,102 @@
-<h1>Listing Transactions</h1>
+<%= render "layouts/single_header" %>
 
-<%= link_to 'New transaction',  new_transaction_path %>
+<div class="w3-card" style="margin-top:100px">
+  <div style="overflow-x:auto;">
+    <h2 class="w3-padding-16"><i class="fa fa-fw fa-sign-out w3-margin-right w3-text-teal"></i>All Lending</h2>
+    <% if @lend_transactions.size != 0 %>
+        <table>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Item Name</th>
+          <th>Borrower</th>
+          <th>Start Date</th>
+          <th>Due Date</th>
+          <th>Deposit</th>
+          <th>Status</th>
+        </tr>
 
-<table>
-  <tr>
-    <th>Transaction ID</th>
-    <th>Item ID</th>
-    <th>Lend to User ID</th>
-    <th>Start Date</th>
-    <th>Due Date</th>
-    <th>Deposit</th>
-    <th>Status</th>
-    <th colspan="3"></th>
-  </tr>
+        <% @lend_transactions.each do |transaction| %>
+          <tr>
+            <td><%= transaction.id %></td>
+            <td><%= transaction.item.name %></td>
+            <td><%= transaction.user.username %></td>
+            <td><%= transaction.start_date %></td>
+            <td><%= transaction.due_date %></td>
+            <td><%= transaction.deposit %></td>
+            <td><%= transaction.status %></td>
+          </tr>
+        <%end%>
+      </table>
+    <%else%>
+      <br><i>You didn't lend anything.</i>
+      <br><br>
+    <%end%>
+  </div>
+</div>
 
-  <% @transactions.each do |transaction| %>
-    <tr>
-      <td><%= transaction.id %></td>
-      <td><%= transaction.item_id %></td>
-      <td><%= transaction.user_id %></td>
-      <td><%= transaction.start_date %></td>
-      <td><%= transaction.due_date %></td>
-      <td><%= transaction.deposit %></td>
-      <td><%= transaction.status %></td>
-      <td><%= link_to 'Show', transaction_path(transaction) %></td>
-      <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-      <td><%= link_to 'Destroy', transaction_path(transaction),
-                      method: :delete,
-                      data: { confirm: 'Are you sure?' } %></td>
-    </tr>
-  <% end %>
-</table>
 
-<%= link_to 'Back', controller: 'home' %>
+
+<div class="w3-card" style="margin-top:30px; margin-bottom:30px">
+  <div style="overflow-x:auto;">
+    <h2 class="w3-padding-16"><i class="fa fa-fw fa-sign-out w3-margin-right w3-text-teal"></i>All Borrowing</h2>
+    <% if @borrow_transactions.size != 0 %>
+      <table>
+        <tr>
+          <th>Transaction ID</th>
+          <th>Item Name</th>
+          <th>Borrower</th>
+          <th>Start Date</th>
+          <th>Due Date</th>
+          <th>Deposit</th>
+          <th>Status</th>
+        </tr>
+
+        <% @borrow_transactions.each do |transaction| %>
+          <tr>
+            <td><%= transaction.id %></td>
+            <td><%= transaction.item.name %></td>
+            <td><%= transaction.user.username %></td>
+            <td><%= transaction.start_date %></td>
+            <td><%= transaction.due_date %></td>
+            <td><%= transaction.deposit %></td>
+            <td><%= transaction.status %></td>
+          </tr>
+        <%end%>
+      </table>
+    <%else%>
+      <br><i>You didn't borrow anything.</i>
+      <br><br>
+    <%end%>
+  </div>
+</div>
+
+
+<%= render "layouts/footer" %>
+
+<style>
+  table{
+    border: solid 1px;
+    width:100%;
+  }
+
+  td{
+    border: solid 1px;
+    width: auto;
+    text-align: center;
+  }
+
+  th{
+    border: solid 1px;
+    width: auto;
+    text-align: center;
+  }
+
+  a{
+    color: #f9be37;
+  }
+
+  tr:nth-child(even) {
+    background-color: #f2f2f2
+  }
+
+</style>

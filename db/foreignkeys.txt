@@ -1,0 +1,4 @@
+  add_foreign_key "blocks", "users", column: "block_from_id"
+  add_foreign_key "blocks", "users", column: "block_to_id"
+  add_foreign_key "notifications", "users", column: "user_to_id"
+  add_foreign_key "people", "users"

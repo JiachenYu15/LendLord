@@ -1,7 +1,7 @@
 class PersonalHomeController < ApplicationController
 
     def index
-        @user_id = session[:user_id]
+        @user_id = current_user.id
         @user = User.find(@user_id)
         
         #Get the lending transactions

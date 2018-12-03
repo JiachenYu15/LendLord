@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+    devise_for :users, controllers: {registrations: 'users/registrations',sessions: 'users/sessions'}
+
     root "home#index" #Calls index method of home controller, then displays index view for home
     get 'home/about' #Creates a new route called "home_about"
     get 'home/terms_of_service'
@@ -7,8 +9,8 @@ Rails.application.routes.draw do
     get 'home/contact'
     get 'home/faq'
 
-    get '/signup' => 'users#new'
-    post '/signup' => 'users#create'
+    #get '/signup' => 'users#new'
+    #post '/signup' => 'users#create'
 
     get 'personal_home/index'
     get 'personal_home/set_cookies'
@@ -22,6 +24,7 @@ Rails.application.routes.draw do
     #get 'sessions/new'
 
     resources :users
+    resources :people
     resources :transactions
     resources :ratings
 
