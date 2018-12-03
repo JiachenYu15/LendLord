@@ -4,8 +4,12 @@ class TransactionsController < ApplicationController
 
   def index
     check_logged_in
-
-    @transactions = Transaction.all
+    # Get all lending record
+    @lend_items = Item.where(["user_id = ?", @user.id])
+    puts @lend_items.ids
+    @lend_transactions = Transaction.where(item_id: @lend_items.ids)
+    # Get all borrow record
+    @borrow_transactions = Transaction.where(["user_id = ?", @user.id])
   end
 
   def show
