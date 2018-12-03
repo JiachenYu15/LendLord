@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_02_181630) do
+ActiveRecord::Schema.define(version: 2018_12_02_182130) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -47,6 +47,15 @@ ActiveRecord::Schema.define(version: 2018_12_02_181630) do
     t.index ["user_id"], name: "index_items_on_user_id"
   end
 
+  create_table "notifications", force: :cascade do |t|
+    t.bigint "user_to_id"
+    t.string "message"
+    t.boolean "has_seen"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["user_to_id"], name: "index_notifications_on_user_to_id"
+  end
+
   create_table "ratings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -54,6 +63,15 @@ ActiveRecord::Schema.define(version: 2018_12_02_181630) do
     t.integer "ratee"
     t.integer "transaction_id"
     t.integer "score"
+  end
+
+  create_table "transaction_ratings", force: :cascade do |t|
+    t.string "username"
+    t.integer "transaction"
+    t.boolean "role"
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transactions", force: :cascade do |t|
@@ -88,4 +106,5 @@ ActiveRecord::Schema.define(version: 2018_12_02_181630) do
   add_foreign_key "blocks", "users", column: "block_to_id"
   add_foreign_key "friends", "users", column: "user_from_id"
   add_foreign_key "friends", "users", column: "user_to_id"
+  add_foreign_key "notifications", "users", column: "user_to_id"
 end

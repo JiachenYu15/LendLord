@@ -26,6 +26,7 @@ class PersonalHomeController < ApplicationController
          #awaitfriends contains all friends requests the user has received
         @awaitfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, date(a.created_at) as drecv from friends a, users b where a.user_to_id = #{session[:user_id]} and a.has_accepted = false and b.id = a.user_from_id")
 
+        @notifications = Notification.where(["user_to_id = ? AND has_seen = false", @user_id])
                                                 
     end                                
            
@@ -41,6 +42,24 @@ class PersonalHomeController < ApplicationController
             render 'edit'
         end
 
+    end
+
+    def mone
+      @notice = Notification.find(params[:id])
+      if @notice.update(has_seen: true)
+        redirect_to personal_home_index_path
+      else
+        redirect_to personal_home_index_path, danger: "An error ocurred"
+      end
+    end
+
+    def mall
+      @notice = Notification.where(["user_to_id = ? AND has_seen = false", session[:user_id]])
+      if @notice.update_all(has_seen: true)
+        redirect_to personal_home_index_path
+      else
+        redirect_to personal_home_index_path, danger: "An error ocurred"
+      end
     end
 
 end

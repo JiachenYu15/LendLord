@@ -17,6 +17,24 @@
             <div class="w3-card-4">
 
                 <h1 class="w3-padding-16">Notifications</h1>
+                <% unless @notifications.blank? %>
+                <%= link_to "Mark all as seen", mall_phome_path %><br>
+                <table>
+                  <tr>
+                    <th>All your notifications</th>
+                    <th>Seen</th>
+                  </tr>
+                  <% @notifications.each do |f| %>
+                    <tr>
+                      <td><%= f.message %></td>
+                      <td><%= link_to "OK", mone_phome_path(f.id) %></td>
+                    </tr>
+                  <% end %>
+                </table><br><br>
+                <% else %>
+                  <br><i>There are no notifications to display.</i>
+                  <br><br>
+                <% end %>
 
             </div>
         </div>
