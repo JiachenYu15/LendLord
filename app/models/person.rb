@@ -9,7 +9,7 @@ class Person < ApplicationRecord
     validates :telephone,:presence => true
     validates :country, :presence => true
     validates :city, :presence => true
-    validates :street,:presence => true
+    validates :address,:presence => true
 
     def location
         [street, city, country].compact.join(', ')
