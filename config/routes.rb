@@ -44,4 +44,8 @@ Rails.application.routes.draw do
     get '/ablock_friend/:id' => 'friends#ablock', as: 'ablock_friend'
     get '/rblock_friend/:id' => 'friends#rblock', as: 'rblock_friend'
 
+    #Notifications part
+    get '/mall_phome' => 'personal_home#mall', as: 'mall_phome'
+    get '/mone_phome/:id' => 'personal_home#mone', as: 'mone_phome'
+
 end
