@@ -9,8 +9,8 @@ Rails.application.routes.draw do
     get 'home/contact'
     get 'home/faq'
 
-    get '/signup' => 'users#new'
-    post '/signup' => 'users#create'
+    #get '/signup' => 'users#new'
+    #post '/signup' => 'users#create'
 
     get 'personal_home/index'
     get 'personal_home/set_cookies'
@@ -24,6 +24,7 @@ Rails.application.routes.draw do
     #get 'sessions/new'
 
     resources :users
+    resources :people
     resources :transactions
     resources :ratings
 

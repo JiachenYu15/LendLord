@@ -11,7 +11,7 @@ class PeopleController < ApplicationController
         @person.user_id = current_user.id
 
         if @person.save
-            redirect_to homepage_index_path
+            redirect_to root_path
         else
             render 'new'
         end
@@ -33,7 +33,7 @@ class PeopleController < ApplicationController
     def update
         @person = Person.find_by_user_id(current_user.id);
         @person.update(people_params)
-        redirect_to person_path
+        redirect_to personal_home_index_path
     end
 
     private
