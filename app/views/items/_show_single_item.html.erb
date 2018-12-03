@@ -1,0 +1,46 @@
+<% if defined?(item.image_link) && item.image_link && item.image_link!=""%>
+  <div class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url(<%= item.image_link %>);"></div>
+<% else %>
+  <div class="img img-2 d-flex justify-content-center align-items-center" style="background-image: url('/assets/default.jpg');"></div>
+<%end %>
+<div class="text p-3">
+  <div class="d-flex">
+    <div class="one">
+      <% if type != "show" %>
+        <h3 style="height: 50px;"><%= link_to item.name, item_path(item.id) %> </h3>
+      <%end %>
+
+      <% if !@itemRatings[item.id] %>
+        <p class="rate">
+          <i class="icon-star-o"></i>
+          <i class="icon-star-o"></i>
+          <i class="icon-star-o"></i>
+          <i class="icon-star-o"></i>
+          <i class="icon-star-o"></i>
+          <span>0 Rating</span>
+        </p>
+      <% end %>
+    </div>
+    <div class="two">
+      <span class="price per-price">$<%= item.deposit %>
+        <% if type == "user" %>
+          <br><%= link_to "Edit", edit_item_path(item.id) %>
+        <% end %>
+      </span>
+    </div>
+  </div>
+  <p style="height: 50px;"><%= item.description %></p>
+  <hr>
+  <p class="bottom-area d-flex">
+    <span><i class="icon-map-o"></i><%= item.person.city %></span>
+    <% if type == "user" %>
+    <span class="ml-auto"><%= link_to "Remove", remove_item_path(item.id) %></span>
+    <% end %>
+    <% if type == "search" %>
+      <span class="ml-auto"><%= link_to "View Details", item_path(item.id) %></span>
+    <% end %>
+    <% if type == "show" %>
+      <span class="ml-auto"><%= link_to "Borrow Now", borrow_item_path(@item.id) %></span>
+    <% end %>
+  </p>
+</div>

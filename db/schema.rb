@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_03_195325) do
+ActiveRecord::Schema.define(version: 2018_12_03_225020) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,12 +39,10 @@ ActiveRecord::Schema.define(version: 2018_12_03_195325) do
     t.text "description"
     t.decimal "deposit", precision: 10, scale: 2
     t.boolean "is_available"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.bigint "user_id"
     t.boolean "is_deleted"
     t.string "image_link"
-    t.index ["user_id"], name: "index_items_on_user_id"
+    t.bigint "person_id"
+    t.index ["person_id"], name: "index_items_on_person_id"
   end
 
   create_table "notifications", force: :cascade do |t|

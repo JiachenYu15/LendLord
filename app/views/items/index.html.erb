@@ -23,7 +23,7 @@
   <% @items.each do |item| %>
     <tr>
       <td><%= item.id %></td>
-      <td><%= item.user_id %></td>
+      <td><%= item.person_id %></td>
       <td><%= link_to item.name, item_path(item.id) %></td>
       <td><%= item.description %></td>
       <td><%= item.deposit %></td>
