@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_03_171844) do
+ActiveRecord::Schema.define(version: 2018_12_03_195325) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -56,6 +56,20 @@ ActiveRecord::Schema.define(version: 2018_12_03_171844) do
     t.index ["user_to_id"], name: "index_notifications_on_user_to_id"
   end
 
+  create_table "people", force: :cascade do |t|
+    t.string "username"
+    t.string "firstname"
+    t.string "lastname"
+    t.string "telephone"
+    t.string "country"
+    t.string "city"
+    t.string "address"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.bigint "user_id"
+    t.index ["user_id"], name: "index_people_on_user_id"
+  end
+
   create_table "ratings", force: :cascade do |t|
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -89,4 +103,5 @@ ActiveRecord::Schema.define(version: 2018_12_03_171844) do
     t.index ["reset_password_token"], name: "index_users_on_reset_password_token", unique: true
   end
 
+  add_foreign_key "people", "users"
 end
