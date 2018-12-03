@@ -4,7 +4,7 @@
 
 .w3-light-grey{
     color: #000!important;
-    background-color: #f1f1f1!important;
+    //background-color: #f1f1f1!important;
     height: auto;
     overflow: auto;
     margin-left: auto;
@@ -61,6 +61,14 @@
 }
 
 .fa{
+    display: inline-block;
+    font: normal normal normal 14px/1 FontAwesome;
+    font-size: inherit;
+    text-rendering: auto;
+    -webkit-font-smoothing: antialiased;
+}
+
+.fas{
     display: inline-block;
     font: normal normal normal 14px/1 FontAwesome;
     font-size: inherit;

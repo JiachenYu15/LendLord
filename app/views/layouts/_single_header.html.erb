@@ -4,21 +4,24 @@
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
       <span class="oi oi-menu"></span> Menu
     </button>
-
     <div class="collapse navbar-collapse" id="ftco-nav">
       <ul class="navbar-nav ml-auto">
-        <% if logged_in? %>
-          <li class="nav-item"><%= link_to "Hi, " + @current_user.username, personal_home_index_path, class:"nav-link"%></li>
-          <li class="nav-item"><%= link_to "User Items", user_items_path, class:"nav-link" %></li>
-          <li class="nav-item"><%= link_to "Transaction", transactions_path, class:"nav-link"%></li>
-          <li class="nav-item"> <%= link_to "Log Out", logout_path, method: :delete, class:"nav-link"%></li>
+        <% if user_signed_in? %>
+          <% @person = Person.find_by_user_id(current_user.id) %>
 
-      <% else %>
-          <li class="nav-item"><%= link_to "Sign Up", signup_path, class:"nav-link"%></li>
-          <li class="nav-item"><%= link_to "Log In", login_path, class:"nav-link"%></li>
+          Welcome,&nbsp <strong> <%= @person.username %></strong>!
+          <li class="nav-item"><%= link_to "Your Profile", personal_home_index_path, class:"nav-link"%></li>
+          <li class="nav-item"><%= link_to "User Items", user_items_path, class:"nav-link" %></li>
+          <li class="nav-item"><%= link_to "Transactions", transactions_path, class:"nav-link"%></li>
+          <li class="nav-item"> <%= link_to "Edit Profile", edit_person_path(@person), class:"nav-link"%></li>
+          <li class="nav-item"> <%= link_to "Settings", edit_user_registration_path, class:"nav-link"%></li>
+          <li class="nav-item"> <%= link_to "Log Out", destroy_user_session_path, method: :delete, class:"nav-link"%></li>
+
+        <% else %>
+          <li class="nav-item"><%= link_to "Sign Up", new_user_registration_path, class:"nav-link"%></li>
+          <li class="nav-item"><%= link_to "Log In", new_user_session_path, class:"nav-link"%></li>
         <% end %>
         <li class="nav-item"><%= link_to "Lend", new_item_path, class:"nav-link"%></li>
-        <li class="nav-item"><%= link_to "Items", items_path, class:"nav-link"%></li>
         <li class="nav-item"><%= link_to "Friends", friends_path, class:"nav-link"%></li>
 
 

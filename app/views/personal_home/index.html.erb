@@ -9,11 +9,12 @@
                     <%= image_tag("/assets/test_profile.jpg", size:"350x233", style:'width: 100%;') %>
                 </div>
 
-                <h1 class="w3-padding-16">Welcome <%= @user.username %></h1>
-                <p><i class="fa fa-user-circle fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.fname%> <%=@user.lname%></p>
-                <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.address%></p>
+                <h1 class="w3-padding-16">Welcome <%= @person.username %></h1>
+                <p><i class="fa fa-user-circle fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@person.firstname%> <%=@person.lastname%></p>
                 <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.email%></p>
-                <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.cell_number%></p>
+                <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@person.telephone%></p>
+                <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@person.address%></p>
+                <p><i class="fas fa-map-marker fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@person.city%>, <%= @person.country%></p>
 
             </div>
             <br>

@@ -3,6 +3,7 @@ class PersonalHomeController < ApplicationController
     def index
         @user_id = current_user.id
         @user = User.find(@user_id)
+        @person = @user.person
         
         #Get the lending transactions
         @lend_items = Item.where(["user_id = ? AND is_available = ?", @user_id, false])
@@ -23,8 +24,9 @@ class PersonalHomeController < ApplicationController
         end
 
         @rating_average = (@total_score.to_f / @your_ratings.size).round(2)
-         #awaitfriends contains all friends requests the user has received
-        @awaitfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, date(a.created_at) as drecv from friends a, users b where a.user_to_id = #{session[:user_id]} and a.has_accepted = false and b.id = a.user_from_id")
+        
+        #awaitfriends contains all friends requests the user has received
+        @awaitfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, date(a.created_at) as drecv from friends a, people b where a.user_to_id = #{current_user.id} and a.has_accepted = false and b.user_id = a.user_from_id")
 
         @notifications = Notification.where(["user_to_id = ? AND has_seen = false", @user_id])
                                                 
