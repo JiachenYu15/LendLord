@@ -44,6 +44,7 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     @user = User.find(@item.user_id)
+    @transaction_state = params['transaction_state']
   end
 
   def user_items

@@ -1,31 +1,70 @@
-<%= render :partial => "layouts/header", :locals => {:title => "Item"}%>
+<% if @transaction_state == 'created' %>
+  <%= render :partial => "layouts/header", :locals => {:title => "Congratulations!", :subtitle => "Please check owner's personal information below to make contact." } %>
 
-<%= render "layouts/search_bar" %>
 
-<section class="ftco-section">
-  <div class="container">
-    <div class="row justify-content-center mb-5 pb-3">
-      <div class="col-md-7 heading-section text-center fadeInUp ftco-animated">
-        <h2 class="mb-4">
-          <% flash.each do |key, value| %>
-            <strong><%= value %></strong>
-          <% end %>
-        </h2>
-      </div>
-    </div>
-  </div>
-
-  <div class="container">
-    <div class="row">
-
-      <div class="col-lg-3 sidebar order-md-last" style="padding-left: 2%;padding-right: 2%;">
-        <div class="sidebar-wrap">
-          <h3 class="heading mb-4">User <%= @user.username %></h3>
-          <div class="img img-2 d-flex justify-content-center align-items-center" style="height:300px;background-image: url('/assets/default_profile.jpg');"></div>
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-7 heading-section text-center fadeInUp ftco-animated">
+          <h2 class="mb-4">
+            <% flash.each do |key, value| %>
+              <strong><%= value %></strong>
+            <% end %>
+          </h2>
         </div>
       </div>
+    </div>
 
-      <div class="col-lg-9">
+    <div class="container">
+      <div class="row">
+        <div class="col-sm col-md-6 col-lg-4">
+        <div class="destination" style="padding-left: 2%;padding-left: 2%;">
+          <h3>User <%= @user.username %></h3>
+          <div class="img img-2 d-flex justify-content-center align-items-center" style="height:400px;background-image: url('/assets/default_profile.jpg');"></div>
+        </div>
+        </div>
+        <div class="col-md align-items-end">
+          <h3>User Information</h3>
+          <p><i class="fa fa-user-circle fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.fname%> <%=@user.lname%></p>
+          <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.address%></p>
+          <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.email%></p>
+          <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.cell_number%></p>
+        </div>
+      </div>
+    </div>
+  </section>
+  <%= render "layouts/footer"%>
+
+<% else %>
+
+  <%= render :partial => "layouts/header", :locals => {:title => "Item"}%>
+
+  <%= render "layouts/search_bar" %>
+
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-7 heading-section text-center fadeInUp ftco-animated">
+          <h2 class="mb-4">
+            <% flash.each do |key, value| %>
+              <strong><%= value %></strong>
+            <% end %>
+          </h2>
+        </div>
+      </div>
+    </div>
+
+    <div class="container">
+      <div class="row">
+
+        <div class="col-lg-3 sidebar order-md-last" style="padding-left: 2%;padding-right: 2%;">
+          <div class="sidebar-wrap">
+            <h3 class="heading mb-4">User <%= @user.username %></h3>
+            <div class="img img-2 d-flex justify-content-center align-items-center" style="height:300px;background-image: url('/assets/default_profile.jpg');"></div>
+          </div>
+        </div>
+
+        <div class="col-lg-9">
 
 
           <div class="destination" style="padding-left: 10%;padding-right: 10%;">
@@ -59,15 +98,17 @@
                 <span class="ml-auto"><%= link_to 'Borrow Now', borrow_item_path(@item.id) %></span>
               </p>
             </div>
-        </div>
+          </div>
 
+        </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
 
-<%= render "layouts/more_items"%>
-<br>
+  <%= render "layouts/more_items"%>
+  <br>
 
-<%= render "layouts/footer"%>
+  <%= render "layouts/footer"%>
+
+<% end %>

@@ -42,7 +42,10 @@ class TransactionsController < ApplicationController
     if @transaction.save
       @item.is_available = false
       if @item.save
-      redirect_to @transaction
+      redirect_to ({ controller: 'items',
+                     id: transaction_params[:item_id],
+                     action: 'show',
+                     transaction_state: 'created' })
       else
         redirect_to({ controller: 'items',
                       id: transaction_params[:item_id],
