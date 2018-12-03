@@ -1,7 +1,8 @@
 class ApplicationController < ActionController::Base
 
-    protect_from_forgery with: :exception
-    include SessionsHelper
+    before_action :authenticate_user!, :except => [:index]
+
+    #include SessionHelper
 
     add_flash_types :danger, :info, :warning, :success
 
