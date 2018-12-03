@@ -8,4 +8,20 @@ module TransactionsHelper
     return payment.execute(payer_id: params[:PayerID])
   end
 
+  # def refund_paypal_payment?(payment_id)
+  #   payment = PayPal::SDK::REST::Payment.find(payment_id)
+  #   sale = payment.transactions[0].related_resources[0].sale
+  #
+  #   refund = sale.refund_request
+  #
+  #   # Check refund status
+  #   if refund.success?
+  #     puts "Refund[#{@refund.id}] Success"
+  #   else
+  #     puts "Unable to Refund"
+  #     puts @refund.error.inspect
+  #   end
+  #
+  # end
+
 end

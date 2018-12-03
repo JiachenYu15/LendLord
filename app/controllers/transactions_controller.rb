@@ -3,34 +3,63 @@ class TransactionsController < ApplicationController
   include TransactionsHelper
 
   def index
+    check_logged_in
+
     @transactions = Transaction.all
   end
 
   def show
+    check_logged_in
+
     @transaction = Transaction.find(params[:id])
   end
 
   def new
+    check_logged_in
+    @item = Item.find(params['itemID'])
+    @payment_id = params['paymentId']
+    @token = params['token']
+    @payer_id = params['PayerID']
     @transaction = Transaction.new
-    execute_paypal_payment?
-
+    # refund_paypal_payment?(params[:paymentId])
   end
 
   def edit
+    check_logged_in
+
     @transaction = Transaction.find(params[:id])
   end
 
   def create
+    @item = Item.find(transaction_params[:item_id])
+    unless execute_paypal_payment?
+      redirect_to({ controller: 'items',
+                    id: transaction_params[:item_id],
+                    action: 'show' },
+                  alert: 'Cannot execute PayPal payment, please try again later.' ) and return
+    end
     @transaction = Transaction.new(transaction_params)
-
     if @transaction.save
+      @item.is_available = false
+      if @item.save
       redirect_to @transaction
+      else
+        redirect_to({ controller: 'items',
+                      id: transaction_params[:item_id],
+                      action: 'show' },
+                    alert: 'Item is not available right now, please ask for refund.' ) and return
+      end
     else
-      render 'new'
+      redirect_to({ controller: 'items',
+                    id: transaction_params[:item_id],
+                    action: 'show' },
+                  alert: 'Cannot process your request, please ask for refund.' ) and return
     end
   end
 
   def update
+    check_logged_in
+
     @transaction = Transaction.find(params[:id])
 
     if @transaction.update(transaction_params)
@@ -51,12 +80,12 @@ class TransactionsController < ApplicationController
 
   def transaction_params
     params.require(:transaction).permit(:item_id,
-                                        :borrow_from_user_id,
-                                        :lend_to_user_id,
+                                        :user_id,
                                         :start_date,
                                         :due_date,
                                         :deposit,
-                                        :status)
+                                        :status,
+                                        :payment_id)
   end
 
 end

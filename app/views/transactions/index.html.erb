@@ -6,7 +6,6 @@
   <tr>
     <th>Transaction ID</th>
     <th>Item ID</th>
-    <th>Borrow from User ID</th>
     <th>Lend to User ID</th>
     <th>Start Date</th>
     <th>Due Date</th>
@@ -19,8 +18,7 @@
     <tr>
       <td><%= transaction.id %></td>
       <td><%= transaction.item_id %></td>
-      <td><%= transaction.borrow_from_user_id %></td>
-      <td><%= transaction.lend_to_user_id %></td>
+      <td><%= transaction.user_id %></td>
       <td><%= transaction.start_date %></td>
       <td><%= transaction.due_date %></td>
       <td><%= transaction.deposit %></td>
