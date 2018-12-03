@@ -1,16 +1,16 @@
 class FriendsController < ApplicationController
-  before_action :check_session
+  before_action :require_login
     
   def index
 
     #myfriends contains all the friends the user has
-    @myfriends = ActiveRecord::Base.connection.exec_query("(select a.id as ftid, a.user_from_id as fid, date(a.updated_at) as fsince, concat(b.fname,' ',b.lname) as uname, b.username as fuser from friends a, users b where a.user_to_id = #{session[:user_id]} and a.has_accepted=true and b.id = a.user_from_id) union (select a.id as ftid, a.user_to_id as fid, date(a.updated_at) as fsince, concat(b.fname,' ',b.lname) as uname, b.username as fuser from friends a, users b where a.user_from_id = #{session[:user_id]} and a.has_accepted=true and b.id = a.user_to_id)")
+    @myfriends = ActiveRecord::Base.connection.exec_query("(select a.id as ftid, a.user_from_id as fid, date(a.updated_at) as fsince, concat(b.firstname,' ',b.lastname) as uname, b.username as fuser from friends a, people b where a.user_to_id = #{current_user.id} and a.has_accepted=true and b.user_id = a.user_from_id) union (select a.id as ftid, a.user_to_id as fid, date(a.updated_at) as fsince, concat(b.firstname,' ',b.lastname) as uname, b.username as fuser from friends a, people b where a.user_from_id = #{current_user.id} and a.has_accepted=true and b.user_id = a.user_to_id)")
     
     #pendfriends contains all friends requests the user has sent
-    @pendfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, date(a.created_at) as dsend from friends a, users b where a.user_from_id = #{session[:user_id]} and a.has_accepted = false and b.id = a.user_to_id")
+    @pendfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, date(a.created_at) as dsend from friends a, people b where a.user_from_id = #{current_user.id} and a.has_accepted = false and b.user_id = a.user_to_id")
 
     #awaitfriends contains all friends requests the user has received
-    @awaitfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, date(a.created_at) as drecv from friends a, users b where a.user_to_id = #{session[:user_id]} and a.has_accepted = false and b.id = a.user_from_id")
+    @awaitfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, date(a.created_at) as drecv from friends a, people b where a.user_to_id = #{current_user.id} and a.has_accepted = false and b.user_id = a.user_from_id")
 
     #@allfriends = Friend.all
 
@@ -39,20 +39,20 @@ class FriendsController < ApplicationController
   def search
     unless params[:field].blank?
       _field = params[:field].downcase
-      _prev = ActiveRecord::Base.connection.exec_query("select a.id from users a where a.id != #{session[:user_id]} and lower(a.username) like '%#{_field}%'")
+      _prev = ActiveRecord::Base.connection.exec_query("select user_id from people where user_id != #{current_user.id} and lower(username) like '%#{_field}%'")
       if _prev.blank?
         @results = nil
       else
         _temp_users = Array.new
         _prev.each do |row|
-          _check1 = ActiveRecord::Base.connection.exec_query("select id from friends where (user_from_id = #{session[:user_id]} and user_to_id = #{row['id']}) or (user_to_id = #{session[:user_id]} and user_from_id = #{row['id']})")
-          _check2 = ActiveRecord::Base.connection.exec_query("select id from blocks where (block_from_id = #{session[:user_id]} and block_to_id = #{row['id']}) or (block_to_id = #{session[:user_id]} and block_from_id = #{row['id']})")
+          _check1 = ActiveRecord::Base.connection.exec_query("select id from friends where (user_from_id = #{current_user.id} and user_to_id = #{row['user_id']}) or (user_to_id = #{current_user.id} and user_from_id = #{row['user_id']})")
+          _check2 = ActiveRecord::Base.connection.exec_query("select id from blocks where (block_from_id = #{current_user.id} and block_to_id = #{row['user_id']}) or (block_to_id = #{current_user.id} and block_from_id = #{row['user_id']})")
           if _check1.blank? and _check2.blank?
-            _temp_users.push(row['id'])
+            _temp_users.push(row['user_id'])
           end
         end
         if _temp_users.count > 0
-          @results = ActiveRecord::Base.connection.exec_query("select a.id, a.username from users a where a.id in (#{_temp_users.join(', ')})")
+          @results = ActiveRecord::Base.connection.exec_query("select user_id, username from people where user_id in (#{_temp_users.join(', ')})")
         else
           @results = nil
         end
@@ -64,13 +64,13 @@ class FriendsController < ApplicationController
   end
 
   def manage
-    @blockfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, date(a.created_at) as fsince from users b, blocks a where a.block_from_id = #{session[:user_id]} and b.id = a.block_to_id")
+    @blockfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, date(a.created_at) as fsince from people b, blocks a where a.block_from_id = #{current_user.id} and b.user_id = a.block_to_id")
   end
 
   def accept
     @friend = Friend.find(params[:id])
     if @friend.update(has_accepted: true)
-      _usr = User.find(session[:user_id])
+      _usr = Person.find_by user_id: current_user.id
       Notification.fwd(dest: @friend.user_from_id, msg:"#{_usr.username} has accepted your friend request")
       redirect_to friends_path, success: "Friend successfully added"
     else
@@ -97,9 +97,9 @@ class FriendsController < ApplicationController
   end
 
   def sendf
-    @friend = Friend.new(user_from_id: session[:user_id], user_to_id: params[:id], has_accepted: false)
+    @friend = Friend.new(user_from_id: current_user.id, user_to_id: params[:id], has_accepted: false)
     if @friend.save
-      _usr = User.find(session[:user_id])
+      _usr = Person.find_by user_id: current_user.id
       Notification.fwd(dest: @friend.user_to_id, msg:"#{_usr.username} has send you a friend request")
       redirect_to new_friend_path, success: "Friend request sent successfully"
     else
@@ -108,7 +108,7 @@ class FriendsController < ApplicationController
   end
 
   def ablock
-    @block = Block.new(block_from_id: session[:user_id], block_to_id: params[:id])
+    @block = Block.new(block_from_id: current_user.id, block_to_id: params[:id])
     if @block.save
       redirect_to new_friend_path, success: "User successfully blocked"
     else
@@ -121,14 +121,5 @@ class FriendsController < ApplicationController
     @block.destroy
     redirect_to manage_friends_path, success: "User successfully unblocked"
   end 
-
-  private
-    def check_session
-      if session[:user_id]
-        @user = session[:user_id]
-      else
-        redirect_to :controller => 'sessions', :action => 'new'
-      end
-    end
 
 end
