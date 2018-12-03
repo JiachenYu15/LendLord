@@ -40,8 +40,8 @@ caption {
     <tr>
       <td><%= f["username"] %></td>
       <td>
-        <%= link_to "Send Friend Request", sendf_friend_path(f["id"]) %>&nbsp|
-        <%= link_to "Block User", ablock_friend_path(f["id"]) %>    
+        <%= link_to "Send Friend Request", sendf_friend_path(f["user_id"]) %>&nbsp|
+        <%= link_to "Block User", ablock_friend_path(f["user_id"]) %>    
       </td>
     </tr>
   <% end %>
