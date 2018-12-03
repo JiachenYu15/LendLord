@@ -59,4 +59,8 @@ class TransactionsController < ApplicationController
                                         :status)
   end
 
+  def rating
+    @rating = Rating.new 
+  end
+
 end

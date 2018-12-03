@@ -62,4 +62,8 @@ class PersonalHomeController < ApplicationController
       end
     end
 
+    def rating
+        @rating = Rating.new
+    end
+
 end
