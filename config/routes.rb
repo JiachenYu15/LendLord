@@ -1,5 +1,7 @@
 Rails.application.routes.draw do
 
+    devise_for :users, controllers: {registrations: 'users/registrations',sessions: 'users/sessions'}
+
     root "home#index" #Calls index method of home controller, then displays index view for home
     get 'home/about' #Creates a new route called "home_about"
     get 'home/terms_of_service'

@@ -7,15 +7,17 @@
 
     <div class="collapse navbar-collapse" id="ftco-nav">
       <ul class="navbar-nav ml-auto">
-        <% if logged_in? %>
-          <li class="nav-item"><%= link_to "Hi, " + @current_user.username, personal_home_index_path, class:"nav-link"%></li>
+        <% if user_signed_in? %>
+          Logged in as <strong><%= current_user.email %></strong>. 
+          <li class="nav-item"><%= link_to "Your Profile", personal_home_index_path, class:"nav-link"%></li>
           <li class="nav-item"><%= link_to "User Items", user_items_path, class:"nav-link" %></li>
           <li class="nav-item"><%= link_to "Transaction", transactions_path, class:"nav-link"%></li>
-          <li class="nav-item"> <%= link_to "Log Out", logout_path, method: :delete, class:"nav-link"%></li>
+          <li class="nav-item"> <%= link_to "Edit Profile", edit_user_registration_path, class:"nav-link"%></li>
+          <li class="nav-item"> <%= link_to "Log Out", destroy_user_session_path, method: :delete, class:"nav-link"%></li>
 
         <% else %>
-          <li class="nav-item"><%= link_to "Sign Up", signup_path, class:"nav-link"%></li>
-          <li class="nav-item"><%= link_to "Log In", login_path, class:"nav-link"%></li>
+          <li class="nav-item"><%= link_to "Sign Up", new_user_registration_path, class:"nav-link"%></li>
+          <li class="nav-item"><%= link_to "Log In", new_user_session_path, class:"nav-link"%></li>
         <% end %>
         <li class="nav-item"><%= link_to "Lend", new_item_path, class:"nav-link"%></li>
         <li class="nav-item"><%= link_to "Friends", friends_path, class:"nav-link"%></li>
