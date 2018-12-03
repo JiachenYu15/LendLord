@@ -44,6 +44,7 @@ class ItemsController < ApplicationController
   def show
     @item = Item.find(params[:id])
     @user = User.find(@item.user_id)
+    @transaction_state = params['transaction_state']
   end
 
   def user_items
@@ -52,11 +53,25 @@ class ItemsController < ApplicationController
   end
 
   def search
+    allItems = Item.all
+
+    # Make sure user doesn't search for their own items
+    if logged_in?
+      allItems = Item.where("user_id <> ?", "#{@current_user.id}")
+    end
+
     if params[:search].blank?
-      @results = Item.all
+      # Return all items if user does not input search parameters
+      @results = allItems
     else
+      # Search according to user input
       @parameter = params[:search].downcase
-      @results = Item.where("lower(name) LIKE ? OR lower(description) LIKE ?", "%#{@parameter}%", "%#{@parameter}%").where(:is_deleted => false).where(:is_available => true)
+      @location = params[:location].downcase
+      @results = allItems.where("lower(name) LIKE ? OR lower(description) LIKE ?", "%#{@parameter}%", "%#{@parameter}%").where(:is_deleted => false).where(:is_available => true)
+
+      if(!@location.blank?)
+        @results = @results.joins(:user).where("lower(address) LIKE ? OR address = '' OR ? = ''", "%#{@location}", "%#{@location}")
+      end
     end
   end
 
@@ -69,9 +84,11 @@ class ItemsController < ApplicationController
   def borrow
     check_logged_in
     @item = Item.find(params[:id])
-    return if create_paypal_payment?
+    if logged_in?
+      return if create_paypal_payment?
 
-    flash.now[:error] = 'Oops! Something wrong with PayPal, Please try again later.'
+      flash.now[:error] = 'Oops! Something wrong with PayPal, Please try again later.'
+    end
   end
 
   private

@@ -1,5 +1,111 @@
-<h1>New transaction</h1>
+<%= render :partial => "layouts/header", :locals => {:title => "Need Confirmation", :subtitle => 'Confirm your duration'}%>
 
-<%= render 'form' %>
+<div class="tab-content p-4 px-5" id="v-pills-tabContent">
+  <%= form_with(model: @transaction, html: { autocomplete: "off", onclick: "return validateDate()", name: "new_transaction", id: "new_transaction" }) do |form| %>
+    <!--Hidden value to pass item_id, user_id, deposit status and payment_id-->
+    <input type="hidden" id="transaction_item_id" name="transaction[item_id]" value=<%= @item.id %> >
+    <input type="hidden" id="transaction_user_id" name="transaction[user_id]" value=<%= @user.id %> >
+    <input type="hidden" id="transaction_deposit" name="transaction[deposit]" value=<%= @item.deposit %> >
+    <input type="hidden" id="transaction_status" name="transaction[status]" value="pending" >
+    <input type="hidden" id="transaction_payment_id" name="transaction[payment_id]" value=<%= @payment_id %> >
+    <input type="hidden" id="paymentId" name="paymentId" value=<%= @payment_id %> >
+    <input type="hidden" id="token" name="token" value=<%= @token %> >
+    <input type="hidden" id="PayerID" name="PayerID" value=<%= @payer_id %> >
+    <div class="row">
+      <div class="col-md align-items-end">
+        <div class="form-group">
+          <label for="#">Start Date</label>
+          <div class="form-field">
+            <div class="icon"><span class="icon-calendar"></span></div>
+            <input class="form-control" id="transaction_start_date" name="transaction[start_date]" type="text" placeholder="yyyy-mm-dd" required>
+          </div>
+        </div>
+      </div>
+      <div class="col-md align-items-end">
+        <div class="form-group">
+          <label for="#">Due Date</label>
+          <div class="form-field">
+            <div class="icon"><span class="icon-calendar"></span></div>
+            <input class="form-control" id="transaction_due_date" name="transaction[due_date]" type="text" placeholder="yyyy-mm-dd" required>
+          </div>
+        </div>
+      </div>
+      <div class="col-md align-self-end">
+        <div class="form-group">
+          <div class="form-field">
+            <input type="submit" value="Confirm" class="form-control btn btn-primary">
+          </div>
+        </div>
+      </div>
+    </div>
+  <% end %>
+</div>
 
-<%= link_to 'Back', transactions_path %>
+<!-- snackbar -->
+<div id="snackbar">Your Due Date must one day later than Start Date!</div>
+<!-- show snackbar function -->
+<script>
+    function showSnackbar() {
+        // Get the snackbar DIV
+        var mySnackbar = document.getElementById("snackbar");
+
+        // Add the "show" class to DIV
+        mySnackbar.className = "show";
+
+        // After 3 seconds, remove the show class from DIV
+        setTimeout(function(){ mySnackbar.className = mySnackbar.className.replace("show", ""); }, 3000);
+    }
+</script>
+
+
+<!--  jQuery -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.11.3.min.js"></script>
+<!-- Bootstrap Date-Picker Plugin -->
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+<!--  Start Date -->
+<script>
+    $(document).ready(function(){
+        var date_input=$('input[name="transaction[start_date]"]'); //our date input has the name "start_date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        var  options={
+            format: 'yyyy-mm-dd',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+            startDate: '0',
+        };
+        date_input.datepicker(options);
+    })
+</script>
+<!--  Due Date -->
+<script>
+    $(document).ready(function(){
+        var date_input=$('input[name="transaction[due_date]"]'); //our date input has the name "due_date"
+        var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+        var options={
+            format: 'yyyy-mm-dd',
+            container: container,
+            todayHighlight: true,
+            autoclose: true,
+            startDate: '0',
+        };
+        date_input.datepicker(options);
+    })
+</script>
+<!-- Date validation -->
+<script>
+    function validateDate() {
+        var start_date = Date.parse(document.forms["new_transaction"]["transaction[start_date]"].value);
+        var due_date = Date.parse(document.forms["new_transaction"]["transaction[due_date]"].value);
+        if (start_date >= due_date) {
+            showSnackbar();
+            return false;
+        }
+        else {
+            return true;
+        }
+    }
+</script>
+
+<%= render "layouts/footer" %>
