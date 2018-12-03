@@ -25,7 +25,11 @@
     <div class="container">
       <div class="row justify-content-center mb-5 pb-3">
         <div class="col-md-7 heading-section text-center">
-          <h4><b>Showing <%= @results.size  %> results for "<%= @parameter  %>"</b></h4>
+          <% if @parameter.blank? %>
+            <h4><b>Showing all <%= @results.size  %> items</b></h4>
+          <% else %>
+            <h4><b>Showing <%= @results.size  %> results for "<%= @parameter  %>" </b></h4>
+          <% end %>
         </div>
       </div>
     </div>
@@ -108,7 +112,7 @@
                     <p style="height: 50px;"><%= item.description %></p>
                     <hr>
                     <p class="bottom-area d-flex">
-                      <span><i class="icon-map-o"></i> Toronto, ON</span>
+                      <span><i class="icon-map-o"></i><%= item.user.address %> </span>
                       <span class="ml-auto"><%= link_to 'View Details', item_path(item.id) %></span>
                     </p>
                   </div>
