@@ -70,6 +70,8 @@ class FriendsController < ApplicationController
   def accept
     @friend = Friend.find(params[:id])
     if @friend.update(has_accepted: true)
+      _usr = User.find(session[:user_id])
+      Notification.fwd(dest: @friend.user_from_id, msg:"#{_usr.username} has accepted your friend request")
       redirect_to friends_path, success: "Friend successfully added"
     else
       redirect_to friends_path, danger: "An error ocurred"
@@ -97,6 +99,8 @@ class FriendsController < ApplicationController
   def sendf
     @friend = Friend.new(user_from_id: session[:user_id], user_to_id: params[:id], has_accepted: false)
     if @friend.save
+      _usr = User.find(session[:user_id])
+      Notification.fwd(dest: @friend.user_to_id, msg:"#{_usr.username} has send you a friend request")
       redirect_to new_friend_path, success: "Friend request sent successfully"
     else
       redirect_to new_friend_path, danger: "An error ocurred"
