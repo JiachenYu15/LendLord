@@ -57,8 +57,8 @@ module ItemsHelper
       experience_profile_id: fetch_paypal_web_experience_profile.id,
       # Set redirect URLs
       redirect_urls: {
-        return_url: "http://localhost:3000/transactions/new?itemID=#{@item.id}",
-        cancel_url: 'http://localhost:3000' # Redirected to index with flash
+        return_url: "http://lendlord.herokuapp.com/transactions/new?itemID=#{@item.id}",
+        cancel_url: 'http://lendlord.herokuapp.com/' # Redirected to index with flash
       }
     )
     # Create payment
