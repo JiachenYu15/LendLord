@@ -8,17 +8,19 @@ class Person < ApplicationRecord
     validates :lastname, :presence => true
     validates :telephone,:presence => true
     validates :country, :presence => true
+    validates :state, :presence => true
     validates :city, :presence => true
     validates :address,:presence => true
+    validates :addressno,:presence => true, numericality: { only_integer: true }
 
-    geocoded_by :address
+    geocoded_by :location
     after_validation :geocode
 
     reverse_geocoded_by :lat, :lon
     after_validation :reverse_geocode
 
     def location
-        [street, city, country].compact.join(', ')
+        [addressno, address, city, state, country].compact.join(', ')
     end
 
 end
