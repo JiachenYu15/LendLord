@@ -18,7 +18,11 @@ caption {
 }
 </style>
 
-<%= render :partial => "layouts/header", :locals => {:title => "Blocked Users"}  %>
+<%= render "layouts/single_header" %>
+
+<div class="w3-card" style="margin-top:100px">
+  <div style="overflow-x:auto;">
+    <h2 class="w3-padding-16"><i class="fa fa-fw fa-users w3-margin-right w3-text-teal"></i>My Friends</h2>
 
 <br><div class="container">
   <font size="5"><b>Blocking or being blocked by an user will result in the following:</b></font><br>
@@ -53,6 +57,8 @@ caption {
 <% end %>
 
 </div><br>
+  </div>
+</div>
 
 
 <%= render "layouts/footer" %>

@@ -18,7 +18,11 @@ caption {
 }
 </style>
 
-<%= render :partial => "layouts/header", :locals => {:title => "Social and Friends"}  %>
+<%= render "layouts/single_header" %>
+
+<div class="w3-card" style="margin-top:100px">
+  <div style="overflow-x:auto;">
+    <h2 class="w3-padding-16"><i class="fa fa-fw fa-users w3-margin-right w3-text-teal"></i>My Friends</h2>
 
 <div class="container">
 <br><%= link_to "Find New Users", new_friend_path%>&nbsp&nbsp&nbsp
@@ -101,5 +105,7 @@ caption {
 
 </div>
 <br><br>
+  </div>
+</div>
 
 <%= render "layouts/footer" %>
