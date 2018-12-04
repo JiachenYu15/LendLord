@@ -12,7 +12,8 @@ seed_users = [
 	{password: "password2", email: "john@gmail.com"},
 	{password: "password3", email: "miles@gmail.com"},
 	{password: "password4", email: "victor@gmail.com"},
-	{password: "password5", email: "calix@gmail.com"}
+	{password: "password5", email: "calix@gmail.com"},
+  {password: "adminadmin", email: "admin@gmail.com"}
 ]
 
 seed_users.each do |user|
@@ -25,7 +26,8 @@ seed_people = [
     {username: "john", firstname: "John", lastname: "Xie", telephone: "6471234567", state: "Ontario", country: "Canada", city: "Montreal", address: "901 Rue du Square-Victoria", addressno:"901", user_id: "2"},
     {username: "miles", firstname: "Miles", lastname: "Yu", telephone: "4161234567", state: "Ontario", country: "Canada", city: "Toronto", address: "222 Elm St.", addressno:"222", user_id: "3"},
     {username: "victor", firstname: "Victor", lastname: "Vallejo", telephone: "4161111111", state: "Ontario", country: "Canada", city: "Vancouver", address: "900 W Georgia St.", addressno:"900", user_id: "4"},
-    {username: "calix", firstname: "Calix", lastname: "Zhang", telephone: "6479993333", state: "Ontario", country: "Canada", city: "Toronto", address: "801 Bay St.", addressno:"801", user_id: "5"}
+    {username: "calix", firstname: "Calix", lastname: "Zhang", telephone: "6479993333", state: "Ontario", country: "Canada", city: "Toronto", address: "801 Bay St.", addressno:"801", user_id: "5"},
+    {username: "admin", firstname: "admin", lastname: "admin", telephone: "6479999999", state: "Ontario", country: "Canada", city: "Toronto", address: "999 Bay St.", addressno:"999", user_id: "6"}
 ]
 
 seed_people.each do |person|
