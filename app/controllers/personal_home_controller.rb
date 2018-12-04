@@ -6,7 +6,7 @@ class PersonalHomeController < ApplicationController
         @person = @user.person
         
         #Get the lending transactions
-        @lend_items = Item.where(["user_id = ? AND is_available = ?", @user_id, false])
+        @lend_items = Item.where(["person_id = ? AND is_available = ?", @user_id, false])
         ids = Array.new
         @lend_items.each do |x|
             ids.push(x.id)
