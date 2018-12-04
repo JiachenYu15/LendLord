@@ -16,7 +16,7 @@
             <div class="field form-group">
               <%= f.label :password %>
               <% if @minimum_password_length %>
-              <em>(<%= @minimum_password_length %> characters minimum)</em>
+                <em>(<%= @minimum_password_length %> characters minimum)</em>
               <% end %><br />
               <%= f.password_field :password, autocomplete: "new-password", :class => 'form-control' %>
             </div>
@@ -24,6 +24,11 @@
             <div class="field form-group">
               <%= f.label :password_confirmation %><br />
               <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => 'form-control' %>
+            </div>
+
+            <div class="field">
+              <%= f.label :terms_of_service, "Accept LendLord's Terms of Service" %>
+              <%= f.check_box :terms_of_service, :required => true, :style => "width: auto; margin-top: 8px; margin-left: 5px;" %>
             </div>
 
             <div class="actions">
