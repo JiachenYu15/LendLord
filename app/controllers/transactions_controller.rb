@@ -66,7 +66,7 @@ class TransactionsController < ApplicationController
     @transaction = Transaction.find(params[:id])
     if @transaction.update(transaction)
       if transaction['status'] == 'returned'
-        redirect_to ({ controller: 'ratings',
+        redirect_to ({ controller: 'rating',
                        action: 'new',
                        transaction_id: @transaction.id,
                        rating_user_id: current_user.id,
@@ -77,7 +77,7 @@ class TransactionsController < ApplicationController
         @returned_item.is_available = true
         @returned_item.save
         refund_paypal_payment?(@transaction.payment_id)
-        redirect_to ({ controller: 'ratings',
+        redirect_to ({ controller: 'rating',
                        action: 'new',
                        transaction_id: @transaction.id,
                        rating_user_id: @transaction.item.user_id,
