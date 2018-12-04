@@ -1,5 +1,8 @@
 class HomeController < ApplicationController
 
+  skip_before_action :authenticate_user!
+  skip_before_action :require_login
+
   def index
     if params.has_key?(:token)
       flash.now[:danger] = 'Payment is incomplete, please try again.'
