@@ -66,7 +66,7 @@ class PeopleController < ApplicationController
     private
 
         def people_params
-            params.require(:person).permit(:username, :firstname, :lastname, :telephone, :country, :state, :city, :address, :addressno)
+            params.require(:person).permit(:username, :firstname, :lastname, :telephone, :country, :state, :city, :address, :addressno, :imgurl)
         end
 
         def check_blocked
