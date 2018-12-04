@@ -14,7 +14,6 @@
                 <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@user.email%></p>
                 <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@person.telephone%></p>
                 <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@person.address%></p>
-                <p><i class="fas fa-map-marker fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@person.city%>, <%= @person.country%></p>
               <p> <%= link_to "Edit Profile", edit_person_path(@person)%></p>
               <p> <%= link_to "Change Password/Delete Account", edit_user_registration_path%></p>
             </div>
