@@ -1,75 +1,112 @@
 <%= render "layouts/single_header" %>
 
-<div class="w3-card" style="margin-top:100px">
-  <div style="overflow-x:auto;">
-    <h2 class="w3-padding-16"><i class="fa fa-fw fa-sign-out w3-margin-right w3-text-teal"></i>All Lending</h2>
-    <% if @lend_transactions.size != 0 %>
+<% if @user.person.username == 'admin' %>
+  <div class="w3-card" style="margin-top:100px; margin-bottom:30pxclse">
+    <div style="overflow-x:auto;">
+      <h2 class="w3-padding-16"><i class="fa fa-fw fa-sign-out w3-margin-right w3-text-teal"></i>All Transactions</h2>
+      <% if @transactions.size != 0 %>
         <table>
-        <tr>
-          <th>Transaction ID</th>
-          <th>Item Name</th>
-          <th>Borrower</th>
-          <th>Start Date</th>
-          <th>Due Date</th>
-          <th>Deposit</th>
-          <th>Status</th>
-        </tr>
-
-        <% @lend_transactions.each do |transaction| %>
           <tr>
-            <td><%= transaction.id %></td>
-            <td><%= link_to transaction.item.name, item_path(transaction.item.id) %></td>
-            <td><%= transaction.user.person.username %></td>
-            <td><%= transaction.start_date %></td>
-            <td><%= transaction.due_date %></td>
-            <td><%= transaction.deposit %></td>
-            <td><%= transaction.status %></td>
+            <th>Transaction ID</th>
+            <th>Item Name</th>
+            <th>Borrower</th>
+            <th>Start Date</th>
+            <th>Due Date</th>
+            <th>Deposit</th>
+            <th>Status</th>
+            <th>Action</th>
           </tr>
-        <%end%>
-      </table>
-    <%else%>
-      <br><i>You didn't lend anything.</i>
-      <br><br>
-    <%end%>
+
+          <% @transactions.each do |transaction| %>
+            <tr>
+              <td><%= transaction.id %></td>
+              <td><%= link_to transaction.item.name, item_path(transaction.item.id) %></td>
+              <td><%= transaction.user.person.username %></td>
+              <td><%= transaction.start_date %></td>
+              <td><%= transaction.due_date %></td>
+              <td><%= transaction.deposit %></td>
+              <td><%= transaction.status %></td>
+              <td><%=  link_to 'Edit', edit_transaction_path(transaction) %></td>
+            </tr>
+          <%end%>
+        </table>
+      <%else%>
+        <br><i>You didn't lend anything.</i>
+        <br><br>
+      <%end%>
+    </div>
   </div>
-</div>
-
-
-
-<div class="w3-card" style="margin-top:30px; margin-bottom:30px">
-  <div style="overflow-x:auto;">
-    <h2 class="w3-padding-16"><i class="fa fa-fw fa-sign-out w3-margin-right w3-text-teal"></i>All Borrowing</h2>
-    <% if @borrow_transactions.size != 0 %>
-      <table>
-        <tr>
-          <th>Transaction ID</th>
-          <th>Item Name</th>
-          <th>Borrower</th>
-          <th>Start Date</th>
-          <th>Due Date</th>
-          <th>Deposit</th>
-          <th>Status</th>
-        </tr>
-
-        <% @borrow_transactions.each do |transaction| %>
+<% else %>
+  <div class="w3-card" style="margin-top:100px">
+    <div style="overflow-x:auto;">
+      <h2 class="w3-padding-16"><i class="fa fa-fw fa-sign-out w3-margin-right w3-text-teal"></i>All Lending</h2>
+      <% if @lend_transactions.size != 0 %>
+          <table>
           <tr>
-            <td><%= transaction.id %></td>
-            <td><%= link_to transaction.item.name, item_path(transaction.item.id) %></td>
-            <td><%= transaction.user.person.username %></td>
-            <td><%= transaction.start_date %></td>
-            <td><%= transaction.due_date %></td>
-            <td><%= transaction.deposit %></td>
-            <td><%= transaction.status %></td>
+            <th>Transaction ID</th>
+            <th>Item Name</th>
+            <th>Borrower</th>
+            <th>Start Date</th>
+            <th>Due Date</th>
+            <th>Deposit</th>
+            <th>Status</th>
           </tr>
-        <%end%>
-      </table>
-    <%else%>
-      <br><i>You didn't borrow anything.</i>
-      <br><br>
-    <%end%>
-  </div>
-</div>
 
+          <% @lend_transactions.each do |transaction| %>
+            <tr>
+              <td><%= transaction.id %></td>
+              <td><%= link_to transaction.item.name, item_path(transaction.item.id) %></td>
+              <td><%= transaction.user.person.username %></td>
+              <td><%= transaction.start_date %></td>
+              <td><%= transaction.due_date %></td>
+              <td><%= transaction.deposit %></td>
+              <td><%= transaction.status %></td>
+            </tr>
+          <%end%>
+        </table>
+      <%else%>
+        <br><i>You didn't lend anything.</i>
+        <br><br>
+      <%end%>
+    </div>
+  </div>
+
+
+
+  <div class="w3-card" style="margin-top:30px; margin-bottom:30px">
+    <div style="overflow-x:auto;">
+      <h2 class="w3-padding-16"><i class="fa fa-fw fa-sign-out w3-margin-right w3-text-teal"></i>All Borrowing</h2>
+      <% if @borrow_transactions.size != 0 %>
+        <table>
+          <tr>
+            <th>Transaction ID</th>
+            <th>Item Name</th>
+            <th>Borrower</th>
+            <th>Start Date</th>
+            <th>Due Date</th>
+            <th>Deposit</th>
+            <th>Status</th>
+          </tr>
+
+          <% @borrow_transactions.each do |transaction| %>
+            <tr>
+              <td><%= transaction.id %></td>
+              <td><%= link_to transaction.item.name, item_path(transaction.item.id) %></td>
+              <td><%= transaction.user.person.username %></td>
+              <td><%= transaction.start_date %></td>
+              <td><%= transaction.due_date %></td>
+              <td><%= transaction.deposit %></td>
+              <td><%= transaction.status %></td>
+            </tr>
+          <%end%>
+        </table>
+      <%else%>
+        <br><i>You didn't borrow anything.</i>
+        <br><br>
+      <%end%>
+    </div>
+  </div>
+<% end %>
 
 <%= render "layouts/footer" %>
 
