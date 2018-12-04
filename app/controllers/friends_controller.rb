@@ -45,9 +45,9 @@ class FriendsController < ApplicationController
       else
         _temp_users = Array.new
         _prev.each do |row|
-          _check1 = ActiveRecord::Base.connection.exec_query("select id from friends where (user_from_id = #{current_user.id} and user_to_id = #{row['user_id']}) or (user_to_id = #{current_user.id} and user_from_id = #{row['user_id']})")
+          #_check1 = ActiveRecord::Base.connection.exec_query("select id from friends where (user_from_id = #{current_user.id} and user_to_id = #{row['user_id']}) or (user_to_id = #{current_user.id} and user_from_id = #{row['user_id']})")
           _check2 = ActiveRecord::Base.connection.exec_query("select id from blocks where (block_from_id = #{current_user.id} and block_to_id = #{row['user_id']}) or (block_to_id = #{current_user.id} and block_from_id = #{row['user_id']})")
-          if _check1.blank? and _check2.blank?
+          if _check2.blank? #and _check1.blank?
             _temp_users.push(row['user_id'])
           end
         end
@@ -84,16 +84,43 @@ class FriendsController < ApplicationController
     redirect_to friends_path, success: "Request succesfully declined"
   end
 
+  def acceptd
+    @friend = Friend.find(params[:id])
+    if @friend.update(has_accepted: true)
+      _usr = Person.find_by user_id: current_user.id
+      Notification.fwd(dest: @friend.user_from_id, msg:"#{_usr.username} has accepted your friend request")
+    end
+    redirect_to request.referrer
+  end
+
+  def rejectd
+    @friend = Friend.find(params[:id])
+    @friend.destroy
+    redirect_to request.referrer
+  end
+
   def remf
     @friend = Friend.find(params[:id])
     @friend.destroy
     redirect_to friends_path, success: "Friend succesfully removed"
   end
 
+  def remfd
+    @friend = Friend.find(params[:id])
+    @friend.destroy
+    redirect_to request.referrer
+  end
+
   def remr
     @friend = Friend.find(params[:id])
     @friend.destroy
     redirect_to friends_path, success: "Request succesfully removed"
+  end
+
+  def remrd
+    @friend = Friend.find(params[:id])
+    @friend.destroy
+    redirect_to request.referrer
   end
 
   def sendf
@@ -107,6 +134,15 @@ class FriendsController < ApplicationController
     end
   end
 
+  def sendfd
+    @friend = Friend.new(user_from_id: current_user.id, user_to_id: params[:id], has_accepted: false)
+    if @friend.save
+      _usr = Person.find_by user_id: current_user.id
+      Notification.fwd(dest: @friend.user_to_id, msg:"#{_usr.username} has send you a friend request")
+    end
+    redirect_to request.referrer
+  end
+
   def ablock
     @block = Block.new(block_from_id: current_user.id, block_to_id: params[:id])
     if @block.save
@@ -114,6 +150,12 @@ class FriendsController < ApplicationController
     else
       redirect_to new_friend_path, danger: "An error ocurred"
     end
+  end
+
+  def ablockd
+    @block = Block.new(block_from_id: current_user.id, block_to_id: params[:id])
+    @block.save
+    redirect_to request.referrer
   end
 
   def rblock

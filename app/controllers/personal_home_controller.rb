@@ -28,7 +28,7 @@ class PersonalHomeController < ApplicationController
         @rating_average = (@total_score.to_f / @your_ratings.size).round(2)
         
         #awaitfriends contains all friends requests the user has received
-        @awaitfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, date(a.created_at) as drecv from friends a, people b where a.user_to_id = #{current_user.id} and a.has_accepted = false and b.user_id = a.user_from_id")
+        @awaitfriends = ActiveRecord::Base.connection.exec_query("select a.id, b.username, b.user_id, date(a.created_at) as drecv from friends a, people b where a.user_to_id = #{current_user.id} and a.has_accepted = false and b.user_id = a.user_from_id")
 
         @notifications = Notification.where(["user_to_id = ? AND has_seen = false", @user_id])
                                                 
@@ -58,7 +58,7 @@ class PersonalHomeController < ApplicationController
     end
 
     def mall
-      @notice = Notification.where(["user_to_id = ? AND has_seen = false", session[:user_id]])
+      @notice = Notification.where(["user_to_id = ? AND has_seen = false", current_user.id])
       if @notice.update_all(has_seen: true)
         redirect_to personal_home_index_path
       else
