@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
 
-    devise_for :users, controllers: {registrations: 'users/registrations',sessions: 'users/sessions'}
+    devise_for :users, controllers: {registrations: 'users/registrations',sessions: 'users/sessions',  omniauth_callbacks: 'users/omniauth_callbacks'}
 
     root "home#index" #Calls index method of home controller, then displays index view for home
     get 'home/about' #Creates a new route called "home_about"
@@ -10,17 +10,14 @@ Rails.application.routes.draw do
     get 'home/faq'
     get 'home/sitemap'
 
-    #get '/signup' => 'users#new'
-    #post '/signup' => 'users#create'
-
     get 'personal_home/index'
     get 'personal_home/set_cookies'
     get '/personal_home/edit'=> 'users#edit'
     
     get 'ratings/new'
-    get '/login' => 'sessions#new'
-    post '/login' => 'sessions#create' 
-    delete '/logout' => 'sessions#destroy'
+    # get '/login' => 'sessions#new'
+    # post '/login' => 'sessions#create' 
+    # delete '/logout' => 'sessions#destroy'
     # Add resource to get the standard RESTful actions for sessions
     #get 'sessions/new'
 

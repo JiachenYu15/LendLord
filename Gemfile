@@ -19,7 +19,8 @@ gem 'uglifier', '>= 1.3.0'
 gem 'font-awesome-rails'
 # Add Authentication with Devise
 gem 'devise'
-
+# Add Omni Authentication with Facebook
+gem 'omniauth-facebook'
 # Add PayPal Ruby SDK
 gem 'paypal-sdk-rest'
 
