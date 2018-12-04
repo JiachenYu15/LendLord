@@ -19,11 +19,11 @@
                   </ul>
                 </div>
               <% end %>
-              <%= hidden_field_tag :rater, params[:rating_user_id] %>
-              <%= hidden_field_tag :ratee, params[:ratted_user_id] %>
-              <%= hidden_field_tag :transaction_id, params[:transaction_id] %>
-
-              <p>
+              <input type="hidden" id="rating_rater" name="rating[rater]" value=<%= params[:rating_user_id] %>>
+              <input type="hidden" id="rating_ratee" name="rating[ratee]" value=<%= params[:ratted_user_id] %>>
+              <input type="hidden" id="rating_transaction_id" name="rating[transaction_id]" value=<%= params[:transaction_id] %> >
+             
+            <p>
                 <%= form.label :score, "Score:" %><br>
                 <%= form.select :score, (1..5) %>
               </p>
