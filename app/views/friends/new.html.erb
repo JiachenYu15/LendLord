@@ -17,8 +17,11 @@ caption {
   caption-side:top;
 }
 </style>
+<%= render "layouts/single_header" %>
 
-<%= render :partial => "layouts/header", :locals => {:title => "Search Users"}  %>
+<div class="w3-card" style="margin-top:100px">
+  <div style="overflow-x:auto;">
+    <h2 class="w3-padding-16"><i class="fa fa-fw fa-users w3-margin-right w3-text-teal"></i>My Friends</h2>
 
 <br><div align="center">
 
@@ -63,5 +66,7 @@ caption {
     <li>The user has blocked you (or viceversa)</li>
   </ul>
 </div><br>
+  </div>
+</div>
 
 <%= render "layouts/footer" %>
