@@ -19,6 +19,9 @@
                   </ul>
                 </div>
               <% end %>
+              <%= hidden_field_tag :rater, params[:rating_user_id] %>
+              <%= hidden_field_tag :ratee, params[:ratted_user_id] %>
+              <%= hidden_field_tag :transaction_id, params[:transaction_id] %>
 
               <p>
                 <%= form.label :score, "Score:" %><br>
