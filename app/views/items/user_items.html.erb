@@ -1,17 +1,11 @@
-<%= render :partial => "layouts/header", :locals => {:title => "Items"}%>
+<%= render "layouts/single_header" %>
 
+<div class="w3-card" style="margin-top:100px">
+  <div style="overflow-x:auto;">
+    <h2 class="w3-padding-16"><i class="fa fa-fw fa-sign-out w3-margin-right w3-text-teal"></i>Your Items (<%= @items.count %>)</h2>
 <section>
   <br>
   <br>
-  <div class="container">
-    <div class="row justify-content-center mb-5 pb-3">
-      <div class="col-md-7 heading-section text-center fadeInUp ftco-animated">
-        <h2 class="mb-4">
-          <%= @items.count %> Items For User <%= current_user.person.username %>
-        </h2>
-      </div>
-    </div>
-  </div>
   <div class="parallax-img d-flex align-items-center" style="padding-left: 20%; padding-right: 20%;">
 
     <div class="destination">
@@ -32,5 +26,8 @@
   </div>
   <br>
 </section>
+  </div>
+</div>
 
-<%= render "layouts/footer"%>
+
+<%= render "layouts/footer" %>

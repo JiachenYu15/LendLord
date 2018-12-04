@@ -13,7 +13,7 @@
           <li class="nav-item"><%= link_to "Welcome, " + @person.username + "!", personal_home_index_path, class:"nav-link"%></li>
           <li class="nav-item"><%= link_to "Your Profile", personal_home_index_path, class:"nav-link"%></li>
           <li class="nav-item"><%= link_to "Friends", friends_path, class:"nav-link"%></li>
-          <li class="nav-item"><%= link_to "User Items", user_items_path, class:"nav-link" %></li>
+          <li class="nav-item"><%= link_to "Your Items", user_items_path, class:"nav-link" %></li>
           <li class="nav-item"><%= link_to "Transactions", transactions_path, class:"nav-link"%></li>
           <li class="nav-item"> <%= link_to "Log Out", destroy_user_session_path, method: :delete, class:"nav-link"%></li>
 
