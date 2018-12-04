@@ -17,7 +17,7 @@ Rails.application.routes.draw do
     get 'personal_home/set_cookies'
     get '/personal_home/edit'=> 'users#edit'
     
-    get 'rating/new'
+    get 'ratings/new'
     get '/login' => 'sessions#new'
     post '/login' => 'sessions#create' 
     delete '/logout' => 'sessions#destroy'

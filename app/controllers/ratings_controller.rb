@@ -1,4 +1,4 @@
-class RatingController < ApplicationController
+class RatingsController < ApplicationController
 
     def new
         @rating = Rating.new
