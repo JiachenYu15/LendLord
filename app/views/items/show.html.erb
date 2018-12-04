@@ -18,6 +18,7 @@
           <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@owner.address%></p>
           <p><i class="fa fa-envelope fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@owner.user.email%></p>
           <p><i class="fa fa-phone fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@owner.telephone%></p>
+          <h3>Location</h3>
         </div>
       </div>
     </div>
@@ -51,7 +52,18 @@
           <div class="destination" style="padding-left: 10%;padding-right: 10%;">
             <h3><%= @item.name %></h3>
             <%= render :partial => "items/show_single_item", :locals => {:item => @item, :type => "show"}%>
+
+            <div align="center">
+              <% if ( @lat.blank? || @lon.blank? ) %>
+                <% @lat = @owner.lat %>
+                <% @lon = @owner.lon %>
+              <% end %>
+              <%= image_tag "https://api.mapbox.com/styles/v1/mapbox/streets-v10/static/#{@lon},#{@lat},15/600x400?access_token=pk.eyJ1IjoiaGV5aXRzcmlzYWFhYSIsImEiOiJjam96eTRqMWswMnI0M3FwaTMyZW9zbjJsIn0.5a2PnnqR8pKh1MaG3A6uxQ",
+              :class => "img-fluid rounded" %><br>
+            </div>
+
           </div>
+
         </div>
 
       </div>
