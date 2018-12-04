@@ -10,7 +10,7 @@
 
             <div class="field form-group">
               <%= f.label :email %><br />
-              <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => 'form-control' %>
+              <%= f.email_field :email, autofocus: true, autocomplete: "email", :class => 'form-control', id: "email" %>
             </div>
 
             <div class="field form-group">
@@ -18,21 +18,21 @@
               <% if @minimum_password_length %>
                 <em>(<%= @minimum_password_length %> characters minimum)</em>
               <% end %><br />
-              <%= f.password_field :password, autocomplete: "new-password", :class => 'form-control' %>
+              <%= f.password_field :password, autocomplete: "new-password", :class => 'form-control', id: "password" %>
             </div>
 
             <div class="field form-group">
               <%= f.label :password_confirmation %><br />
-              <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => 'form-control' %>
+              <%= f.password_field :password_confirmation, autocomplete: "new-password", :class => 'form-control', id: "password_confirmation"%>
             </div>
 
             <div class="field">
               <%= f.label :terms_of_service, "Accept LendLord's Terms of Service" %>
-              <%= f.check_box :terms_of_service, :required => true, :style => "width: auto; margin-top: 8px; margin-left: 5px;" %>
+              <%= f.check_box :terms_of_service, :required => true, :style => "width: auto; margin-top: 8px; margin-left: 5px;", id: "check_terms" %>
             </div>
 
             <div class="actions">
-              <%= f.submit "Continue", :class => 'btn btn-blue' %>
+              <%= f.submit "Continue", :class => 'btn btn-blue', id: "sign_up" %>
             </div>
           <% end %>
 

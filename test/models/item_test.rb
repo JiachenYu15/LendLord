@@ -2,15 +2,18 @@ require 'test_helper'
 
 class ItemTest < ActiveSupport::TestCase
   def setup
-    @item = Item.new(user_id: 3, deposit: 40, name: "test", description: "test description")
+    @user = User.new(email: "example@example.com",
+                     password: "example1")
+    @person = Person.new(username: "test", firstname: "test", lastname: "test", telephone: "6471111111", state: "Ontario", country: "Canada", city: "Toronto", address: "80 Bloor St.", addressno:"80", imgurl: "", user_id: @user.id)
+    @item = Item.new(person_id: @person.id, deposit: 40, name: "test", is_available: true, is_deleted: false, description: "test description", image_link: "")
   end
 
   test "should be valid" do
-    assert @item.valid?
+    assert @user.valid?
   end
 
-  test "user id should be present" do
-    @item.user_id = nil
+  test "person id should be present" do
+    @item.person_id = nil
     assert_not @item.valid?
   end
 
