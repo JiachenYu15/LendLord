@@ -18,8 +18,8 @@
         <% @lend_transactions.each do |transaction| %>
           <tr>
             <td><%= transaction.id %></td>
-            <td><%= transaction.item.name %></td>
-            <td><%= transaction.user.username %></td>
+            <td><%= link_to transaction.item.name, item_path(transaction.item.id) %></td>
+            <td><%= transaction.user.person.username %></td>
             <td><%= transaction.start_date %></td>
             <td><%= transaction.due_date %></td>
             <td><%= transaction.deposit %></td>
@@ -54,7 +54,7 @@
         <% @borrow_transactions.each do |transaction| %>
           <tr>
             <td><%= transaction.id %></td>
-            <td><%= transaction.item.name %></td>
+            <td><%= link_to transaction.item.name, item_path(transaction.item.id) %></td>
             <td><%= transaction.user.username %></td>
             <td><%= transaction.start_date %></td>
             <td><%= transaction.due_date %></td>

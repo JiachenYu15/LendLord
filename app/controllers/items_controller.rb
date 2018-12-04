@@ -40,7 +40,8 @@ class ItemsController < ApplicationController
   def show
     item_ratings
     @item = Item.find(params[:id])
-    @user = Person.find(@item.person_id)
+    @owner = Person.find(@item.person_id)
+    @user = current_user
     @transaction_state = params['transaction_state']
   end
 
@@ -80,7 +81,7 @@ class ItemsController < ApplicationController
     item_ratings
 
     @item = Item.find(params[:id])
-    
+
     return if create_paypal_payment?
 
     flash.now[:error] = 'Oops! Something wrong with PayPal, Please try again later.'

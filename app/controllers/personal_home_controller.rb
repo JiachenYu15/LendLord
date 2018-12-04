@@ -12,10 +12,12 @@ class PersonalHomeController < ApplicationController
             ids.push(x.id)
         end
         @lend = Transaction.where(item_id: ids)
-        
+        @lend = @lend.where.not(status: 'closed')
+        @lend = @lend.where.not(status: 'rejected')
         #Get the borrowing transactions
         @borrow = Transaction.where(["user_id = ?",@user_id])
-
+        @borrow = @borrow.where.not(status: 'closed')
+        @borrow = @borrow.where.not(status: 'rejected')
         @your_ratings = Rating.where(["ratee = ?", @user_id])
         @total_score = 0
     

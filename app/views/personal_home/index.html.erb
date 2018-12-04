@@ -64,18 +64,33 @@
                           <tr>
                             <td><%= transaction.id %></td>
                             <td><%= transaction.item.name %></td>
-                            <td><%= transaction.user.username %></td>
+                            <td><%= transaction.user.person.username %></td>
                             <td><%= transaction.start_date %></td>
                             <td><%= transaction.due_date %></td>
                             <td><%= transaction.deposit %></td>
                             <td><%= transaction.status %></td>
-                            <td><%= link_to 'Detail', transaction_path(transaction) %></td>
-                            <!--
-                            <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-                            <td><%= link_to 'Destroy', transaction_path(transaction),
-                                            method: :delete,
-                                            data: { confirm: 'Are you sure?' } %></td>
-                            -->
+                            <% if transaction.status == 'pending' %>
+                              <td><%= link_to 'Accept', transaction_path(transaction, status: 'accepted'),
+                                              method: :patch,
+                                              data: { confirm: 'Are you sure to accept this transaction?' }
+                              %> |
+                              <%= link_to 'Reject', transaction_path(transaction, status: 'rejected'),
+                                              method: :patch,
+                                              data: { confirm: 'Are you sure to reject this transaction?' }
+                              %></td>
+                            <% end %>
+                            <% if transaction.status == 'accepted' %>
+                              <td><%= link_to 'Detail', item_path(transaction.item.id) %></td>
+                            <% end %>
+                            <% if transaction.status == 'returned' %>
+                              <td><%= link_to 'Close', transaction_path(transaction, status: 'closed'),
+                                              method: :patch,
+                                              data: { confirm: 'Are you sure to close this transaction?' }
+                              %></td>
+                            <% end %>
+                            <% if transaction.status == 'closed' %>
+                              <td><%= link_to 'Detail', item_path(transaction.item.id) %></td>
+                            <% end %>
                           </tr>
                         <%end%>
                     </table>
@@ -105,18 +120,26 @@
                           <tr>
                             <td><%= transaction.id %></td>
                             <td><%= transaction.item.name %></td>
-                            <td><%= transaction.item.user.username %></td>
+                            <td><%= transaction.item.person.username %></td>
                             <td><%= transaction.start_date %></td>
                             <td><%= transaction.due_date %></td>
                             <td><%= transaction.deposit %></td>
                             <td><%= transaction.status %></td>
-                            <td><%= link_to 'Detail', transaction_path(transaction) %></td>
-                            <!--
-                            <td><%= link_to 'Edit', edit_transaction_path(transaction) %></td>
-                            <td><%= link_to 'Destroy', transaction_path(transaction),
-                                            method: :delete,
-                                            data: { confirm: 'Are you sure?' } %></td>
-                            -->
+                            <% if transaction.status == 'pending' %>
+                              <td><%= link_to 'Detail', item_path(transaction.item.id) %></td>
+                            <% end %>
+                            <% if transaction.status == 'accepted' %>
+                              <td><%= link_to 'Return', transaction_path(transaction, status: 'returned'),
+                                              method: :patch,
+                                              data: { confirm: 'Are you sure you have returned the item?' }
+                              %></td>
+                            <% end %>
+                            <% if transaction.status == 'returned' %>
+                              <td><%= link_to 'Detail', item_path(transaction.item.id) %></td>
+                            <% end %>
+                            <% if transaction.status == 'closed' %>
+                              <td><%= link_to 'Detail', item_path(transaction.item.id) %></td>
+                            <% end %>
                           </tr>
                         <%end%>
                     </table>

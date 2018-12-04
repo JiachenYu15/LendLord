@@ -3,23 +3,21 @@ class TransactionsController < ApplicationController
   include TransactionsHelper
 
   def index
-    check_logged_in
+    @user = current_user
     # Get all lending record
-    @lend_items = Item.where(["user_id = ?", @user.id])
-    puts @lend_items.ids
+    @lend_items = Item.where(["person_id = ?", @user.person.id])
     @lend_transactions = Transaction.where(item_id: @lend_items.ids)
     # Get all borrow record
     @borrow_transactions = Transaction.where(["user_id = ?", @user.id])
   end
 
   def show
-    check_logged_in
 
     @transaction = Transaction.find(params[:id])
   end
 
   def new
-    check_logged_in
+    @user = current_user
     @item = Item.find(params['itemID'])
     @payment_id = params['paymentId']
     @token = params['token']
@@ -29,7 +27,6 @@ class TransactionsController < ApplicationController
   end
 
   def edit
-    check_logged_in
 
     @transaction = Transaction.find(params[:id])
   end
@@ -65,14 +62,22 @@ class TransactionsController < ApplicationController
   end
 
   def update
-    check_logged_in
-
+    transaction = {'id' => params[:id], 'status' => params[:status]}
     @transaction = Transaction.find(params[:id])
-
-    if @transaction.update(transaction_params)
-      redirect_to @transaction
-    else
-      render 'edit'
+    if @transaction.update(transaction)
+      if transaction['status'] == 'closed'
+        @returned_item = Item.find(@transaction.item_id)
+        @returned_item.is_available = true
+        @returned_item.save
+        refund_paypal_payment?(@transaction.payment_id)
+      end
+      if transaction['status'] == 'rejected'
+        @returned_item = Item.find(@transaction.item_id)
+        @returned_item.is_available = true
+        @returned_item.save
+        refund_paypal_payment?(@transaction.payment_id)
+      end
+      redirect_to personal_home_index_path
     end
   end
 
