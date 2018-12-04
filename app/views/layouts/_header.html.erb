@@ -1,3 +1,4 @@
+<section>
 <nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
   <div class="container">
     <%= link_to "LendLord", root_path, class:"navbar-brand"%>
@@ -13,7 +14,11 @@
           <li class="nav-item"><%= link_to "Welcome, " + @person.username + "!", personal_home_index_path, class:"nav-link"%></li>
           <li class="nav-item"><%= link_to "My Profile", personal_home_index_path, class:"nav-link"%></li>
           <li class="nav-item"><%= link_to "Friends", friends_path, class:"nav-link"%></li>
-          <li class="nav-item"><%= link_to "My Items", user_items_path, class:"nav-link" %></li>
+          <% if current_user.person.username == "admin" %>
+            <li class="nav-item"><%= link_to "User Items", items_path, class:"nav-link" %></li>
+          <% else %>
+            <li class="nav-item"><%= link_to "My Items", user_items_path, class:"nav-link" %></li>
+          <% end %>
           <li class="nav-item"><%= link_to "Transactions", transactions_path, class:"nav-link"%></li>
           <li class="nav-item"> <%= link_to "Log Out", destroy_user_session_path, method: :delete, class:"nav-link"%></li>
 
@@ -28,7 +33,7 @@
   </div>
 </nav>
 
-<div class="hero-wrap js-fullheight" style="height: 600px; background-image: url('/assets/tools.jpg');">
+<div class="hero-wrap js-fullheight" style="height: 600px !important; background-image: url('/assets/tools.jpg');">
   <div class="overlay"></div>
   <div class="container">
     <div class="row no-gutters slider-text js-fullheight align-items-center justify-content-center" data-scrollax-parent="true" style="padding-top: 150px">
@@ -47,7 +52,7 @@
     </div>
   </div>
 </div>
-
+</section>
 
 <script src="/assets/js/jquery.min.js"></script>
 <script src="/assets/js/jquery-migrate-3.0.1.min.js"></script>

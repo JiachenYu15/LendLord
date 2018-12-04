@@ -66,13 +66,13 @@
     </div>
     <div class="two">
       <span class="price per-price">Deposit $<%= item.deposit %>
-        <% if type == "user" %>
+        <% if type == "user" && item.is_available?%>
           <br><%= link_to "Edit", edit_item_path(item.id) %>
         <% end %>
       </span>
     </div>
   </div>
-  <p style="height: 50px;"><%= item.description %></p>
+  <p style="max-height: 50px;"><%= item.description %></p>
   <hr>
   <p class="bottom-area d-flex">
     <% if (item.person.user_id == current_user.id) %>
@@ -84,7 +84,7 @@
     <% else %>
       <span><i class="icon-map-o"></i><%= item.person.city %></span>
     <% end %>
-    <% if type == "user" %>
+    <% if type == "user" && item.is_available?%>
     <span class="ml-auto"><%= link_to "Remove", remove_item_path(item.id) %></span>
     <% end %>
     <% if type == "search" %>
@@ -92,6 +92,9 @@
     <% end %>
     <% if type == "show" and (item.is_available) and (item.person.user_id != current_user.id) %>
       <span class="ml-auto"><%= link_to "Borrow Now", borrow_item_path(@item.id) %></span>
+    <% end %>
+    <% if type == "admin" %>
+      <span class="ml-auto"><%= link_to "Remove", remove_item_path(item.id) %></span>
     <% end %>
   </p>
 </div>
