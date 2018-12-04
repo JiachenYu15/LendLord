@@ -6,7 +6,11 @@
         <div class="w3-third">
             <div class="w3-card-4">
                 <div class="w3-display-container">
-                    <%= image_tag("/assets/default_profile.jpg", size:"350x233", style:'width: 100%;') %>
+                    <% if @user.person.imgurl == nil || "" %>
+                        <%= image_tag("/assets/default_profile.jpg", size:"350x233", style:'width: 100%;') %>
+                    <% else %>
+                        <%= image_tag(@user.person.imgurl, size:"350x233", style:'width: 100%;') %>
+                    <% end %>
                 </div>
 
                 <h1 class="w3-padding-16">Welcome <%= @person.username %></h1>
