@@ -16,7 +16,7 @@
                 <p><i class="fa fa-home fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@person.address%></p>
                 <p><i class="fas fa-map-marker fa-fw w3-margin-right w3-large w3-text-teal"></i><%=@person.city%>, <%= @person.country%></p>
               <p> <%= link_to "Edit Profile", edit_person_path(@person)%></p>
-              <p> <%= link_to "Change Password Or Destroy Account", edit_user_registration_path%></p>
+              <p> <%= link_to "Change Password/Delete Account", edit_user_registration_path%></p>
             </div>
             <br>
             <div class="w3-card-4">
@@ -151,7 +151,6 @@
             
             <div class="w3-card">
                 <h2 class="w3-padding-16"><i class="fa fa-fw fa-users w3-margin-right w3-text-teal"></i>Friend Requests</h2>
-                <%= link_to "Add New Friend", new_friend_path%>
                 <% unless @awaitfriends.blank? %>
                     <tr><table>
                       <tr>
@@ -164,8 +163,9 @@
                           <td><%= f["username"] %></td>
                           <td><%= f["drecv"] %></td>
                           <td>
-                            &nbsp<%= link_to "Accept", accept_friend_path(f["id"]) %>&nbsp|
-                            <%= link_to "Reject", reject_friend_path(f["id"]) %>&nbsp
+                            <%= link_to "Profile", person_path(f["user_id"]) %>&nbsp|
+                            <%= link_to "Accept", acceptd_friend_path(f["id"]) %>&nbsp|
+                            <%= link_to "Reject", rejectd_friend_path(f["id"]) %>&nbsp
                           </td>
                         </tr>
                       <% end %>

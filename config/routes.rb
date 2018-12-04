@@ -42,11 +42,17 @@ Rails.application.routes.draw do
     end
     get '/accept_friend/:id' => 'friends#accept', as: 'accept_friend'
     get '/reject_friend/:id' => 'friends#reject', as: 'reject_friend'
+    get '/acceptd_friend/:id' => 'friends#acceptd', as: 'acceptd_friend'
+    get '/rejectd_friend/:id' => 'friends#rejectd', as: 'rejectd_friend'
     get '/search_friend' => 'friends#search', as: 'search_friend'
     get '/sendf_friend/:id' => 'friends#sendf', as: 'sendf_friend'
+    get '/sendfd_friend/:id' => 'friends#sendfd', as: 'sendfd_friend'
     get '/remf_friend/:id' => 'friends#remf', as: 'remf_friend'
+    get '/remfd_friend/:id' => 'friends#remfd', as: 'remfd_friend'
     get '/remr_friend/:id' => 'friends#remr', as: 'remr_friend'
+    get '/remrd_friend/:id' => 'friends#remrd', as: 'remrd_friend'
     get '/ablock_friend/:id' => 'friends#ablock', as: 'ablock_friend'
+    get '/ablockd_friend/:id' => 'friends#ablockd', as: 'ablockd_friend'
     get '/rblock_friend/:id' => 'friends#rblock', as: 'rblock_friend'
 
     #Notifications part

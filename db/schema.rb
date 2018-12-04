@@ -39,8 +39,6 @@ ActiveRecord::Schema.define(version: 2018_12_04_045309) do
     t.text "description"
     t.decimal "deposit", precision: 10, scale: 2
     t.boolean "is_available"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
     t.boolean "is_deleted"
     t.string "image_link"
     t.bigint "person_id"
@@ -81,6 +79,15 @@ ActiveRecord::Schema.define(version: 2018_12_04_045309) do
     t.integer "ratee"
     t.integer "transaction_id"
     t.integer "score"
+  end
+
+  create_table "transaction_ratings", force: :cascade do |t|
+    t.string "username"
+    t.integer "transaction"
+    t.boolean "role"
+    t.datetime "date"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "transactions", force: :cascade do |t|

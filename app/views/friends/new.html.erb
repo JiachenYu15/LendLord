@@ -43,14 +43,13 @@ caption {
     <tr>
       <td><%= f["username"] %></td>
       <td>
-        <%= link_to "Send Friend Request", sendf_friend_path(f["user_id"]) %>&nbsp|
-        <%= link_to "Block User", ablock_friend_path(f["user_id"]) %>    
+        <%= link_to "View User Profile", person_path(f["user_id"]) %>
       </td>
     </tr>
   <% end %>
 </table><br>
 <% else %>
-<font color="gray" size="5"><i>User "<%= params[:field] %>" was not found</i></font>
+<font color="gray" size="5"><i>User "<%= params[:field] %>" was not found</i></font><br>
 <% end %>
 <% end %>
 
@@ -61,8 +60,6 @@ caption {
   <ul>
     <li>The user does not exist</li>
     <li>The user you are looking for is yourself</li>
-    <li>The user is in your friend list</li>
-    <li>The user has receive your friend request (or viceversa)</li>
     <li>The user has blocked you (or viceversa)</li>
   </ul>
 </div><br>
