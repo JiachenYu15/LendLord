@@ -8,6 +8,7 @@ Rails.application.routes.draw do
     get 'home/privacy_policy'
     get 'home/contact'
     get 'home/faq'
+    get 'home/sitemap'
 
     #get '/signup' => 'users#new'
     #post '/signup' => 'users#create'

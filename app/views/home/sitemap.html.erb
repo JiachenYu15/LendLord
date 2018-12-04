@@ -1,0 +1,41 @@
+<%= render :partial => "layouts/header", :locals => {:title => "Our Site Map"}  %>
+
+<section>
+  <br>
+  <div class="container">
+    <div class="row justify-content-center mb-5 pb-3">
+      <div class="col-md-7 heading-section fadeInUp ftco-animated">
+        <p>
+        <h2>Information</h2>
+          <ul>
+            <li><%= link_to "Home", root_path, class:"py-1 d-block"%></li>
+            <li><%= link_to "About Us", home_about_path, class:"py-1 d-block"%></li>
+            <li><%= link_to "Terms of Service", home_terms_of_service_path, class:"py-1 d-block"%></li>
+            <li><%= link_to "Privacy Policy", home_privacy_policy_path, class:"py-1 d-block"%></li>
+            <li><%= link_to "Contact Us", home_contact_path, class:"py-1 d-block"%></li>
+            <li><%= link_to "FAQ", home_faq_path, class:"py-1 d-block"%></li>
+          </ul>
+        <br><h2>Services</h2>
+          <ul>
+            <li><%= link_to "User Items", user_items_path, class:"py-1 d-block"%></li>
+            <li><%= link_to "Transactions", transactions_path, class:"py-1 d-block"%></li>
+          </ul>
+        <br><h2>Profile</h2>
+          <ul>
+            <li><%= link_to "View Profile", personal_home_index_path, class:"py-1 d-block"%></li>
+            <li><%= link_to "Edit Profile", edit_person_path(@person), class:"py-1 d-block"%></li>
+            <li><%= link_to "Settings", edit_user_registration_path, class:"py-1 d-block"%></li>
+          </ul>
+        <br><h2>Social</h2>
+          <ul>
+            <li><%= link_to "Friends", friends_path, class:"py-1 d-block"%></li>
+            <li><%= link_to "Search Users", new_friend_path, class:"py-1 d-block"%></li>
+            <li><%= link_to "Block lists", manage_friends_path, class:"py-1 d-block"%></li>
+          </ul>
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<%= render "layouts/footer" %>
