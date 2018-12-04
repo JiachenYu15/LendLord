@@ -33,8 +33,8 @@ class PeopleController < ApplicationController
 
         if current_user.id != Person.find_by_id(params[:id]).user_id
             @is_current_user = false
-            _friend1 = Friend.where(["user_from_id = ? and user_to_id = ? and has_accepted = true",current_user.id,@person.user_id])
-            _friend2 = Friend.where(["user_to_id = ? and user_from_id = ? and has_accepted = true",current_user.id,@person.user_id])
+            _friend1 = Friend.where(["user_from_id = ? and user_to_id = ? and has_accepted = true",current_user.id,@person.user_id]).first
+            _friend2 = Friend.where(["user_to_id = ? and user_from_id = ? and has_accepted = true",current_user.id,@person.user_id]).first
             if _friend1.blank? and _friend2.blank?
                 @is_current_user_friend = false
                   _req1 = Friend.where(["user_from_id = ? and user_to_id = ? and has_accepted = false",current_user.id,@person.user_id]).first
