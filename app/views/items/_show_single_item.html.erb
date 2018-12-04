@@ -22,7 +22,7 @@
       <% end %>
     </div>
     <div class="two">
-      <span class="price per-price">$<%= item.deposit %>
+      <span class="price per-price">Deposit $<%= item.deposit %>
         <% if type == "user" %>
           <br><%= link_to "Edit", edit_item_path(item.id) %>
         <% end %>
@@ -39,7 +39,7 @@
     <% if type == "search" %>
       <span class="ml-auto"><%= link_to "View Details", item_path(item.id) %></span>
     <% end %>
-    <% if type == "show" %>
+    <% if type == "show" and (item.is_available) and (item.person.user_id != current_user.id) %>
       <span class="ml-auto"><%= link_to "Borrow Now", borrow_item_path(@item.id) %></span>
     <% end %>
   </p>

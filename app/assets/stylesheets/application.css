@@ -4087,6 +4087,41 @@ input[type="button"].btn-block {
 .alert-info .alert-link {
     color: #062c33; }
 
+.alert-notice {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb; }
+.alert-notice hr {
+    border-top-color: #b1dfbb; }
+.alert-notice .alert-link {
+    color: #0b2e13; }
+
+
+.alert-alert {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb; }
+.alert-alert hr {
+    border-top-color: #f1b0b7; }
+.alert-alert .alert-link {
+    color: #491217; }
+
+#hideMe {
+    -webkit-animation: cssAnimation 2s forwards;
+    animation: cssAnimation 2s forwards;
+}
+
+@keyframes cssAnimation {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;}
+}
+@-webkit-keyframes cssAnimation {
+    0%   {opacity: 1;}
+    90%  {opacity: 1;}
+    100% {opacity: 0;}
+}
+
 .alert-warning {
     color: #856404;
     background-color: #fff3cd;

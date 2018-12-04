@@ -3,8 +3,8 @@ class ItemsController < ApplicationController
   include ItemsHelper
 
   def index
-    @items = Item.all
-    #@items = Item.where(:is_deleted => false).all
+    item_ratings
+    @items = Item.where(:is_deleted => false).where(:is_available => true)
   end
 
   def new
@@ -66,7 +66,7 @@ class ItemsController < ApplicationController
       @results = allItems.where("lower(name) LIKE ? OR lower(description) LIKE ?", "%#{@parameter}%", "%#{@parameter}%").where(:is_deleted => false).where(:is_available => true)
 
       if(!@location.blank?)
-        @results = @results.joins(:user).where("lower(address) LIKE ? OR address = '' OR ? = ''", "%#{@location}", "%#{@location}")
+        @results = @results.joins(:person).where("lower(city) LIKE ? OR ? = ''", "%#{@location}%", "%#{@location}%")
       end
     end
   end

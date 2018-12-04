@@ -1,43 +1,104 @@
-<%= render "layouts/header" %>
+<%= render :partial => "layouts/header", :locals => {:title => "Search Results"}%>
 
 <%= render "layouts/search_bar" %>
 
-<section class="ftco-section">
-<div>
-<h1>Showing All Items</h1>
+<% if @items.count == 0 %>
+  <br>
+  <br>
+  <h2 style="padding-left: 35%;padding-right: 35%;"></h2>
+  <section class="ftco-section bg-light">
+    <div class="container">
+      <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-7 heading-section text-center">
+          <h4><b>Sorry, no results found for "<%= @parameter %>"</b></h4>
+        </div>
+      </div>
+    </div>
+  </section>
+  <br>
+  <br>
+  <%= render "layouts/more_items"%>
+  <br>
 
-<table>
-  <tr>
-    <th>ID</th>
-    <th>User ID</th>
-    <th>Name</th>
-    <th>Description</th>
-    <th>Deposit</th>
-    <th>Removed?</th>
-    <th>Image Link?</th>
+<% else %>
+  <section class="ftco-section bg-light">
+    <div class="container">
+      <div class="row justify-content-center mb-5 pb-3">
+        <div class="col-md-7 heading-section text-center">
+            <h4><b>Showing all <%= @items.size  %> items</b></h4>
+        </div>
+      </div>
+    </div>
+  </section>
 
-    <th>Edit</th>
-    <th>Remove</th>
-  </tr>
+  <section class="ftco-section">
+    <div class="container">
+      <div class="row">
 
-  <% @items.each do |item| %>
-    <tr>
-      <td><%= item.id %></td>
-      <td><%= item.person_id %></td>
-      <td><%= link_to item.name, item_path(item.id) %></td>
-      <td><%= item.description %></td>
-      <td><%= item.deposit %></td>
-      <td><%= item.is_deleted %></td>
-      <td><%= item.image_link %></td>
+        <div class="col-lg-3 sidebar order-md-last">
 
-      <td><%= link_to "Edit", edit_item_path(item.id) %></td>
-      <td><%= link_to "Remove", remove_item_path(item.id) %></td>
-    </tr>
-  <% end %>
-</table>
+          <div class="sidebar-wrap">
+            <h3 class="heading mb-4">Star Rating</h3>
+            <%= form_tag(search_path, :method => "get", :class =>"star-rating") do %>
 
-<br>
+              <%= hidden_field_tag :search, params[:search], placeholder: "Search for anything...", class: "form-control" %>
 
-</div>
-</section>
+              <%= hidden_field_tag :location, params[:location], placeholder: "Where", class: "form-control" %>
+              <div class="form-check">
+                <input type="checkbox" name="rating" id="rating" value="five" class="form-check-input">
+                <label class="form-check-label" for="exampleCheck1">
+                  <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i></span></p>
+                </label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" name="rating" id="rating" value="four" class="form-check-input">
+                <label class="form-check-label" for="exampleCheck1">
+                  <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i></span></p>
+                </label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" name="rating" id="rating" value="three" class="form-check-input">
+                <label class="form-check-label" for="exampleCheck1">
+                  <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i></span></p>
+                </label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" name="rating" id="rating" value="two" class="form-check-input">
+                <label class="form-check-label" for="exampleCheck1">
+                  <p class="rate"><span><i class="icon-star"></i><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i></span></p>
+                </label>
+              </div>
+              <div class="form-check">
+                <input type="checkbox" name="rating" id="rating" value="one" class="form-check-input">
+                <label class="form-check-label" for="exampleCheck1">
+                  <p class="rate"><span><i class="icon-star"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i><i class="icon-star-o"></i></span></p>
+                </label>
+              </div>
+              <input type="submit" value="Filter" class="form-control btn btn-primary">
+
+            <% end %>
+
+          </div>
+        </div>
+
+
+        <div class="col-lg-9">
+          <div class="row">
+            <% @items.each do |item| %>
+
+              <div class="col-sm col-md-6 col-lg-4">
+                <div class="destination">
+                  <%= render :partial => "items/show_single_item", :locals => {:item => item, :type => "search"}%>
+                </div>
+              </div>
+
+            <% end %>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+<% end %>
+
 <%= render "layouts/footer" %>
