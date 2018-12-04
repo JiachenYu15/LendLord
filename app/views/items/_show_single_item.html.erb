@@ -10,7 +10,7 @@
         <h3 style="height: 50px;"><%= link_to item.name, item_path(item.id) %> </h3>
       <%end %>
 
-      <% if !@itemRatings[item.id] %>
+      <% if !@itemRatings[item.id]%>
         <p class="rate">
           <i class="icon-star-o"></i>
           <i class="icon-star-o"></i>
@@ -18,6 +18,49 @@
           <i class="icon-star-o"></i>
           <i class="icon-star-o"></i>
           <span>0 Rating</span>
+        </p>
+      <% else %>
+        <% if @itemRatings[item.id].ceil == 1%>
+          <p class="rate">
+            <i class="icon-star"></i>
+            <i class="icon-star-o"></i>
+            <i class="icon-star-o"></i>
+            <i class="icon-star-o"></i>
+            <i class="icon-star-o"></i>
+        <% end %>
+        <% if @itemRatings[item.id].ceil == 2 %>
+          <p class="rate">
+            <i class="icon-star"></i>
+            <i class="icon-star"></i>
+            <i class="icon-star-o"></i>
+            <i class="icon-star-o"></i>
+            <i class="icon-star-o"></i>
+        <% end %>
+        <% if @itemRatings[item.id].ceil == 3 %>
+          <p class="rate">
+            <i class="icon-star"></i>
+            <i class="icon-star"></i>
+            <i class="icon-star"></i>
+            <i class="icon-star-o"></i>
+            <i class="icon-star-o"></i>
+        <% end %>
+        <% if @itemRatings[item.id].ceil == 4 %>
+          <p class="rate">
+            <i class="icon-star"></i>
+            <i class="icon-star"></i>
+            <i class="icon-star"></i>
+            <i class="icon-star"></i>
+            <i class="icon-star-o"></i>
+        <% end %>
+        <% if @itemRatings[item.id].ceil == 5 %>
+          <p class="rate">
+            <i class="icon-star"></i>
+            <i class="icon-star"></i>
+            <i class="icon-star"></i>
+            <i class="icon-star"></i>
+            <i class="icon-star"></i>
+        <% end %>
+        <span><%= @itemRatingsCount[item.id] %> Ratings</span>
         </p>
       <% end %>
     </div>
