@@ -79,7 +79,7 @@ class TransactionsController < ApplicationController
           @returned_item.save
           refund_paypal_payment?(@transaction.payment_id)
         end
-        redirect_to transaction_path
+        redirect_to transactions_path
       else
         render 'edit'
       end
