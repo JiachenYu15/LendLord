@@ -15,11 +15,13 @@
 
     <body>
 
+    <section style="z-index: 9999 !important; position:fixed; top: 5%; left: 30%;right: 30%;">
         <div class="container">
             <% flash.each do |message_type, message| %>
-                <div class="alert alert-<%= message_type %>"><%= message %></div>
+                <div id="hideMe" class="alert alert-<%= message_type %>"><%= message %></div>
             <% end %>
         </div>
+    </section>
 
     <%= yield %>
 
