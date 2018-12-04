@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" style="top: 0px; background: #222831 !important;" id="ftco-navbar">
+<nav class="navbar navbar-expand-lg navbar-dark ftco_navbar bg-dark ftco-navbar-light" id="ftco-navbar">
   <div class="container">
     <%= link_to "LendLord", root_path, class:"navbar-brand"%>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#ftco-nav" aria-controls="ftco-nav" aria-expanded="false" aria-label="Toggle navigation">
@@ -9,8 +9,9 @@
         <% if user_signed_in? %>
           <% @person = Person.find_by_user_id(current_user.id) %>
 
-          Welcome,&nbsp <strong> <%= @person.username %></strong>!
+          <li class="nav-item"><%= link_to "Welcome, " + @person.username + "!", personal_home_index_path, class:"nav-link"%></li>
           <li class="nav-item"><%= link_to "Your Profile", personal_home_index_path, class:"nav-link"%></li>
+          <li class="nav-item"><%= link_to "Friends", friends_path, class:"nav-link"%></li>
           <li class="nav-item"><%= link_to "User Items", user_items_path, class:"nav-link" %></li>
           <li class="nav-item"><%= link_to "Transactions", transactions_path, class:"nav-link"%></li>
           <li class="nav-item"> <%= link_to "Edit Profile", edit_person_path(@person), class:"nav-link"%></li>
@@ -22,8 +23,6 @@
           <li class="nav-item"><%= link_to "Log In", new_user_session_path, class:"nav-link"%></li>
         <% end %>
         <li class="nav-item"><%= link_to "Lend", new_item_path, class:"nav-link"%></li>
-        <li class="nav-item"><%= link_to "Friends", friends_path, class:"nav-link"%></li>
-
 
       </ul>
     </div>
