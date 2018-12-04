@@ -52,7 +52,6 @@ class ItemsController < ApplicationController
 
   def search
     item_ratings
-
     # Make sure user doesn't search for their own items
     allItems = Item.where("person_id <> ?", "#{current_user.person.id}")
 
@@ -94,6 +93,7 @@ class ItemsController < ApplicationController
   end
 
   def item_ratings
-    @itemRatings = Item.includes(transactions: :ratings).group(:id).average(:score)
+    @itemRatings = Item.includes(transactions: :ratings).where("rater = user_id").group(:id).average(:score)
+    @itemRatingsCount = Item.includes(transactions: :ratings).where("rater = user_id").group(:id).count(:score)
   end
 end
