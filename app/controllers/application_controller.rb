@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
 
-    before_action :authenticate_user!, :except => [:show, :index]
+    before_action :authenticate_user!, :except => [:show, :index, :about, :contact, :faq, :privacy_policy, :terms_of_service]
     before_action :require_login, :except => [:show, :index]
     #include SessionHelper
 
