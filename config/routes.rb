@@ -16,8 +16,8 @@ Rails.application.routes.draw do
     get 'personal_home/index'
     get 'personal_home/set_cookies'
     get '/personal_home/edit'=> 'users#edit'
-    get 'transactions/rating'
-
+    
+    get 'rating/new'
     get '/login' => 'sessions#new'
     post '/login' => 'sessions#create' 
     delete '/logout' => 'sessions#destroy'
