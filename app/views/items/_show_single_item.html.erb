@@ -32,7 +32,15 @@
   <p style="height: 50px;"><%= item.description %></p>
   <hr>
   <p class="bottom-area d-flex">
-    <span><i class="icon-map-o"></i><%= item.person.city %></span>
+    <% if (item.person.user_id == current_user.id) %>
+      <% if item.is_available?  %>
+        <span>Status: Available</span>
+      <% else %>
+        <span>Status: Unavailable</span>
+      <%end %>
+    <% else %>
+      <span><i class="icon-map-o"></i><%= item.person.city %></span>
+    <% end %>
     <% if type == "user" %>
     <span class="ml-auto"><%= link_to "Remove", remove_item_path(item.id) %></span>
     <% end %>

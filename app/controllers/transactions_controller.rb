@@ -99,11 +99,6 @@ class TransactionsController < ApplicationController
 
     redirect_to transactions_path
   end
-  
-  def rating
-    @rating = Rating.new 
-  end
-
 
   private
 

@@ -1,8 +1,7 @@
 <% if @person.errors.any? %>
     <div id="error_explanation">
         <p>
-            <%= pluralize(@person.errors.count, "error") %> prohibited
-            this item from being saved:
+            <%= pluralize(@person.errors.count, "error") %> prohibited this person from being created:
         </p>
 
         <ul>
