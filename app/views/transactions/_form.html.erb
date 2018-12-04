@@ -1,4 +1,18 @@
+
+<div class='container-fluid mt-5'>
+  <div class='row justify-content-center'>
+    <div class='col-sm-5'>
+      <div class="card">
+        <div class="card-body">
+
+
+
+
 <%= form_with model: @transaction, local: true do |form| %>
+
+
+
+
 
   <% if @transaction.errors.any? %>
     <div id="error_explanation">
@@ -16,37 +30,41 @@
 
   <p>
     <%= form.label :item_id, "Item ID:" %><br>
-    <%= form.number_field :item_id, min: 1, max: 1000000, step: 1%>
+    <%= form.number_field :item_id, min: 1, max: 100000000, step: 1, placeholder: @transaction.item_id %>
   </p>
 
   <p>
-    <%= form.label :borrow_from_user_id, "Borrow from User ID:" %><br>
-    <%= form.number_field :borrow_from_user_id, min: 1, max: 1000000, step: 1 %>
-  </p>
-
-  <p>
-    <%= form.label :lend_to_user_id, "Lend to User ID:" %><br>
-    <%= form.number_field :lend_to_user_id, min: 1, max: 1000000, step: 1 %>
+    <%= form.label :user_id, "Lend to User ID:" %><br>
+    <%= form.number_field :user_id, min: 1, max: 100000000, step: 1, placeholder: @transaction.user_id %>
   </p>
 
   <p>
     <%= form.label :start_date, "Start Date:" %><br>
-    <%= form.date_field :start_date, value: Date.today, min: Date.today %>
+    <%= form.date_field :start_date %>
   </p>
 
   <p>
     <%= form.label :due_date, "Due Date:" %><br>
-    <%= form.date_field :due_date, value: Date.today + 1, min: Date.today + 1 %>
+    <%= form.date_field :due_date %>
   </p>
 
   <p>
     <%= form.label :deposit, "Deposit:" %><br>
-    <%= form.number_field :deposit, min: 0, max: 1000000, step: 0.01 %>
+    <%= form.number_field :deposit, min: 0, max: 10000000, step: 0.01 %>
   </p>
 
   <p>
     <%= form.label :status, "Status:" %><br>
-    <%= form.text_field :status %>
+    <%= select(:transaction, :status, options_for_select([['pending', 'pending'],
+                                                ['accepted', 'accepted'],
+                                                ['rejected', 'rejected'],
+                                                ['returned', 'returned'],
+                                                ['closed', 'closed'],
+                                                ['force closed', 'force closed']], @transaction.status)) %>
+
+
+
+
   </p>
 
   <p>
@@ -54,3 +72,11 @@
   </p>
 
 <% end %>
+
+
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

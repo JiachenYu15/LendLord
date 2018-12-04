@@ -74,8 +74,7 @@
                               <td><%= link_to 'Accept', transaction_path(transaction, status: 'accepted'),
                                               method: :patch,
                                               data: { confirm: 'Are you sure to accept this transaction?' }
-                              %> |
-                              <%= link_to 'Reject', transaction_path(transaction, status: 'rejected'),
+                              %> | <%= link_to 'Reject', transaction_path(transaction, status: 'rejected'),
                                               method: :patch,
                                               data: { confirm: 'Are you sure to reject this transaction?' }
                               %></td>

@@ -4,11 +4,16 @@ class TransactionsController < ApplicationController
 
   def index
     @user = current_user
-    # Get all lending record
-    @lend_items = Item.where(["person_id = ?", @user.person.id])
-    @lend_transactions = Transaction.where(item_id: @lend_items.ids)
-    # Get all borrow record
-    @borrow_transactions = Transaction.where(["user_id = ?", @user.id])
+    # check admin account
+    if @user.person.username == 'admin'
+      @transactions = Transaction.all
+    else
+      # Get all lending record
+      @lend_items = Item.where(["person_id = ?", @user.person.id])
+      @lend_transactions = Transaction.where(item_id: @lend_items.ids)
+      # Get all borrow record
+      @borrow_transactions = Transaction.where(["user_id = ?", @user.id])
+    end
   end
 
   def show
@@ -62,35 +67,54 @@ class TransactionsController < ApplicationController
   end
 
   def update
-    transaction = {'id' => params[:id], 'status' => params[:status]}
-    @transaction = Transaction.find(params[:id])
-    if @transaction.update(transaction)
-      if transaction['status'] == 'returned'
-        redirect_to ({ controller: 'ratings',
-                       action: 'new',
-                       transaction_id: @transaction.id,
-                       rating_user_id: current_user.id,
-                       ratted_user_id: @transaction.item.person.user_id}) and return
+    @user = current_user
+    if @user.person.username == 'admin'
+      @transaction = Transaction.find(params[:id])
+      local_params = transaction_params
+      local_params[:payment_id] = @transaction.payment_id
+      if @transaction.update(local_params)
+        if local_params['status'] == 'force closed'
+          @returned_item = Item.find(@transaction.item_id)
+          @returned_item.is_available = true
+          @returned_item.save
+          refund_paypal_payment?(@transaction.payment_id)
+        end
+        redirect_to transaction_path
+      else
+        render 'edit'
       end
-      if transaction['status'] == 'closed'
-        @returned_item = Item.find(@transaction.item_id)
-        @returned_item.is_available = true
-        @returned_item.save
-        refund_paypal_payment?(@transaction.payment_id)
-        redirect_to ({ controller: 'ratings',
-                       action: 'new',
-                       transaction_id: @transaction.id,
-                       rating_user_id: current_user.id,
-                       ratted_user_id: @transaction.user_id}) and return
+    else
+      transaction = {'id' => params[:id], 'status' => params[:status]}
+      @transaction = Transaction.find(params[:id])
+      if @transaction.update(transaction)
+        if transaction['status'] == 'returned'
+          redirect_to ({ controller: 'ratings',
+                         action: 'new',
+                         transaction_id: @transaction.id,
+                         rating_user_id: current_user.id,
+                         ratted_user_id: @transaction.item.person.user_id}) and return
+        end
+        if transaction['status'] == 'closed'
+          @returned_item = Item.find(@transaction.item_id)
+          @returned_item.is_available = true
+          @returned_item.save
+          refund_paypal_payment?(@transaction.payment_id)
+          redirect_to ({ controller: 'ratings',
+                         action: 'new',
+                         transaction_id: @transaction.id,
+                         rating_user_id: current_user.id,
+                         ratted_user_id: @transaction.user_id}) and return
+        end
+        if transaction['status'] == 'rejected'
+          @returned_item = Item.find(@transaction.item_id)
+          @returned_item.is_available = true
+          @returned_item.save
+          refund_paypal_payment?(@transaction.payment_id)
+        end
+        redirect_to personal_home_index_path
       end
-      if transaction['status'] == 'rejected'
-        @returned_item = Item.find(@transaction.item_id)
-        @returned_item.is_available = true
-        @returned_item.save
-        refund_paypal_payment?(@transaction.payment_id)
-      end
-      redirect_to personal_home_index_path
     end
+
   end
 
   def destroy
